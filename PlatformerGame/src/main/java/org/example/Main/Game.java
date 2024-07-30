@@ -1,13 +1,18 @@
 package org.example.Main;
 
+import org.example.Entities.Player;
+
 import java.awt.*;
 
 import static org.example.Constants.FrameRate.*;
+import static org.example.Constants.Window.SCALE;
 
 public class Game implements Runnable {
     private GameWindow gameWindow;
     private GamePanel gamePanel;
     private Thread gameThread;
+
+    private Player player;
 
     public Game() {
         initClasses();
@@ -18,10 +23,14 @@ public class Game implements Runnable {
      * Metodo usato per inizializzare i principali attributi della classe Game
      */
     private void initClasses() {
+        this.player = new Player(100, 100, (int) (64 * SCALE), (int) (40 * SCALE));
+
         this.gamePanel = new GamePanel(this);
         this.gameWindow = new GameWindow(gamePanel);
         gamePanel.setFocusable(true);
         gamePanel.requestFocus();
+
+
     }
 
     /**
@@ -56,9 +65,9 @@ public class Game implements Runnable {
         double deltaU = 0;
         double deltaF = 0;
 
-        long FPS_debug_previousTime = System.currentTimeMillis();
-        int FPS_debug_frames_num = 0;
-        int FPS_debug_updates_num = 0;
+        long debug_FPS_previousTime = System.currentTimeMillis();
+        int debug_FPS_frames_num = 0;
+        int debug_FPS_updates_num = 0;
 
         while (true) {
             currentTime = System.nanoTime();
@@ -69,21 +78,21 @@ public class Game implements Runnable {
 
             if (deltaU >= 1) {
                 update();
-                FPS_debug_updates_num++;
+                debug_FPS_updates_num++;
                 deltaU--;
             }
 
             if (deltaF >= 1) {
                 gamePanel.repaint();
-                FPS_debug_frames_num++;
+                debug_FPS_frames_num++;
                 deltaF--;
             }
 
-            if (System.currentTimeMillis() - FPS_debug_previousTime >= 1000) {
-                FPS_debug_previousTime = System.currentTimeMillis();
-                System.out.println("FPS: " + FPS_debug_frames_num + " | UPS: " + FPS_debug_updates_num);
-                FPS_debug_frames_num = 0;
-                FPS_debug_updates_num = 0;
+            if (System.currentTimeMillis() - debug_FPS_previousTime >= 1000) {
+                debug_FPS_previousTime = System.currentTimeMillis();
+                System.out.println("FPS: " + debug_FPS_frames_num + " | UPS: " + debug_FPS_updates_num);
+                debug_FPS_frames_num = 0;
+                debug_FPS_updates_num = 0;
             }
         }
     }
@@ -100,6 +109,7 @@ public class Game implements Runnable {
      * @param g Parametro necessario per poter disegnre sul JPanel (non verrà descritto nelle altre classi)
      */
     public void draw(Graphics g) {
+        player.draw(g,0);
     }
 
 }
