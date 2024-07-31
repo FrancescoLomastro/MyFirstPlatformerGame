@@ -3,18 +3,25 @@ package org.example.Entities;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
+import static org.example.Constants.Sprites.Player.*;
 import static org.example.Constants.Window.SCALE;
 
 public abstract class Entity {
     protected float hitbox_x, hitbox_y;
     protected int hitbox_width, hitbox_height;
     protected Rectangle2D.Float hitbox;
+    protected int animationTick;
+    protected int animationFrame;
+    protected int state;
 
     public Entity(float hitbox_x, float hitbox_y, int hitbox_width, int hitbox_height) {
         this.hitbox_x = hitbox_x;
         this.hitbox_y = hitbox_y;
         this.hitbox_width = hitbox_width;
         this.hitbox_height = hitbox_height;
+        animationFrame = 0;
+        animationTick = 0;
+        state = IDLE;
     }
 
     protected void debug_drawHitbox(Graphics g, int xLvlOffset) {

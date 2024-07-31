@@ -1,6 +1,7 @@
 package org.example.Main;
 
 import org.example.Entities.Player;
+import org.example.Levels.LevelManager;
 
 import java.awt.*;
 
@@ -13,6 +14,7 @@ public class Game implements Runnable {
     private Thread gameThread;
 
     private Player player;
+    private LevelManager levelManager;
 
     public Game() {
         initClasses();
@@ -23,7 +25,11 @@ public class Game implements Runnable {
      * Metodo usato per inizializzare i principali attributi della classe Game
      */
     private void initClasses() {
-        this.player = new Player(100, 100, (int) (64 * SCALE), (int) (40 * SCALE));
+        this.levelManager = new LevelManager();
+        this.player = new Player(
+                levelManager.getPlayerX(),
+                levelManager.getPlayerY(),
+                (int) (64 * SCALE), (int) (40 * SCALE));
 
         this.gamePanel = new GamePanel(this);
         this.gameWindow = new GameWindow(gamePanel);
@@ -102,6 +108,7 @@ public class Game implements Runnable {
      * Aggiornamento logica di gioco
      */
     public void update() {
+        player.update();
     }
 
     /**
@@ -110,6 +117,7 @@ public class Game implements Runnable {
      */
     public void draw(Graphics g) {
         player.draw(g,0);
+        levelManager.draw(g,0);
     }
 
 }

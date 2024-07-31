@@ -7,7 +7,7 @@ import java.io.InputStream;
 
 public class LoadContent {
     public static final String PLAYER_NO_SWORD_ATLAS = "player_no_sword_sprites.png";
-
+    public static final String LEVEL_ATLAS = "outside_sprites.png";
 
     public static BufferedImage GetSpriteAtlas(String fileName) {
         BufferedImage img = null;
@@ -26,5 +26,6 @@ public class LoadContent {
         }
         return img;
     }
+
 
 }

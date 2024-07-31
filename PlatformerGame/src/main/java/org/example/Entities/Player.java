@@ -5,8 +5,12 @@ import org.example.Utility.LoadContent;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+import static org.example.Constants.Sprites.PLAYER_ANIMATION_SPEED;
+import static org.example.Constants.Sprites.Player.*;
+
 public class Player extends Entity{
     private BufferedImage[][][] playerImages;
+
 
     public Player(float y, float x, int width, int height) {
         super(y, x, width, height);
@@ -24,13 +28,39 @@ public class Player extends Entity{
     }
 
     public void update(){
-
+        updateAnimationTick();
     }
 
     public void draw(Graphics g, int xLvlOffset){
-        g.drawImage(playerImages[0][0][0],
-                (int) (hitbox.x) - xLvlOffset,
-                (int) (hitbox.y ),
-                hitbox_width , hitbox_height, null);
+        g.drawImage(playerImages[0][state][animationFrame],(int) (hitbox.x) - xLvlOffset, (int) (hitbox.y), hitbox_width , hitbox_height, null);
     }
+
+
+
+
+
+
+
+    private void updateAnimationTick() {
+        animationTick++;
+        if(animationTick >= PLAYER_ANIMATION_SPEED){
+            animationTick = 0;
+            animationFrame++;
+            if(animationFrame >= getPlayerSpriteAmount(state))
+                animationFrame = 0;
+        }
+    }
+
+    private int getPlayerSpriteAmount(int state) {
+        switch (state) {
+            case IDLE:
+                return 5;
+            case RUN:
+                return 6;
+            default:
+                return 1;
+        }
+    }
+
+
 }
