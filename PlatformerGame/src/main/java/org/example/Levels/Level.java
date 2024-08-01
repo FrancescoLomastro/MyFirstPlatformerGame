@@ -4,6 +4,8 @@ import org.example.Utility.LoadContent;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+
+import static org.example.Constants.Sprites.Level.SPRITE_HOLE;
 import static org.example.Constants.Window.*;
 
 public class Level {
@@ -66,11 +68,47 @@ public class Level {
         return levelBlockIndexes[y][x];
     }
 
+    public int[][] getBlockIndexes() {
+        return levelBlockIndexes;
+    }
+
     public int getPlayerX() {
         return playerSpawnPoint.x;
     }
 
     public int getPlayerY() {
         return playerSpawnPoint.y;
+    }
+
+    public int getLevelTileWidth(){
+        return levelBlockIndexes[0].length;
+    }
+
+    public static boolean IsPositionSolid(float x, float y, int[][] lvlData){
+        int levelMaxWidth = lvlData[0].length * TILES_SIZE;
+        int levelMaxHeight = GAME_HEIGHT;
+
+        // Gli estremi della mappa sono sempre considerati solidi
+        if(x<0 || x >= levelMaxWidth) return true;
+        if(y<0 || y >= levelMaxHeight) return true;
+
+        int tileX = (int) (x / TILES_SIZE);
+        int tileY = (int) (y / TILES_SIZE);
+
+        return IsTileSolid(tileX, tileY, lvlData);
+    }
+
+    public static boolean IsTileSolid(int tileX, int tileY, int[][] lvlData) {
+        int value = lvlData[tileY][tileX];
+        return value != SPRITE_HOLE;
+    }
+
+    public static boolean CanMoveInPosition(float x, float y, float width, float height, int[][] lvlData) {
+        if (!IsPositionSolid(x, y, lvlData))
+            if (!IsPositionSolid(x + width, y + height, lvlData))
+                if (!IsPositionSolid(x + width, y, lvlData))
+                    if (!IsPositionSolid(x, y + height, lvlData))
+                        return true;
+        return false;
     }
 }

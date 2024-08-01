@@ -7,4 +7,8 @@ public class Sprites {
         public static final int IDLE = 0;
         public static final int RUN = 1;
     }
+
+    public class Level{
+        public static final int SPRITE_HOLE = 11;
+    }
 }

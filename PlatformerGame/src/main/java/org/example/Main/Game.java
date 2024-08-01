@@ -30,6 +30,7 @@ public class Game implements Runnable {
                 levelManager.getPlayerX(),
                 levelManager.getPlayerY(),
                 (int) (64 * SCALE), (int) (40 * SCALE));
+        this.player.addLevelData(levelManager.getBlockIndexes());
 
         this.gamePanel = new GamePanel(this);
         this.gameWindow = new GameWindow(gamePanel);

@@ -24,7 +24,7 @@ public class LevelManager {
 
     public void draw(Graphics g, int xLvlOffset) {
         for (int j = 0; j < TILES_IN_HEIGHT; j++)
-            for (int i = 0; i < TILES_IN_WIDTH; i++) {
+            for (int i = 0; i < currentLevel.getLevelTileWidth(); i++) {
                 int index = currentLevel.getBlockIndex(i, j);
                 g.drawImage(textures[index], TILES_SIZE * i - xLvlOffset, TILES_SIZE * j, TILES_SIZE, TILES_SIZE, null);
             }
@@ -52,5 +52,9 @@ public class LevelManager {
 
     public int getPlayerY() {
         return currentLevel.getPlayerY();
+    }
+
+    public int[][] getBlockIndexes() {
+        return currentLevel.getBlockIndexes();
     }
 }

@@ -1,10 +1,12 @@
 package org.example.Entities;
 
+import org.example.Levels.Level;
 import org.example.Utility.LoadContent;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+import static org.example.Constants.Motion.GRAVITY;
 import static org.example.Constants.Sprites.PLAYER_ANIMATION_SPEED;
 import static org.example.Constants.Sprites.Player.*;
 
@@ -28,6 +30,7 @@ public class Player extends Entity{
     }
 
     public void update(){
+        updatePosition();
         updateAnimationTick();
     }
 
@@ -40,6 +43,45 @@ public class Player extends Entity{
 
 
 
+    private void updatePosition() {
+
+        float xSpeed = 0;
+
+        if(!inAir){
+            if(!onTheFloor(levelBlockIndexes)){
+                inAir = true;
+            }
+        }
+        if(inAir){
+            handleGravity();
+        }
+        updateXPosition(xSpeed);
+    }
+
+    private void handleGravity() {
+        if (Level.CanMoveInPosition(hitbox.x, hitbox.y + speedInAir, hitbox.width, hitbox.height, levelBlockIndexes)) {
+            hitbox.y += speedInAir;
+            speedInAir += GRAVITY;
+        } else {
+            /*hitbox.y = GetEntityYPosUnderRoofOrAboveFloor(hitbox, airSpeed);
+            if (airSpeed > 0)
+                resetInAir();
+            else
+                airSpeed = fallSpeedAfterCollision;*/
+        }
+    }
+
+    private void updateXPosition(float xSpeed) {
+        if (Level.CanMoveInPosition(hitbox.x + xSpeed, hitbox.y, hitbox.width, hitbox.height, levelBlockIndexes)) {
+            hitbox.x += xSpeed;
+        } else {
+            /*hitbox.x = GetEntityXPosNextToWall(hitbox, xSpeed);
+            if(powerAttackActive){
+                powerAttackActive = false;
+                powerAttackTick = 0;
+            }*/
+        }
+    }
 
     private void updateAnimationTick() {
         animationTick++;
@@ -61,6 +103,7 @@ public class Player extends Entity{
                 return 1;
         }
     }
+
 
 
 }

@@ -1,5 +1,7 @@
 package org.example.Entities;
 
+import org.example.Levels.Level;
+
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
@@ -10,9 +12,16 @@ public abstract class Entity {
     protected float hitbox_x, hitbox_y;
     protected int hitbox_width, hitbox_height;
     protected Rectangle2D.Float hitbox;
+
+    //Animation Variables
     protected int animationTick;
     protected int animationFrame;
     protected int state;
+
+    //Position Variables
+    protected boolean inAir;
+    protected float speedInAir;
+    protected int[][] levelBlockIndexes;
 
     public Entity(float hitbox_x, float hitbox_y, int hitbox_width, int hitbox_height) {
         this.hitbox_x = hitbox_x;
@@ -22,6 +31,7 @@ public abstract class Entity {
         animationFrame = 0;
         animationTick = 0;
         state = IDLE;
+        inAir = false;
     }
 
     protected void debug_drawHitbox(Graphics g, int xLvlOffset) {
@@ -35,5 +45,14 @@ public abstract class Entity {
     }
 
 
+    protected boolean onTheFloor(int[][] levelBlockIndexes) {
+        if (!Level.IsPositionSolid(hitbox.x, hitbox.y + hitbox.height + 1, levelBlockIndexes))
+            if (!Level.IsPositionSolid(hitbox.x + hitbox.width, hitbox.y + hitbox.height + 1, levelBlockIndexes))
+                return false;
+        return true;
+    }
 
+    public void addLevelData(int[][] blockIndexes){
+        this.levelBlockIndexes = blockIndexes;
+    }
 }
