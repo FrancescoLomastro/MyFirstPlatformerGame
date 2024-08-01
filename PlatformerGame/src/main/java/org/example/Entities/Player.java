@@ -5,7 +5,6 @@ import org.example.Utility.LoadContent;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 import static org.example.Constants.Motion.COLLISION_FALL_SPEED;
@@ -24,6 +23,7 @@ public class Player extends Entity{
     private boolean left;
     private boolean right;
     private boolean jump;
+    private boolean moving;
 
 
     public Player(float y, float x, int width, int height) {
@@ -50,21 +50,42 @@ public class Player extends Entity{
     public void update(){
         updatePosition();
         updateAnimationTick();
+        setAnimation();
     }
+
 
 
 
     public void draw(Graphics g, int xLvlOffset){
         int imageX = (int) (hitbox.x - xImageOffset) - xLvlOffset;
         int imageY = (int) (hitbox.y - yImageOffset);
-        g.drawImage(playerImages[0][state][animationFrame],imageX , imageY, hitbox_width , hitbox_height, null);
+        g.drawImage(playerImages[0][animation][animationFrame],imageX , imageY, hitbox_width , hitbox_height, null);
         debug_drawHitbox(g, xLvlOffset);
     }
 
+    private void setAnimation() {
+        int currentAnimation = animation;
 
+        if (moving)
+            animation = RUN;
+        else
+            animation = IDLE;
+
+        if (currentAnimation != animation)
+            resetAnimationTick();
+    }
+
+    private void resetAnimationTick() {
+        animationTick = 0;
+        animationFrame = 0;
+    }
 
     private void updatePosition() {
-
+        moving = false;
+        
+        if(!inAir && !left && !right && !jump)
+            return;
+        
         float xSpeed = 0;
         if (jump){
             if (!inAir){
@@ -80,6 +101,7 @@ public class Player extends Entity{
             xSpeed += walkSpeed;
         }
 
+
         if(!inAir){
             if(!onTheFloor(levelBlockIndexes)){
                 inAir = true;
@@ -88,7 +110,11 @@ public class Player extends Entity{
         if(inAir){
             handleGravity();
         }
+
+
         updateXPosition(xSpeed);
+        
+        moving = true;
     }
 
 
@@ -126,7 +152,7 @@ public class Player extends Entity{
         if(animationTick >= PLAYER_ANIMATION_SPEED){
             animationTick = 0;
             animationFrame++;
-            if(animationFrame >= getPlayerSpriteAmount(state))
+            if(animationFrame >= getPlayerSpriteAmount(animation))
                 animationFrame = 0;
         }
     }

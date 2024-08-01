@@ -16,7 +16,7 @@ public abstract class Entity {
     //Animation Variables
     protected int animationTick;
     protected int animationFrame;
-    protected int state;
+    protected int animation;
 
     //Position Variables
     protected boolean inAir;
@@ -32,8 +32,8 @@ public abstract class Entity {
         this.hitbox_height = hitbox_height;
         animationFrame = 0;
         animationTick = 0;
-        state = IDLE;
-        inAir = false;
+        animation = IDLE;
+        inAir = true;
     }
 
     protected void debug_drawHitbox(Graphics g, int xLvlOffset) {
