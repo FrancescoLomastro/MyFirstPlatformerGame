@@ -18,12 +18,12 @@ public class Keyboard implements KeyListener{
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        game.keyPressed(e);
+    public void keyReleased(KeyEvent e) {
+        game.keyReleased(e);
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
-        game.keyReleased(e);
+    public void keyPressed(KeyEvent e) {
+        game.keyPressed(e);
     }
 }

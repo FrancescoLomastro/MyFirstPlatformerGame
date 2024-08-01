@@ -1,6 +1,10 @@
 package org.example.Main;
 
 import org.example.Entities.Player;
+import org.example.GameScenes.Scenes;
+import org.example.GameScenes.MenuScene;
+import org.example.GameScenes.PlayScene;
+import org.example.GameScenes.SettingsScene;
 import org.example.Levels.LevelManager;
 
 import java.awt.*;
@@ -14,8 +18,11 @@ public class Game implements Runnable {
     private GamePanel gamePanel;
     private Thread gameThread;
 
-    private Player player;
-    private LevelManager levelManager;
+
+
+    private PlayScene playScene;
+    private MenuScene menuScene;
+    private SettingsScene settingsScene;
 
     public Game() {
         initClasses();
@@ -26,17 +33,16 @@ public class Game implements Runnable {
      * Metodo usato per inizializzare i principali attributi della classe Game
      */
     private void initClasses() {
-        this.levelManager = new LevelManager();
-        this.player = new Player(
-                levelManager.getPlayerX(),
-                levelManager.getPlayerY(),
-                (int) (64 * SCALE), (int) (40 * SCALE));
-        this.player.addLevelData(levelManager.getBlockIndexes());
+        this.playScene = new PlayScene(this);
+        this.menuScene = new MenuScene(this);
+        this.settingsScene = new SettingsScene(this);
 
         this.gamePanel = new GamePanel(this);
         this.gameWindow = new GameWindow(gamePanel);
         gamePanel.setFocusable(true);
         gamePanel.requestFocus();
+
+
 
 
     }
@@ -110,7 +116,20 @@ public class Game implements Runnable {
      * Aggiornamento logica di gioco
      */
     public void update() {
-        player.update();
+        switch (Scenes.currentScene){
+            case PLAY -> {
+                playScene.update();
+            }
+            case MENU -> {
+                menuScene.update();
+            }
+            case QUIT -> {
+
+            }
+            case SETTINGS -> {
+                settingsScene.update();
+            }
+        }
     }
 
     /**
@@ -118,15 +137,59 @@ public class Game implements Runnable {
      * @param g Parametro necessario per poter disegnre sul JPanel (non verrà descritto nelle altre classi)
      */
     public void draw(Graphics g) {
-        player.draw(g,0);
-        levelManager.draw(g,0);
+        switch (Scenes.currentScene){
+            case PLAY -> {
+                playScene.draw(g);
+            }
+            case MENU -> {
+                menuScene.draw(g);
+            }
+            case QUIT -> {
+
+            }
+            case SETTINGS -> {
+                settingsScene.draw(g);
+            }
+        }
     }
 
+
+
+
+
+
     public void keyPressed(KeyEvent e) {
-        player.keyPressed(e);
+        switch (Scenes.currentScene){
+            case PLAY -> {
+                playScene.keyPressed(e);
+            }
+            case MENU -> {
+                menuScene.keyPressed(e);
+            }
+            case QUIT -> {
+
+            }
+            case SETTINGS -> {
+                settingsScene.keyPressed(e);
+            }
+        }
     }
 
     public void keyReleased(KeyEvent e) {
-        player.keyReleased(e);
+        switch (Scenes.currentScene){
+            case PLAY -> {
+                playScene.keyReleased(e);
+            }
+            case MENU -> {
+                menuScene.keyReleased(e);
+            }
+            case QUIT -> {
+
+            }
+            case SETTINGS -> {
+                settingsScene.keyReleased(e);
+            }
+        }
     }
+
 }
