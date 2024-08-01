@@ -5,12 +5,16 @@ import org.example.Utility.LoadContent;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
+import static org.example.Constants.Motion.COLLISION_FALL_SPEED;
 import static org.example.Constants.Motion.GRAVITY;
 import static org.example.Constants.Sprites.PLAYER_ANIMATION_SPEED;
 import static org.example.Constants.Sprites.Player.*;
 import static org.example.Constants.Window.SCALE;
+import static org.example.Utility.HelpMethods.XPositionNextToWall;
+import static org.example.Utility.HelpMethods.YPositionUnderRoofOrAboveFloor;
 
 public class Player extends Entity{
     private BufferedImage[][][] playerImages;
@@ -30,6 +34,8 @@ public class Player extends Entity{
         this.jumpSpeed = -2.25f * SCALE;
     }
 
+
+
     private void loadAnimations() {
         BufferedImage img = LoadContent.GetSpriteAtlas(LoadContent.PLAYER_NO_SWORD_ATLAS);
 
@@ -39,10 +45,14 @@ public class Player extends Entity{
                 playerImages[0][j][i] = img.getSubimage(i * 64, j * 40, 64, 40);
     }
 
+
+
     public void update(){
         updatePosition();
         updateAnimationTick();
     }
+
+
 
     public void draw(Graphics g, int xLvlOffset){
         int imageX = (int) (hitbox.x - xImageOffset) - xLvlOffset;
@@ -53,14 +63,9 @@ public class Player extends Entity{
 
 
 
-
-
-
     private void updatePosition() {
 
-
         float xSpeed = 0;
-
         if (jump){
             if (!inAir){
                 inAir = true;
@@ -86,31 +91,35 @@ public class Player extends Entity{
         updateXPosition(xSpeed);
     }
 
+
+
     private void handleGravity() {
         if (Level.CanMoveInPosition(hitbox.x, hitbox.y + speedInAir, hitbox.width, hitbox.height, levelBlockIndexes)) {
             hitbox.y += speedInAir;
             speedInAir += GRAVITY;
         } else {
-            inAir = false;
-            /*hitbox.y = GetEntityYPosUnderRoofOrAboveFloor(hitbox, airSpeed);
-            if (airSpeed > 0)
-                resetInAir();
-            else
-                airSpeed = fallSpeedAfterCollision;*/
+            hitbox.y = YPositionUnderRoofOrAboveFloor(hitbox, speedInAir);
+            if (speedInAir > 0) {
+                inAir = false;
+                speedInAir = 0;
+            }
+            else {
+                speedInAir = COLLISION_FALL_SPEED;
+            }
         }
     }
+
+
 
     private void updateXPosition(float xSpeed) {
         if (Level.CanMoveInPosition(hitbox.x + xSpeed, hitbox.y, hitbox.width, hitbox.height, levelBlockIndexes)) {
             hitbox.x += xSpeed;
         } else {
-            /*hitbox.x = GetEntityXPosNextToWall(hitbox, xSpeed);
-            if(powerAttackActive){
-                powerAttackActive = false;
-                powerAttackTick = 0;
-            }*/
+            hitbox.x = XPositionNextToWall(hitbox, xSpeed);
         }
     }
+
+
 
     private void updateAnimationTick() {
         animationTick++;
@@ -122,6 +131,8 @@ public class Player extends Entity{
         }
     }
 
+
+
     private int getPlayerSpriteAmount(int state) {
         switch (state) {
             case IDLE:
@@ -132,6 +143,7 @@ public class Player extends Entity{
                 return 1;
         }
     }
+
 
 
     public void keyPressed(KeyEvent e) {
@@ -148,6 +160,8 @@ public class Player extends Entity{
         }
     }
 
+
+
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_A:
@@ -161,4 +175,6 @@ public class Player extends Entity{
                 break;
         }
     }
+
+
 }
