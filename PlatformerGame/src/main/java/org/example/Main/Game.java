@@ -4,6 +4,7 @@ import org.example.Entities.Player;
 import org.example.Levels.LevelManager;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 import static org.example.Constants.FrameRate.*;
 import static org.example.Constants.Window.SCALE;
@@ -121,4 +122,11 @@ public class Game implements Runnable {
         levelManager.draw(g,0);
     }
 
+    public void keyPressed(KeyEvent e) {
+        player.keyPressed(e);
+    }
+
+    public void keyReleased(KeyEvent e) {
+        player.keyReleased(e);
+    }
 }

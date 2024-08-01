@@ -4,20 +4,30 @@ import org.example.Levels.Level;
 import org.example.Utility.LoadContent;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 import static org.example.Constants.Motion.GRAVITY;
 import static org.example.Constants.Sprites.PLAYER_ANIMATION_SPEED;
 import static org.example.Constants.Sprites.Player.*;
+import static org.example.Constants.Window.SCALE;
 
 public class Player extends Entity{
     private BufferedImage[][][] playerImages;
+    private float xImageOffset = 21 * SCALE;
+    private float yImageOffset = 4 * SCALE;
+
+    private boolean left;
+    private boolean right;
+    private boolean jump;
 
 
     public Player(float y, float x, int width, int height) {
         super(y, x, width, height);
         initHitbox(20,27);
         loadAnimations();
+        this.walkSpeed = 1.0f * SCALE;
+        this.jumpSpeed = -2.25f * SCALE;
     }
 
     private void loadAnimations() {
@@ -35,7 +45,10 @@ public class Player extends Entity{
     }
 
     public void draw(Graphics g, int xLvlOffset){
-        g.drawImage(playerImages[0][state][animationFrame],(int) (hitbox.x) - xLvlOffset, (int) (hitbox.y), hitbox_width , hitbox_height, null);
+        int imageX = (int) (hitbox.x - xImageOffset) - xLvlOffset;
+        int imageY = (int) (hitbox.y - yImageOffset);
+        g.drawImage(playerImages[0][state][animationFrame],imageX , imageY, hitbox_width , hitbox_height, null);
+        debug_drawHitbox(g, xLvlOffset);
     }
 
 
@@ -45,7 +58,22 @@ public class Player extends Entity{
 
     private void updatePosition() {
 
+
         float xSpeed = 0;
+
+        if (jump){
+            if (!inAir){
+                inAir = true;
+                speedInAir = jumpSpeed;
+            }
+        }
+
+        if (left && !right) {
+            xSpeed -= walkSpeed;
+        }
+        if (right && !left) {
+            xSpeed += walkSpeed;
+        }
 
         if(!inAir){
             if(!onTheFloor(levelBlockIndexes)){
@@ -63,6 +91,7 @@ public class Player extends Entity{
             hitbox.y += speedInAir;
             speedInAir += GRAVITY;
         } else {
+            inAir = false;
             /*hitbox.y = GetEntityYPosUnderRoofOrAboveFloor(hitbox, airSpeed);
             if (airSpeed > 0)
                 resetInAir();
@@ -105,5 +134,31 @@ public class Player extends Entity{
     }
 
 
+    public void keyPressed(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_A:
+                left = true;
+                break;
+            case KeyEvent.VK_D:
+                right = true;
+                break;
+            case KeyEvent.VK_SPACE:
+                jump = true;
+                break;
+        }
+    }
 
+    public void keyReleased(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_A:
+                left = false;
+                break;
+            case KeyEvent.VK_D:
+                right = false;
+                break;
+            case KeyEvent.VK_SPACE:
+                jump = false;
+                break;
+        }
+    }
 }

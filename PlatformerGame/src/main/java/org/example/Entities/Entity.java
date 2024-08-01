@@ -22,6 +22,8 @@ public abstract class Entity {
     protected boolean inAir;
     protected float speedInAir;
     protected int[][] levelBlockIndexes;
+    protected float walkSpeed;
+    protected float jumpSpeed;
 
     public Entity(float hitbox_x, float hitbox_y, int hitbox_width, int hitbox_height) {
         this.hitbox_x = hitbox_x;

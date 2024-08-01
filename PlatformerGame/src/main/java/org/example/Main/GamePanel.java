@@ -1,5 +1,8 @@
 package org.example.Main;
 
+import org.example.Inputs.Keyboard;
+import org.example.Inputs.Mouse;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -11,6 +14,8 @@ public class GamePanel extends JPanel {
     public GamePanel(Game game) {
         this.game = game;
         setPanelSize();
+        addMouseListener(new Mouse(game));
+        addKeyListener(new Keyboard(game));
     }
 
 
@@ -25,4 +30,6 @@ public class GamePanel extends JPanel {
         Dimension size = new Dimension(GAME_WIDTH, GAME_HEIGHT);
         setPreferredSize(size);
     }
+
+
 }
