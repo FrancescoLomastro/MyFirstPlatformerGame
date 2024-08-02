@@ -5,7 +5,8 @@ import org.example.Utility.LoadContent;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import static org.example.Constants.Sprites.Level.SPRITE_HOLE;
+import static org.example.Constants.Sprites.Level.*;
+import static org.example.Constants.Sprites.PLAYER_ANIMATION_SPEED;
 import static org.example.Constants.Window.*;
 
 public class Level {
@@ -17,9 +18,14 @@ public class Level {
 
     private int maxLevelOffsetX; // Amount of right space in the level that the camera is not seeing at the beginning
 
+
+
+
+
     public Level(int currentLevelIndex) {
         this.index = currentLevelIndex;
         this.levelImage = LoadContent.GetSpriteAtlas("levels/"+index+".png");
+
         extractLevelData();
         calcolateMaxLevelOffsetX();
     }
@@ -32,7 +38,7 @@ public class Level {
         for (int j = 0; j < levelImage.getHeight(); j++)
             for (int i = 0; i < levelImage.getWidth(); i++) {
                 Color color = new Color(levelImage.getRGB(i, j));
-                levelBlockIndexes[j][i] = extractEnvironment(color);
+                extractEnvironment(color, j ,i);
                 extractEnemies(color);
                 extractObjects(color);
                 extractPlayerSpawn(color, i, j);
@@ -48,11 +54,13 @@ public class Level {
         }
     }
 
-    private int extractEnvironment(Color color) {
+    private void extractEnvironment(Color color, int j, int i) {
         int value = color.getRed();
-        if (value >= 48)
+        if (value >= 51) {
             value = 0;
-        return value;
+        }
+
+        levelBlockIndexes[j][i] = value;
     }
 
     private Object extractObjects(Color color) {
@@ -121,4 +129,6 @@ public class Level {
                         return true;
         return false;
     }
+
+
 }

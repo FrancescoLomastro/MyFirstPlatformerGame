@@ -34,6 +34,7 @@ public class PlayScene implements SceneMethods{
     }
 
     public void update() {
+        levelManager.update();
         player.update();
         checkCameraOffset();
     }

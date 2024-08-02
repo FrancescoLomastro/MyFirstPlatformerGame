@@ -10,5 +10,7 @@ public class Sprites {
 
     public class Level{
         public static final int SPRITE_HOLE = 11;
+        public static final int ANIMATED_WATER_SPRITE_AMOUNT = 4;
+        public static final int WATER_ANIMATION_SPEED = 25;
     }
 }
