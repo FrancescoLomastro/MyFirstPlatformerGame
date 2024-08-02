@@ -65,10 +65,18 @@ public class Player extends Entity{
     private void setAnimation() {
         int currentAnimation = animation;
 
-        if (moving)
+        if (moving) {
             animation = RUN;
-        else
+        } else {
             animation = IDLE;
+        }
+        if (inAir) {
+            if (speedInAir < 0)
+                animation = JUMP;
+            else
+                animation = FALL;
+        }
+
 
         if (currentAnimation != animation)
             resetAnimationTick();
