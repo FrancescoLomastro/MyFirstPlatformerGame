@@ -12,6 +12,7 @@ public class LoadContent {
     public static final String PLAYSCENE_DEEP_BACKGROUND = "playScene_deep_background.png";
     public static final String BIG_CLOUD = "big_cloud.png";
     public static final String SMALL_CLOUD = "small_cloud.png";
+    public static final String SWORD_IMAGE = "objects/sword.png";
 
     public static BufferedImage GetSpriteAtlas(String fileName) {
         BufferedImage img = null;

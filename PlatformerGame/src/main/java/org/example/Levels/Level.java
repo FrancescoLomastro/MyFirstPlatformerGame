@@ -1,12 +1,14 @@
 package org.example.Levels;
 
+import org.example.Objects.Sword;
 import org.example.Utility.LoadContent;
 
+import java.applet.Applet;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+import static org.example.Constants.Objects.SWORD;
 import static org.example.Constants.Sprites.Level.*;
-import static org.example.Constants.Sprites.PLAYER_ANIMATION_SPEED;
 import static org.example.Constants.Window.*;
 
 public class Level {
@@ -17,6 +19,8 @@ public class Level {
     private int[][] levelBlockIndexes;
 
     private int maxLevelOffsetX; // Amount of right space in the level that the camera is not seeing at the beginning
+
+    private Sword sword;
 
 
 
@@ -39,8 +43,8 @@ public class Level {
             for (int i = 0; i < levelImage.getWidth(); i++) {
                 Color color = new Color(levelImage.getRGB(i, j));
                 extractEnvironment(color, j ,i);
-                extractEnemies(color);
-                extractObjects(color);
+                extractEnemies(color, j , i);
+                extractObjects(color, j, i);
                 extractPlayerSpawn(color, i, j);
             }
     }
@@ -63,11 +67,14 @@ public class Level {
         levelBlockIndexes[j][i] = value;
     }
 
-    private Object extractObjects(Color color) {
-        return null;
+    private void extractObjects(Color color, int j, int i) {
+        int value = color.getBlue();
+        if (value == 0) {
+            this.sword = new Sword(i * TILES_SIZE,j *TILES_SIZE, SWORD);
+        }
     }
 
-    private Object extractEnemies(Color color) {
+    private Object extractEnemies(Color color, int j, int i) {
         return null;
     }
 
@@ -131,4 +138,15 @@ public class Level {
     }
 
 
+    public Sword getSword() {
+        return sword;
+    }
+
+    public boolean hasSword() {
+        return sword != null;
+    }
+
+    public void drawSword(Graphics g, int xLvlOffset) {
+        sword.draw(g, xLvlOffset);
+    }
 }

@@ -6,7 +6,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.RasterFormatException;
 
-import static org.example.Constants.Objects.*;
+import static org.example.Constants.Objects.Environment.*;
 import static org.example.Constants.Sprites.Level.WATER_ANIMATION_SPEED;
 import static org.example.Constants.Sprites.Level.ANIMATED_WATER_SPRITE_AMOUNT;
 import static org.example.Constants.Window.*;
@@ -36,6 +36,12 @@ public class LevelManager {
     public void draw(Graphics g, int xLvlOffset) {
         drawBackground(g,xLvlOffset);
         drawBlocks(g, xLvlOffset);
+        drawObjects(g, xLvlOffset);
+    }
+
+    private void drawObjects(Graphics g, int xLvlOffset) {
+        if(currentLevel.hasSword())
+            currentLevel.drawSword(g,xLvlOffset);
     }
 
     private void drawBlocks(Graphics g, int xLvlOffset) {
