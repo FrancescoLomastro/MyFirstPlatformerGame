@@ -25,15 +25,21 @@ public abstract class Entity {
     protected float walkSpeed;
     protected float jumpSpeed;
 
+    //Mirror image for left/right movement
+    protected int flipX;   // 0 = no flip, hitbox_width = flip
+    protected int flipW;   // 1 = no flip, -1 = flip
+
     public Entity(float hitbox_x, float hitbox_y, int hitbox_width, int hitbox_height) {
         this.hitbox_x = hitbox_x;
         this.hitbox_y = hitbox_y;
         this.hitbox_width = hitbox_width;
         this.hitbox_height = hitbox_height;
-        animationFrame = 0;
-        animationTick = 0;
-        animation = IDLE;
-        inAir = true;
+        this.animationFrame = 0;
+        this.animationTick = 0;
+        this.animation = IDLE;
+        this.inAir = true;
+        this.flipX = 0;
+        this.flipW = 1;
     }
 
     protected void debug_drawHitbox(Graphics g, int xLvlOffset) {

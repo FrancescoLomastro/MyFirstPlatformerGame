@@ -26,6 +26,7 @@ public class Player extends Entity{
     private boolean moving;
 
 
+
     public Player(float y, float x, int width, int height) {
         super(y, x, width, height);
         initHitbox(20,27);
@@ -57,9 +58,10 @@ public class Player extends Entity{
 
 
     public void draw(Graphics g, int xLvlOffset){
-        int imageX = (int) (hitbox.x - xImageOffset) - xLvlOffset;
+        int imageX = (int) (hitbox.x - xImageOffset) - xLvlOffset + flipX;
         int imageY = (int) (hitbox.y - yImageOffset);
-        g.drawImage(playerImages[0][animation][animationFrame],imageX , imageY, hitbox_width , hitbox_height, null);
+        int width = (int) (hitbox_width * flipW);
+        g.drawImage(playerImages[0][animation][animationFrame], imageX , imageY, width , hitbox_height, null);
         debug_drawHitbox(g, xLvlOffset);
     }
 
@@ -96,9 +98,13 @@ public class Player extends Entity{
 
         if (left && !right) {
             xSpeed -= walkSpeed;
+            flipX = hitbox_width;
+            flipW = -1;
         }
         if (right && !left) {
             xSpeed += walkSpeed;
+            flipX = 0;
+            flipW = 1;
         }
 
 
