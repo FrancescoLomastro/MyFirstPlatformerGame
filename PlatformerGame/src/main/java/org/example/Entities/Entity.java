@@ -9,8 +9,8 @@ import static org.example.Constants.Sprites.Player.*;
 import static org.example.Constants.Window.SCALE;
 
 public abstract class Entity {
-    protected float hitbox_x, hitbox_y;
-    protected int hitbox_width, hitbox_height;
+    protected float initialX, initialY;
+    protected int initialWidth, initialHeight;
     protected Rectangle2D.Float hitbox;
 
     //Animation Variables
@@ -29,11 +29,11 @@ public abstract class Entity {
     protected int flipX;   // 0 = no flip, hitbox_width = flip
     protected int flipW;   // 1 = no flip, -1 = flip
 
-    public Entity(float hitbox_x, float hitbox_y, int hitbox_width, int hitbox_height) {
-        this.hitbox_x = hitbox_x;
-        this.hitbox_y = hitbox_y;
-        this.hitbox_width = hitbox_width;
-        this.hitbox_height = hitbox_height;
+    public Entity(float initialX, float initialY, int initialWidth, int initialHeight) {
+        this.initialX = initialX;
+        this.initialY = initialY;
+        this.initialWidth = initialWidth;
+        this.initialHeight = initialHeight;
         this.animationFrame = 0;
         this.animationTick = 0;
         this.animation = IDLE;
@@ -49,7 +49,7 @@ public abstract class Entity {
 
 
     protected void initHitbox(int width, int height) {
-        hitbox = new Rectangle2D.Float(hitbox_x, hitbox_y, width * SCALE, height* SCALE);
+        hitbox = new Rectangle2D.Float(initialX, initialY, width * SCALE, height* SCALE);
     }
 
 
@@ -62,5 +62,21 @@ public abstract class Entity {
 
     public void addLevelData(int[][] blockIndexes){
         this.levelBlockIndexes = blockIndexes;
+    }
+
+    public float getY() {
+        return hitbox.y;
+    }
+
+    public float getX() {
+        return hitbox.x;
+    }
+
+    public float getWidth() {
+        return hitbox.width;
+    }
+
+    public float getHeight() {
+        return hitbox.height;
     }
 }

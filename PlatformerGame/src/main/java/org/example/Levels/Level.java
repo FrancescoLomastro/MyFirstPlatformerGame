@@ -15,11 +15,15 @@ public class Level {
 
     private int[][] levelBlockIndexes;
 
+    private int maxLevelOffsetX; // Amount of right space in the level that the camera is not seeing at the beginning
+
     public Level(int currentLevelIndex) {
         this.index = currentLevelIndex;
         this.levelImage = LoadContent.GetSpriteAtlas("levels/"+index+".png");
         extractLevelData();
+        calcolateMaxLevelOffsetX();
     }
+
 
 
 
@@ -59,7 +63,9 @@ public class Level {
         return null;
     }
 
-
+    private void calcolateMaxLevelOffsetX() {
+        maxLevelOffsetX = TILES_SIZE * (levelImage.getWidth() - TILES_IN_WIDTH);
+    }
 
 
 
@@ -82,6 +88,10 @@ public class Level {
 
     public int getLevelTileWidth(){
         return levelBlockIndexes[0].length;
+    }
+
+    public int getMaxLevelOffsetX() {
+        return maxLevelOffsetX;
     }
 
     public static boolean IsPositionSolid(float x, float y, int[][] lvlData){

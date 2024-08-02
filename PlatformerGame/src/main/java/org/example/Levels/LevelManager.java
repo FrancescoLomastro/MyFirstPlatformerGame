@@ -57,4 +57,9 @@ public class LevelManager {
     public int[][] getBlockIndexes() {
         return currentLevel.getBlockIndexes();
     }
+
+    public int getMaxLevelCameraOffset() {
+        return currentLevel.getMaxLevelOffsetX();
+    }
+
 }

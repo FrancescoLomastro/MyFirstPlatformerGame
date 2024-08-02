@@ -54,14 +54,11 @@ public class Player extends Entity{
         setAnimation();
     }
 
-
-
-
     public void draw(Graphics g, int xLvlOffset){
         int imageX = (int) (hitbox.x - xImageOffset) - xLvlOffset + flipX;
         int imageY = (int) (hitbox.y - yImageOffset);
-        int width = (int) (hitbox_width * flipW);
-        g.drawImage(playerImages[0][animation][animationFrame], imageX , imageY, width , hitbox_height, null);
+        int width = (int) (initialWidth * flipW);
+        g.drawImage(playerImages[0][animation][animationFrame], imageX , imageY, width , initialHeight, null);
         debug_drawHitbox(g, xLvlOffset);
     }
 
@@ -98,7 +95,7 @@ public class Player extends Entity{
 
         if (left && !right) {
             xSpeed -= walkSpeed;
-            flipX = hitbox_width;
+            flipX = initialWidth;
             flipW = -1;
         }
         if (right && !left) {
