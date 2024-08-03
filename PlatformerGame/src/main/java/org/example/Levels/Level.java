@@ -1,9 +1,9 @@
 package org.example.Levels;
 
+import org.example.Entities.Player;
 import org.example.Objects.Sword;
 import org.example.Utility.LoadContent;
 
-import java.applet.Applet;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -138,15 +138,22 @@ public class Level {
     }
 
 
-    public Sword getSword() {
-        return sword;
-    }
 
     public boolean hasSword() {
-        return sword != null;
+        return sword != null && sword.isActive();
     }
 
     public void drawSword(Graphics g, int xLvlOffset) {
         sword.draw(g, xLvlOffset);
+    }
+
+    public boolean isSwordPicked(Player player) {
+        if(sword != null && sword.isActive()){
+            if(player.getHitbox().intersects(sword.getHitbox())){
+                sword = null;
+                return true;
+            }
+        }
+        return false;
     }
 }

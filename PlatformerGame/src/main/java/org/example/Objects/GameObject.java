@@ -30,4 +30,16 @@ public class GameObject {
         g.drawRect((int) hitbox.x - xLvlOffset, (int) hitbox.y, (int) hitbox.width, (int) hitbox.height);
 
     }
+
+    public Rectangle2D getHitbox() {
+        return hitbox;
+    }
+
+    public void setActive(boolean b) {
+        active = b;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
 }

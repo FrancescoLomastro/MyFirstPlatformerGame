@@ -22,6 +22,7 @@ public class Sword extends GameObject {
         yDrawOffset = (int) (19 * SCALE);
         hitbox.y += yDrawOffset;
         hitbox.x += xDrawOffset;
+        active = true;
     }
 
     public void update(){

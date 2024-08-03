@@ -1,5 +1,6 @@
 package org.example.Entities;
 
+import org.example.GameScenes.PlayScene;
 import org.example.Levels.Level;
 
 import java.awt.*;
@@ -9,6 +10,8 @@ import static org.example.Constants.Sprites.Player.*;
 import static org.example.Constants.Window.SCALE;
 
 public abstract class Entity {
+    protected PlayScene playScene;
+
     protected float initialX, initialY;
     protected int initialWidth, initialHeight;
     protected Rectangle2D.Float hitbox;
@@ -78,5 +81,13 @@ public abstract class Entity {
 
     public float getHeight() {
         return hitbox.height;
+    }
+
+    public void linkPlayScene(PlayScene playScene) {
+        this.playScene = playScene;
+    }
+
+    public Rectangle2D.Float getHitbox() {
+        return hitbox;
     }
 }

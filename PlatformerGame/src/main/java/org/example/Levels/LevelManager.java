@@ -1,5 +1,7 @@
 package org.example.Levels;
 
+import org.example.Entities.Player;
+import org.example.Objects.Sword;
 import org.example.Utility.LoadContent;
 
 import java.awt.*;
@@ -40,8 +42,9 @@ public class LevelManager {
     }
 
     private void drawObjects(Graphics g, int xLvlOffset) {
-        if(currentLevel.hasSword())
-            currentLevel.drawSword(g,xLvlOffset);
+        if(currentLevel.hasSword()){
+                currentLevel.drawSword(g,xLvlOffset);
+        }
     }
 
     private void drawBlocks(Graphics g, int xLvlOffset) {
@@ -140,4 +143,7 @@ public class LevelManager {
         return currentLevel.getMaxLevelOffsetX();
     }
 
+    public boolean isSwordPicked(Player player) {
+        return currentLevel.isSwordPicked(player);
+    }
 }

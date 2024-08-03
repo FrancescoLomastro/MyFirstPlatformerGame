@@ -16,7 +16,8 @@ import static org.example.Utility.HelpMethods.XPositionNextToWall;
 import static org.example.Utility.HelpMethods.YPositionUnderRoofOrAboveFloor;
 
 public class Player extends Entity{
-    private BufferedImage[][][] playerImages;
+    private BufferedImage[][] playerNoSwordImages;
+    private BufferedImage[][] playerWithSwordImages;
     private float xImageOffset = 21 * SCALE;
     private float yImageOffset = 4 * SCALE;
 
@@ -24,6 +25,7 @@ public class Player extends Entity{
     private boolean right;
     private boolean jump;
     private boolean moving;
+    private boolean hasSword;
 
 
 
@@ -38,32 +40,48 @@ public class Player extends Entity{
 
 
     private void loadAnimations() {
-        BufferedImage img = LoadContent.GetSpriteAtlas(LoadContent.PLAYER_NO_SWORD_ATLAS);
+        BufferedImage imgNoSword = LoadContent.GetSpriteAtlas(LoadContent.PLAYER_NO_SWORD_ATLAS);
+        playerNoSwordImages = new BufferedImage[7][8];
+        for (int j = 0; j < playerNoSwordImages.length; j++)
+            for (int i = 0; i < playerNoSwordImages[j].length; i++)
+                playerNoSwordImages[j][i] = imgNoSword.getSubimage(i * 64, j * 40, 64, 40);
 
-        playerImages = new BufferedImage[2][7][8];
-        for (int j = 0; j < playerImages[0].length; j++)
-            for (int i = 0; i < playerImages[0][j].length; i++)
-                playerImages[0][j][i] = img.getSubimage(i * 64, j * 40, 64, 40);
+
+        BufferedImage imgWithSword = LoadContent.GetSpriteAtlas(LoadContent.PLAYER_SWORD_ATLAS);
+        playerWithSwordImages = new BufferedImage[12][6];
+        for (int j = 0; j < playerWithSwordImages.length; j++)
+            for (int i = 0; i < playerWithSwordImages[j].length; i++)
+                playerWithSwordImages[j][i] = imgWithSword.getSubimage(i * 64, j * 40, 64, 40);
     }
 
 
 
     public void update(){
         updatePosition();
+
+        checkSwordPicked();
+
         updateAnimationTick();
         setAnimation();
+    }
+
+    private void checkSwordPicked() {
+        if(!hasSword)
+            hasSword = playScene.isSwordPicked();
     }
 
     public void draw(Graphics g, int xLvlOffset){
         int imageX = (int) (hitbox.x - xImageOffset) - xLvlOffset + flipX;
         int imageY = (int) (hitbox.y - yImageOffset);
         int width = (int) (initialWidth * flipW);
-        g.drawImage(playerImages[0][animation][animationFrame], imageX , imageY, width , initialHeight, null);
+        BufferedImage[][] images = hasSword ? playerWithSwordImages : playerNoSwordImages;
+        g.drawImage(images[animation][animationFrame], imageX , imageY, width , initialHeight, null);
         debug_drawHitbox(g, xLvlOffset);
     }
 
     private void setAnimation() {
         int currentAnimation = animation;
+
 
         if (moving) {
             animation = RUN;
@@ -212,6 +230,4 @@ public class Player extends Entity{
                 break;
         }
     }
-
-
 }

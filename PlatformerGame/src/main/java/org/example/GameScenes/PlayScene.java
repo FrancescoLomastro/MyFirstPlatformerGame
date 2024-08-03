@@ -30,6 +30,7 @@ public class PlayScene implements SceneMethods{
                 levelManager.getPlayerY(),
                 (int) (64 * SCALE), (int) (40 * SCALE));
         this.player.addLevelData(levelManager.getBlockIndexes());
+        this.player.linkPlayScene(this);
         this.maxLevelCameraOffset = levelManager.getMaxLevelCameraOffset();
     }
 
@@ -98,5 +99,9 @@ public class PlayScene implements SceneMethods{
         g.setColor(Color.BLACK);
         g.fillRect(RIGHT_LEVEL_BORDER,0,2, GAME_HEIGHT);
         g.fillRect(LEFT_LEVEL_BORDER, 0,-2, GAME_HEIGHT);
+    }
+
+    public boolean isSwordPicked() {
+        return levelManager.isSwordPicked(player);
     }
 }
