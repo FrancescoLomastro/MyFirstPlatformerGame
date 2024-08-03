@@ -5,6 +5,7 @@ import org.example.Utility.LoadContent;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 import static org.example.Constants.Motion.COLLISION_FALL_SPEED;
@@ -26,7 +27,7 @@ public class Player extends Entity{
     private boolean jump;
     private boolean moving;
     private boolean hasSword;
-
+    private boolean landed;
 
 
     public Player(float y, float x, int width, int height) {
@@ -35,6 +36,12 @@ public class Player extends Entity{
         loadAnimations();
         this.walkSpeed = 1.0f * SCALE;
         this.jumpSpeed = -2.25f * SCALE;
+        initAttackBox();
+    }
+
+    private void initAttackBox() {
+        attackBox = new Rectangle2D.Float(hitbox.x,hitbox.y, (int)(20*SCALE), (int)(20*SCALE));
+        //resetAttackBox();
     }
 
 
@@ -60,15 +67,30 @@ public class Player extends Entity{
         updatePosition();
 
         checkSwordPicked();
-
+        updateAttackBox();
         updateAnimationTick();
         setAnimation();
     }
+
+
+
+    private void updateAttackBox() {
+        if(flipW == 1)
+            attackBox.x = hitbox.x + hitbox.width + (SCALE*5);
+        else
+            attackBox.x = hitbox.x - attackBox.width - (SCALE*5);;
+
+        attackBox.y = hitbox.y + (int)(SCALE*7);
+    }
+
+
 
     private void checkSwordPicked() {
         if(!hasSword)
             hasSword = playScene.isSwordPicked();
     }
+
+
 
     public void draw(Graphics g, int xLvlOffset){
         int imageX = (int) (hitbox.x - xImageOffset) - xLvlOffset + flipX;
@@ -76,16 +98,19 @@ public class Player extends Entity{
         int width = (int) (initialWidth * flipW);
         BufferedImage[][] images = hasSword ? playerWithSwordImages : playerNoSwordImages;
         g.drawImage(images[animation][animationFrame], imageX , imageY, width , initialHeight, null);
-        debug_drawHitbox(g, xLvlOffset);
+        debug_drawHitbox(g, xLvlOffset, hitbox);
+        debug_drawHitbox(g, xLvlOffset, attackBox);
     }
 
+
+
     private void setAnimation() {
-        int currentAnimation = animation;
+        int oldAnimation = animation;
 
 
         if (moving) {
             animation = RUN;
-        } else {
+        } else if (!landed){
             animation = IDLE;
         }
         if (inAir) {
@@ -96,14 +121,23 @@ public class Player extends Entity{
         }
 
 
-        if (currentAnimation != animation)
+        if (oldAnimation != animation) {
+            if(oldAnimation == FALL && animation == IDLE){
+                landed = true;
+                animation = LAND;
+            }
             resetAnimationTick();
+        }
     }
+
+
 
     private void resetAnimationTick() {
         animationTick = 0;
         animationFrame = 0;
     }
+
+
 
     private void updatePosition() {
         moving = false;
@@ -123,11 +157,13 @@ public class Player extends Entity{
             xSpeed -= walkSpeed;
             flipX = initialWidth;
             flipW = -1;
+            moving = true;
         }
         if (right && !left) {
             xSpeed += walkSpeed;
             flipX = 0;
             flipW = 1;
+            moving = true;
         }
 
 
@@ -143,7 +179,7 @@ public class Player extends Entity{
 
         updateXPosition(xSpeed);
         
-        moving = true;
+
     }
 
 
@@ -181,8 +217,12 @@ public class Player extends Entity{
         if(animationTick >= PLAYER_ANIMATION_SPEED){
             animationTick = 0;
             animationFrame++;
-            if(animationFrame >= getPlayerSpriteAmount(animation))
+            if(animationFrame >= getPlayerSpriteAmount(animation)) {
+                if(landed){
+                    landed = false;
+                }
                 animationFrame = 0;
+            }
         }
     }
 
@@ -194,6 +234,11 @@ public class Player extends Entity{
                 return 5;
             case RUN:
                 return 6;
+            case JUMP:
+                return 3;
+            case LAND:
+                return 2;
+            case FALL:
             default:
                 return 1;
         }

@@ -15,6 +15,7 @@ public abstract class Entity {
     protected float initialX, initialY;
     protected int initialWidth, initialHeight;
     protected Rectangle2D.Float hitbox;
+    protected Rectangle2D.Float attackBox;
 
     //Animation Variables
     protected int animationTick;
@@ -45,10 +46,11 @@ public abstract class Entity {
         this.flipW = 1;
     }
 
-    protected void debug_drawHitbox(Graphics g, int xLvlOffset) {
+    protected void debug_drawHitbox(Graphics g, int xLvlOffset, Rectangle2D.Float hitbox_) {
         g.setColor(Color.RED);
-        g.drawRect((int) hitbox.x - xLvlOffset, (int) hitbox.y, (int) hitbox.width, (int) hitbox.height);
+        g.drawRect((int) hitbox_.x - xLvlOffset, (int) hitbox_.y, (int) hitbox_.width, (int) hitbox_.height);
     }
+
 
 
     protected void initHitbox(int width, int height) {
