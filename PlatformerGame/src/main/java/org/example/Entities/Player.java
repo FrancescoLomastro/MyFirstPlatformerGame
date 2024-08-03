@@ -5,6 +5,7 @@ import org.example.Utility.LoadContent;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
@@ -28,6 +29,7 @@ public class Player extends Entity{
     private boolean moving;
     private boolean hasSword;
     private boolean landed;
+    private boolean attack;
 
 
     public Player(float y, float x, int width, int height) {
@@ -118,6 +120,9 @@ public class Player extends Entity{
                 animation = JUMP;
             else
                 animation = FALL;
+        }
+        if(attack){
+            animation = ATTACK;
         }
 
 
@@ -220,6 +225,8 @@ public class Player extends Entity{
             if(animationFrame >= getPlayerSpriteAmount(animation)) {
                 if(landed){
                     landed = false;
+                } else if (attack){
+                    attack = false;
                 }
                 animationFrame = 0;
             }
@@ -235,6 +242,7 @@ public class Player extends Entity{
             case RUN:
                 return 6;
             case JUMP:
+            case ATTACK:
                 return 3;
             case LAND:
                 return 2;
@@ -274,5 +282,12 @@ public class Player extends Entity{
                 jump = false;
                 break;
         }
+    }
+
+
+
+    public void mouseClicked(MouseEvent e) {
+        if(hasSword)
+            attack = true;
     }
 }

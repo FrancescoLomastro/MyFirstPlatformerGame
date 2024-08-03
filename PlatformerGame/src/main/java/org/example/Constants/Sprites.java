@@ -9,6 +9,7 @@ public class Sprites {
         public static final int JUMP = 2;
         public static final int FALL = 3;
         public static final int LAND = 4;
+        public static final int ATTACK = 6;
     }
 
     public class Level{

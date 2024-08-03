@@ -67,7 +67,7 @@ public class PlayScene implements SceneMethods{
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
+        player.mouseClicked(e);
     }
 
     @Override

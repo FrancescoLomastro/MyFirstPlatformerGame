@@ -9,6 +9,7 @@ import org.example.Levels.LevelManager;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 
 import static org.example.Constants.FrameRate.*;
 import static org.example.Constants.Window.SCALE;
@@ -192,4 +193,20 @@ public class Game implements Runnable {
         }
     }
 
+    public void mouseClicked(MouseEvent e) {
+        switch (Scenes.currentScene){
+            case PLAY -> {
+                playScene.mouseClicked(e);
+            }
+            case MENU -> {
+                menuScene.mouseClicked(e);
+            }
+            case QUIT -> {
+
+            }
+            case SETTINGS -> {
+                settingsScene.mouseClicked(e);
+            }
+        }
+    }
 }
