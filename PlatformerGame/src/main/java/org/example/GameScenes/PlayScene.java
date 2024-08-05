@@ -27,8 +27,7 @@ public class PlayScene implements SceneMethods{
         this.levelManager = new LevelManager();
         this.player = new Player(
                 levelManager.getPlayerX(),
-                levelManager.getPlayerY(),
-                (int) (64 * SCALE), (int) (40 * SCALE));
+                levelManager.getPlayerY());
         this.player.addLevelData(levelManager.getBlockIndexes());
         this.player.linkPlayScene(this);
         this.maxLevelCameraOffset = levelManager.getMaxLevelCameraOffset();

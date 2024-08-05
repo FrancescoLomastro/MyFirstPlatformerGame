@@ -1,5 +1,6 @@
 package org.example.Levels;
 
+import org.example.Entities.Enemy;
 import org.example.Entities.Player;
 import org.example.Objects.Sword;
 import org.example.Utility.LoadContent;
@@ -39,6 +40,13 @@ public class LevelManager {
         drawBackground(g,xLvlOffset);
         drawBlocks(g, xLvlOffset);
         drawObjects(g, xLvlOffset);
+        drawEnemies(g,xLvlOffset);
+    }
+
+    private void drawEnemies(Graphics g, int xLvlOffset) {
+        for(Enemy enemy : currentLevel.getEnemies()){
+            enemy.draw(g,xLvlOffset);
+        }
     }
 
     private void drawObjects(Graphics g, int xLvlOffset) {
@@ -84,6 +92,13 @@ public class LevelManager {
 
     public void update() {
         updateAnimationTick();
+        updateEnemies();
+    }
+
+    private void updateEnemies() {
+        for(Enemy enemy : currentLevel.getEnemies()){
+            enemy.update();
+        }
     }
 
     private void updateAnimationTick() {

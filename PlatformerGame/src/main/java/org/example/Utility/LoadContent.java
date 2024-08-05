@@ -8,6 +8,7 @@ import java.io.InputStream;
 public class LoadContent {
     public static final String PLAYER_NO_SWORD_ATLAS = "animations/player_no_sword_sprites.png";
     public static final String PLAYER_SWORD_ATLAS = "animations/player_sword_sprites.png";
+    public static final String CRABBY_ATLAS = "animations/crabby_sprite.png";
     public static final String LEVEL_GROUND_TEXTURE = "level_texture.png";
     public static final String LEVEL_ANIMATED_WATER = "animations/water_animated_sprites.png";
     public static final String PLAYSCENE_DEEP_BACKGROUND = "playScene_deep_background.png";

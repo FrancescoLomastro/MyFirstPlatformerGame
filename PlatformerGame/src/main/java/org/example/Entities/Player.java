@@ -21,8 +21,7 @@ import static org.example.Utility.HelpMethods.YPositionUnderRoofOrAboveFloor;
 public class Player extends Entity{
     private BufferedImage[][] playerNoSwordImages;
     private BufferedImage[][] playerWithSwordImages;
-    private float xImageOffset = 21 * SCALE;
-    private float yImageOffset = 4 * SCALE;
+
 
     private boolean left;
     private boolean right;
@@ -34,12 +33,14 @@ public class Player extends Entity{
 
     private BufferedImage healthHUD;
 
-    public Player(float y, float x, int width, int height) {
-        super(y, x, width, height);
+    public Player(float y, float x) {
+        super(y, x, PLAYER_WIDTH, PLAYER_HEIGHT);
         initHitbox(20,27);
         loadAnimations();
         this.walkSpeed = 1.0f * SCALE;
         this.jumpSpeed = -2.25f * SCALE;
+        this.xImageOffset = 21 * SCALE;
+        this.yImageOffset = 4 * SCALE;
         initAttackBox();
     }
 

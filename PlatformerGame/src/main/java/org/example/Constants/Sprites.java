@@ -1,5 +1,7 @@
 package org.example.Constants;
 
+import static org.example.Constants.Window.SCALE;
+
 public class Sprites {
     public static final int PLAYER_ANIMATION_SPEED = 25;
 
@@ -10,6 +12,32 @@ public class Sprites {
         public static final int FALL = 3;
         public static final int LAND = 4;
         public static final int ATTACK = 6;
+        public static final int HIT = 7;
+        public static final int DEAD = 8;
+
+
+        
+        public static final int PLAYER_WIDTH_DEFAULT = 64;
+        public static final int PLAYER_HEIGHT_DEFAULT = 40;
+        public static final int PLAYER_WIDTH = (int) (PLAYER_WIDTH_DEFAULT * SCALE);
+        public static final int PLAYER_HEIGHT = (int) (PLAYER_HEIGHT_DEFAULT * SCALE);
+
+    }
+
+    public class Enemy{
+        public static final int IDLE = 0;
+        public static final int RUN = 1;
+        public static final int ATTACK = 2;
+        public static final int HIT = 3;
+        public static final int DEAD = 4;
+        
+        
+        public class Crabby{
+            public static final int CRABBY_WIDTH_DEFAULT = 72;
+            public static final int CRABBY_HEIGHT_DEFAULT = 32;
+            public static final int CRABBY_WIDTH = (int) (CRABBY_WIDTH_DEFAULT * SCALE);
+            public static final int CRABBY_HEIGHT = (int) (CRABBY_HEIGHT_DEFAULT * SCALE);
+        }
     }
 
     public class Level{

@@ -1,11 +1,14 @@
 package org.example.Levels;
 
+import org.example.Entities.Crabby;
+import org.example.Entities.Enemy;
 import org.example.Entities.Player;
 import org.example.Objects.Sword;
 import org.example.Utility.LoadContent;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import static org.example.Constants.Objects.SWORD;
 import static org.example.Constants.Sprites.Level.*;
@@ -21,6 +24,7 @@ public class Level {
     private int maxLevelOffsetX; // Amount of right space in the level that the camera is not seeing at the beginning
 
     private Sword sword;
+    private ArrayList<Enemy> enemies= new ArrayList<>();
 
 
 
@@ -74,8 +78,11 @@ public class Level {
         }
     }
 
-    private Object extractEnemies(Color color, int j, int i) {
-        return null;
+    private void extractEnemies(Color color, int j, int i) {
+        int value = color.getGreen();
+        if (value == 0) {
+            this.enemies.add(new Crabby(i * TILES_SIZE, j * TILES_SIZE));
+        }
     }
 
     private void calcolateMaxLevelOffsetX() {
@@ -155,5 +162,9 @@ public class Level {
             }
         }
         return false;
+    }
+
+    public ArrayList<Enemy> getEnemies() {
+        return enemies;
     }
 }

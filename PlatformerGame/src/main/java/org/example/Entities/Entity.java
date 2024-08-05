@@ -16,6 +16,8 @@ public abstract class Entity {
     protected int initialWidth, initialHeight;
     protected Rectangle2D.Float hitbox;
     protected Rectangle2D.Float attackBox;
+    protected float xImageOffset;
+    protected float yImageOffset;
 
     //Animation Variables
     protected int animationTick;
