@@ -29,6 +29,8 @@ public class Crabby extends Enemy{
     public Crabby(float initialX, float initialY) {
         super(initialX, initialY, CRABBY_WIDTH, CRABBY_HEIGHT);
         initHitbox( 22, 19);
+        xImageOffset = CRABBY_DRAWOFFSET_X;
+        yImageOffset = CRABBY_DRAWOFFSET_Y;
     }
 
     public void update() {
@@ -40,6 +42,7 @@ public class Crabby extends Enemy{
         int imageY = (int) (hitbox.y - yImageOffset);
         int width = (int) (initialWidth * flipW);
         g.drawImage(sprites[animation][animationFrame], imageX, imageY, width, initialHeight,  null);
+        debug_drawHitbox(g, xLvlOffset, hitbox);
     }
 
 

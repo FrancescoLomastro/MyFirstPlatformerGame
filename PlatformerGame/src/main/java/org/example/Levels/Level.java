@@ -1,9 +1,6 @@
 package org.example.Levels;
 
-import org.example.Entities.Crabby;
-import org.example.Entities.Enemy;
-import org.example.Entities.Player;
-import org.example.Entities.Shark;
+import org.example.Entities.*;
 import org.example.Objects.Sword;
 import org.example.Utility.LoadContent;
 
@@ -81,10 +78,10 @@ public class Level {
 
     private void extractEnemies(Color color, int j, int i) {
         int value = color.getGreen();
-        if (value == 0) {
-            this.enemies.add(new Crabby(i * TILES_SIZE, j * TILES_SIZE));
-        } else if (value == 1) {
-            this.enemies.add(new Shark(i * TILES_SIZE, j * TILES_SIZE));
+        switch (value){
+            case 0 -> this.enemies.add(new Crabby(i * TILES_SIZE, j * TILES_SIZE));
+            case 1 -> this.enemies.add(new Shark(i * TILES_SIZE, j * TILES_SIZE));
+            case 2 -> this.enemies.add(new Star(i * TILES_SIZE, j * TILES_SIZE));
         }
     }
 

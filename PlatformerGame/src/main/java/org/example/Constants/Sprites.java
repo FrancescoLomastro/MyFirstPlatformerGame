@@ -37,6 +37,8 @@ public class Sprites {
             public static final int CRABBY_HEIGHT_DEFAULT = 32;
             public static final int CRABBY_WIDTH = (int) (CRABBY_WIDTH_DEFAULT * SCALE);
             public static final int CRABBY_HEIGHT = (int) (CRABBY_HEIGHT_DEFAULT * SCALE);
+            public static final int CRABBY_DRAWOFFSET_X = (int) (26 * SCALE);
+            public static final int CRABBY_DRAWOFFSET_Y = (int) (9 * SCALE);
         }
 
         public class Shark{
@@ -44,7 +46,19 @@ public class Sprites {
             public static final int SHARK_HEIGHT_DEFAULT = 30;
             public static final int SHARK_WIDTH = (int) (SHARK_WIDTH_DEFAULT * SCALE);
             public static final int SHARK_HEIGHT = (int) (SHARK_HEIGHT_DEFAULT * SCALE);
+            public static final int SHARK_DRAWOFFSET_X = (int) (8 * SCALE);
+            public static final int SHARK_DRAWOFFSET_Y = (int) (6 * SCALE);
         }
+
+        public class Star{
+            public static final int STAR_WIDTH_DEFAULT = 34;
+            public static final int STAR_HEIGHT_DEFAULT = 30;
+            public static final int STAR_WIDTH = (int) (STAR_WIDTH_DEFAULT * SCALE);
+            public static final int STAR_HEIGHT = (int) (STAR_HEIGHT_DEFAULT * SCALE);
+            public static final int STAR_DRAWOFFSET_X = (int) (9 * SCALE);
+            public static final int STAR_DRAWOFFSET_Y = (int) (7 * SCALE);
+        }
+
 
 
     }
