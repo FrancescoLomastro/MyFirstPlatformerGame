@@ -1,11 +1,11 @@
-package org.example.Objects;
+package org.example.Props;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
 import static org.example.Constants.Window.SCALE;
 
-public class GameObject {
+public class Prop {
     protected int x;
     protected int y;
     protected int objectType;
@@ -14,7 +14,7 @@ public class GameObject {
     protected int aniTick, aniIndex;
     protected int xDrawOffset, yDrawOffset;
 
-    public GameObject(int x, int y, int objectType) {
+    public Prop(int x, int y, int objectType) {
         this.y = y;
         this.x = x;
         this.objectType = objectType;
@@ -30,6 +30,17 @@ public class GameObject {
         g.drawRect((int) hitbox.x - xLvlOffset, (int) hitbox.y, (int) hitbox.width, (int) hitbox.height);
 
     }
+
+
+    public void update(){
+
+    }
+
+    public void draw(Graphics g, int xLvlOffset){
+
+    }
+
+
 
     public Rectangle2D getHitbox() {
         return hitbox;

@@ -6,13 +6,13 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class LoadContent {
-    public static final String PLAYER_NO_SWORD_ATLAS = "animations/player_no_sword_sprites.png";
-    public static final String PLAYER_SWORD_ATLAS = "animations/player_sword_sprites.png";
-    public static final String CRABBY_ATLAS = "animations/crabby_sprite.png";
-    public static final String SHARK_ATLAS = "animations/shark_atlas.png";
-    public static final String STAR_ATLAS = "animations/star_atlas.png";
+    public static final String PLAYER_NO_SWORD_ATLAS = "animations/Entities/player_no_sword_sprites.png";
+    public static final String PLAYER_SWORD_ATLAS = "animations/Entities/player_sword_sprites.png";
+    public static final String CRABBY_ATLAS = "animations/Entities/crabby_sprite.png";
+    public static final String SHARK_ATLAS = "animations/Entities/shark_atlas.png";
+    public static final String STAR_ATLAS = "animations/Entities/star_atlas.png";
     public static final String LEVEL_GROUND_TEXTURE = "level_texture.png";
-    public static final String LEVEL_ANIMATED_WATER = "animations/water_animated_sprites.png";
+    public static final String LEVEL_ANIMATED_WATER = "animations/Objects/water_animated_sprites.png";
     public static final String PLAYSCENE_DEEP_BACKGROUND = "playScene_deep_background.png";
     public static final String BIG_CLOUD = "big_cloud.png";
     public static final String SMALL_CLOUD = "small_cloud.png";

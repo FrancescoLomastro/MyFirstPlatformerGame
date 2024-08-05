@@ -2,7 +2,7 @@ package org.example.Constants;
 
 import static org.example.Constants.Window.SCALE;
 
-public class Objects {
+public class Prop {
 
     public class Environment {
         public static final int BIG_CLOUD_WIDTH_DEFAULT = 448;

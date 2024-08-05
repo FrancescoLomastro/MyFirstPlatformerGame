@@ -21,7 +21,9 @@ public class EnemyManager {
 
 
     public void update(){
-
+        for(Enemy e : enemies){
+            e.update();
+        }
     }
 
     public void draw(Graphics g, int xLvlOffset){

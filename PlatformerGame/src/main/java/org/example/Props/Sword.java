@@ -1,16 +1,15 @@
-package org.example.Objects;
+package org.example.Props;
 
 import org.example.Utility.LoadContent;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import static org.example.Constants.Objects.*;
+import static org.example.Constants.Prop.*;
 import static org.example.Constants.Window.SCALE;
-import static org.example.Constants.Window.TILES_SIZE;
 import static org.example.Utility.LoadContent.SWORD_IMAGE;
 
-public class Sword extends GameObject {
+public class Sword extends Prop {
     private BufferedImage image;
 
 
@@ -25,10 +24,11 @@ public class Sword extends GameObject {
         active = true;
     }
 
+    @Override
     public void update(){
     }
 
-
+    @Override
     public void draw(Graphics g, int xLvlOffset) {
         g.drawImage(image, (int) (hitbox.x - xLvlOffset), (int) hitbox.y, SWORD_WIDTH, SWORD_HEIGHT, null);
         debug_drawHitbox(g, xLvlOffset);

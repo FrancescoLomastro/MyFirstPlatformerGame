@@ -1,14 +1,15 @@
 package org.example.Levels;
 
 import org.example.Entities.*;
-import org.example.Objects.Sword;
+import org.example.Props.Prop;
+import org.example.Props.Sword;
 import org.example.Utility.LoadContent;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import static org.example.Constants.Objects.SWORD;
+import static org.example.Constants.Prop.SWORD;
 import static org.example.Constants.Sprites.Level.*;
 import static org.example.Constants.Window.*;
 
@@ -21,8 +22,10 @@ public class Level {
 
     private int maxLevelOffsetX; // Amount of right space in the level that the camera is not seeing at the beginning
 
+    private ArrayList<Prop> props;
+
     private Sword sword;
-    private ArrayList<Enemy> enemies = new ArrayList<>();
+    private ArrayList<Enemy> enemies ;
 
 
 
@@ -31,7 +34,8 @@ public class Level {
     public Level(int currentLevelIndex) {
         this.index = currentLevelIndex;
         this.levelImage = LoadContent.GetSpriteAtlas("levels/"+index+".png");
-
+        this.enemies= new ArrayList<>();
+        this.props= new ArrayList<>();
         extractLevelData();
         calcolateMaxLevelOffsetX();
     }
@@ -71,8 +75,8 @@ public class Level {
 
     private void extractObjects(Color color, int j, int i) {
         int value = color.getBlue();
-        if (value == 0) {
-            this.sword = new Sword(i * TILES_SIZE,j *TILES_SIZE, SWORD);
+        switch (value){
+            case 0 -> this.props.add( new Sword(i * TILES_SIZE,j *TILES_SIZE, SWORD));
         }
     }
 
@@ -150,21 +154,13 @@ public class Level {
         return sword != null && sword.isActive();
     }
 
-    public void drawSword(Graphics g, int xLvlOffset) {
-        sword.draw(g, xLvlOffset);
-    }
-
-    public boolean isSwordPicked(Player player) {
-        if(sword != null && sword.isActive()){
-            if(player.getHitbox().intersects(sword.getHitbox())){
-                sword = null;
-                return true;
-            }
-        }
-        return false;
-    }
 
     public ArrayList<Enemy> getEnemies() {
         return enemies;
     }
+
+    public ArrayList<Prop> getProps() {
+        return props;
+    }
+
 }

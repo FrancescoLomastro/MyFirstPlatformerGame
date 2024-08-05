@@ -3,13 +3,14 @@ package org.example.Levels;
 import org.example.Entities.Enemy;
 import org.example.Entities.EnemyManager;
 import org.example.Entities.Player;
+import org.example.Props.PropManager;
 import org.example.Utility.LoadContent;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.RasterFormatException;
 
-import static org.example.Constants.Objects.Environment.*;
+import static org.example.Constants.Prop.Environment.*;
 import static org.example.Constants.Sprites.Level.WATER_ANIMATION_SPEED;
 import static org.example.Constants.Sprites.Level.ANIMATED_WATER_SPRITE_AMOUNT;
 import static org.example.Constants.Window.*;
@@ -27,6 +28,7 @@ public class LevelManager {
     protected int animationFrame;
 
     private EnemyManager enemyManager;
+    private PropManager propManager;
 
     public LevelManager() {
         this.currentLevelIndex = 0;
@@ -35,6 +37,7 @@ public class LevelManager {
         loadTextures();
         loadNextLevel(currentLevelIndex);
         this.enemyManager = new EnemyManager(currentLevel.getEnemies());
+        this.propManager = new PropManager(currentLevel.getProps());
     }
 
 
@@ -42,21 +45,12 @@ public class LevelManager {
     public void draw(Graphics g, int xLvlOffset) {
         drawBackground(g,xLvlOffset);
         drawBlocks(g, xLvlOffset);
-        drawObjects(g, xLvlOffset);
+        propManager.draw(g, xLvlOffset);
         enemyManager.draw(g,xLvlOffset);
     }
 
-    private void drawEnemies(Graphics g, int xLvlOffset) {
-        for(Enemy enemy : currentLevel.getEnemies()){
-            enemy.draw(g,xLvlOffset);
-        }
-    }
 
-    private void drawObjects(Graphics g, int xLvlOffset) {
-        if(currentLevel.hasSword()){
-                currentLevel.drawSword(g,xLvlOffset);
-        }
-    }
+
 
     private void drawBlocks(Graphics g, int xLvlOffset) {
         for (int j = 0; j < TILES_IN_HEIGHT; j++)
@@ -95,14 +89,10 @@ public class LevelManager {
 
     public void update() {
         updateAnimationTick();
-        updateEnemies();
+        propManager.update();
+        enemyManager.update();
     }
 
-    private void updateEnemies() {
-        for(Enemy enemy : currentLevel.getEnemies()){
-            enemy.update();
-        }
-    }
 
     private void updateAnimationTick() {
         animationTick++;
@@ -162,6 +152,6 @@ public class LevelManager {
     }
 
     public boolean isSwordPicked(Player player) {
-        return currentLevel.isSwordPicked(player);
+        return propManager.isSwordPicked(player);
     }
 }
