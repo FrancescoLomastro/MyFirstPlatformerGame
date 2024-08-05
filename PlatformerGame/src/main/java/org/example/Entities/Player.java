@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
+import static org.example.Constants.HUD.*;
 import static org.example.Constants.Motion.COLLISION_FALL_SPEED;
 import static org.example.Constants.Motion.GRAVITY;
 import static org.example.Constants.Sprites.PLAYER_ANIMATION_SPEED;
@@ -31,6 +32,7 @@ public class Player extends Entity{
     private boolean landed;
     private boolean attack;
 
+    private BufferedImage healthHUD;
 
     public Player(float y, float x, int width, int height) {
         super(y, x, width, height);
@@ -61,18 +63,20 @@ public class Player extends Entity{
         for (int j = 0; j < playerWithSwordImages.length; j++)
             for (int i = 0; i < playerWithSwordImages[j].length; i++)
                 playerWithSwordImages[j][i] = imgWithSword.getSubimage(i * 64, j * 40, 64, 40);
+
+        healthHUD = LoadContent.GetSpriteAtlas(LoadContent.HEALTH_HUD);
     }
 
 
 
     public void update(){
         updatePosition();
-
         checkSwordPicked();
         updateAttackBox();
         updateAnimationTick();
         setAnimation();
     }
+
 
 
 
@@ -102,8 +106,16 @@ public class Player extends Entity{
         g.drawImage(images[animation][animationFrame], imageX , imageY, width , initialHeight, null);
         debug_drawHitbox(g, xLvlOffset, hitbox);
         debug_drawHitbox(g, xLvlOffset, attackBox);
+        drawHUD(g);
     }
 
+    private void drawHUD(Graphics g) {
+        g.drawImage(healthHUD, HEALTH_BAR_X, HEALTH_BAR_Y, HEALTH_BAR_WIDTH, HEALTH_BAR_HEIGHT, null);
+
+        int currentHealthWidth = (int) ((currentHealth / (float) maxHealth) * HEALTH_MAX_WIDTH);
+        g.setColor(Color.RED);
+        g.fillRect(HEALTH_X_START, HEALTH_Y_START, currentHealthWidth, HEALTH_HEIGHT);
+    }
 
 
     private void setAnimation() {
@@ -287,7 +299,7 @@ public class Player extends Entity{
 
 
     public void mouseClicked(MouseEvent e) {
-        if(hasSword)
+        if(hasSword && !attack)
             attack = true;
     }
 }

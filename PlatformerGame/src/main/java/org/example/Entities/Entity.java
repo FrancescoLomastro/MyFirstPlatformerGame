@@ -33,6 +33,10 @@ public abstract class Entity {
     protected int flipX;   // 0 = no flip, hitbox_width = flip
     protected int flipW;   // 1 = no flip, -1 = flip
 
+    //Health Variables
+    protected int maxHealth;
+    protected int currentHealth;
+
     public Entity(float initialX, float initialY, int initialWidth, int initialHeight) {
         this.initialX = initialX;
         this.initialY = initialY;
@@ -44,6 +48,8 @@ public abstract class Entity {
         this.inAir = true;
         this.flipX = 0;
         this.flipW = 1;
+        this.maxHealth = 100;
+        this.currentHealth = maxHealth;
     }
 
     protected void debug_drawHitbox(Graphics g, int xLvlOffset, Rectangle2D.Float hitbox_) {

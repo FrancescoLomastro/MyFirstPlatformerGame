@@ -45,6 +45,7 @@ public class PlayScene implements SceneMethods{
     public void draw(Graphics g) {
         levelManager.draw(g,xLevelOffset);
         player.draw(g,xLevelOffset);
+
         //debug_drawLevelBorders(g);
     }
 
