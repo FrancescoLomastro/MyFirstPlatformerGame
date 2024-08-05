@@ -3,6 +3,7 @@ package org.example.Levels;
 import org.example.Entities.Crabby;
 import org.example.Entities.Enemy;
 import org.example.Entities.Player;
+import org.example.Entities.Shark;
 import org.example.Objects.Sword;
 import org.example.Utility.LoadContent;
 
@@ -24,7 +25,7 @@ public class Level {
     private int maxLevelOffsetX; // Amount of right space in the level that the camera is not seeing at the beginning
 
     private Sword sword;
-    private ArrayList<Enemy> enemies= new ArrayList<>();
+    private ArrayList<Enemy> enemies = new ArrayList<>();
 
 
 
@@ -82,6 +83,8 @@ public class Level {
         int value = color.getGreen();
         if (value == 0) {
             this.enemies.add(new Crabby(i * TILES_SIZE, j * TILES_SIZE));
+        } else if (value == 1) {
+            this.enemies.add(new Shark(i * TILES_SIZE, j * TILES_SIZE));
         }
     }
 

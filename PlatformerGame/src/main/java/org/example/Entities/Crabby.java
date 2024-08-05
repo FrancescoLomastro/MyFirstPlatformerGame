@@ -11,25 +11,25 @@ import static org.example.Constants.Sprites.Player.*;
 import static org.example.Constants.Sprites.Player.FALL;
 
 public class Crabby extends Enemy{
-    private BufferedImage[][] sprites;
+
+    private static BufferedImage[][] sprites = LoadAnimations();
+
+    private static BufferedImage[][] LoadAnimations() {
+        BufferedImage temp = LoadContent.GetSpriteAtlas(LoadContent.CRABBY_ATLAS);
+        BufferedImage[][] images = new BufferedImage[5][9];
+        for(int j = 0; j < images.length; j++){
+            for(int i = 0; i < images[j].length; i++){
+                images[j][i] = temp.getSubimage(i* CRABBY_WIDTH_DEFAULT, j *CRABBY_HEIGHT_DEFAULT, CRABBY_WIDTH_DEFAULT, CRABBY_HEIGHT_DEFAULT);
+            }
+        }
+        return images;
+    }
 
 
     public Crabby(float initialX, float initialY) {
         super(initialX, initialY, CRABBY_WIDTH, CRABBY_HEIGHT);
-        loadAnimations();
         initHitbox( 22, 19);
     }
-
-    private void loadAnimations() {
-        BufferedImage temp = LoadContent.GetSpriteAtlas(LoadContent.CRABBY_ATLAS);
-        sprites = new BufferedImage[5][9];
-        for(int j = 0; j < sprites.length; j++){
-            for(int i = 0; i < sprites[j].length; i++){
-                sprites[j][i] = temp.getSubimage(i* CRABBY_WIDTH_DEFAULT, j *CRABBY_HEIGHT_DEFAULT, CRABBY_WIDTH_DEFAULT, CRABBY_HEIGHT_DEFAULT);
-            }
-        }
-    }
-
 
     public void update() {
         updateAnimationTick();
@@ -41,6 +41,7 @@ public class Crabby extends Enemy{
         int width = (int) (initialWidth * flipW);
         g.drawImage(sprites[animation][animationFrame], imageX, imageY, width, initialHeight,  null);
     }
+
 
 
     private void updateAnimationTick() {
@@ -63,7 +64,7 @@ public class Crabby extends Enemy{
             case RUN:
                 return 6;
             case ATTACK:
-                return 3;
+                return 7;
             case HIT:
                 return 4;
             case DEAD:

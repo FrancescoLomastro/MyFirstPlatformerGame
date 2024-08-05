@@ -38,6 +38,15 @@ public class Sprites {
             public static final int CRABBY_WIDTH = (int) (CRABBY_WIDTH_DEFAULT * SCALE);
             public static final int CRABBY_HEIGHT = (int) (CRABBY_HEIGHT_DEFAULT * SCALE);
         }
+
+        public class Shark{
+            public static final int SHARK_WIDTH_DEFAULT = 34;
+            public static final int SHARK_HEIGHT_DEFAULT = 30;
+            public static final int SHARK_WIDTH = (int) (SHARK_WIDTH_DEFAULT * SCALE);
+            public static final int SHARK_HEIGHT = (int) (SHARK_HEIGHT_DEFAULT * SCALE);
+        }
+
+
     }
 
     public class Level{

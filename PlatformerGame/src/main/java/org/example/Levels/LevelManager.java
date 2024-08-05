@@ -1,8 +1,8 @@
 package org.example.Levels;
 
 import org.example.Entities.Enemy;
+import org.example.Entities.EnemyManager;
 import org.example.Entities.Player;
-import org.example.Objects.Sword;
 import org.example.Utility.LoadContent;
 
 import java.awt.*;
@@ -26,12 +26,15 @@ public class LevelManager {
     protected int animationTick;
     protected int animationFrame;
 
+    private EnemyManager enemyManager;
+
     public LevelManager() {
         this.currentLevelIndex = 0;
         this.animationFrame = 0;
         this.animationTick = 0;
         loadTextures();
         loadNextLevel(currentLevelIndex);
+        this.enemyManager = new EnemyManager(currentLevel.getEnemies());
     }
 
 
@@ -40,7 +43,7 @@ public class LevelManager {
         drawBackground(g,xLvlOffset);
         drawBlocks(g, xLvlOffset);
         drawObjects(g, xLvlOffset);
-        drawEnemies(g,xLvlOffset);
+        enemyManager.draw(g,xLvlOffset);
     }
 
     private void drawEnemies(Graphics g, int xLvlOffset) {
