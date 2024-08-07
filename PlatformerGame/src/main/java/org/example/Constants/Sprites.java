@@ -3,7 +3,7 @@ package org.example.Constants;
 import static org.example.Constants.Window.SCALE;
 
 public class Sprites {
-    public static final int PLAYER_ANIMATION_SPEED = 25;
+    public static final int ENTITY_ANIMATION_SPEED = 25;
 
     public class Player{
         public static final int IDLE = 0;
@@ -65,6 +65,7 @@ public class Sprites {
 
     public class Level{
         public static final int SPRITE_HOLE = 11;
+        public static final int WATER = 50;
         public static final int ANIMATED_WATER_SPRITE_AMOUNT = 4;
         public static final int WATER_ANIMATION_SPEED = 25;
     }

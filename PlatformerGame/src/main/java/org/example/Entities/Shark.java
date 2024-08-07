@@ -5,11 +5,10 @@ import org.example.Utility.LoadContent;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import static org.example.Constants.Sprites.Enemy.Crabby.*;
-import static org.example.Constants.Sprites.Enemy.Crabby.CRABBY_DRAWOFFSET_Y;
 import static org.example.Constants.Sprites.Enemy.Shark.*;
-import static org.example.Constants.Sprites.PLAYER_ANIMATION_SPEED;
+import static org.example.Constants.Sprites.ENTITY_ANIMATION_SPEED;
 import static org.example.Constants.Sprites.Player.*;
+import static org.example.Constants.Window.SCALE;
 
 public class Shark extends Enemy {
     private static BufferedImage[][] sprites = LoadAnimations();
@@ -17,6 +16,7 @@ public class Shark extends Enemy {
     public Shark(float initialX, float initialY) {
         super(initialX, initialY, SHARK_WIDTH, SHARK_HEIGHT);
         initHitbox( 18, 22);
+        this.walkSpeed = 1.05f * SCALE;
         xImageOffset = SHARK_DRAWOFFSET_X;
         yImageOffset = SHARK_DRAWOFFSET_Y;
     }
@@ -49,7 +49,7 @@ public class Shark extends Enemy {
 
     private void updateAnimationTick() {
         animationTick++;
-        if(animationTick >= PLAYER_ANIMATION_SPEED){
+        if(animationTick >= ENTITY_ANIMATION_SPEED){
             animationTick = 0;
             animationFrame++;
             if(animationFrame >= getEnemySpriteAmount(animation)) {

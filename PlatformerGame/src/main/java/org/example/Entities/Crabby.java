@@ -6,9 +6,9 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import static org.example.Constants.Sprites.Enemy.Crabby.*;
-import static org.example.Constants.Sprites.PLAYER_ANIMATION_SPEED;
-import static org.example.Constants.Sprites.Player.*;
-import static org.example.Constants.Sprites.Player.FALL;
+import static org.example.Constants.Sprites.Enemy.*;
+import static org.example.Constants.Sprites.ENTITY_ANIMATION_SPEED;
+import static org.example.Constants.Window.SCALE;
 
 public class Crabby extends Enemy{
 
@@ -29,6 +29,7 @@ public class Crabby extends Enemy{
     public Crabby(float initialX, float initialY) {
         super(initialX, initialY, CRABBY_WIDTH, CRABBY_HEIGHT);
         initHitbox( 22, 19);
+        this.walkSpeed = 1.0f * SCALE;
         xImageOffset = CRABBY_DRAWOFFSET_X;
         yImageOffset = CRABBY_DRAWOFFSET_Y;
     }
@@ -50,7 +51,7 @@ public class Crabby extends Enemy{
 
     private void updateAnimationTick() {
         animationTick++;
-        if(animationTick >= PLAYER_ANIMATION_SPEED){
+        if(animationTick >= ENTITY_ANIMATION_SPEED){
             animationTick = 0;
             animationFrame++;
             if(animationFrame >= getEnemySpriteAmount(animation)) {

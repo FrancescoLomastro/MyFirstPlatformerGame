@@ -6,15 +6,11 @@ import java.util.ArrayList;
 public class EnemyManager {
 
     private ArrayList<Enemy> enemies;
-    private int[][] blockIndexes;
 
-    public EnemyManager(ArrayList<Enemy> enemies, int[][] blockIndexes) {
+    public EnemyManager(ArrayList<Enemy> enemies) {
         this.enemies = enemies;
-        this.blockIndexes = blockIndexes;
 
-        for(Enemy e : enemies){
-            e.addLevelData(blockIndexes);
-        }
+
 
     }
 

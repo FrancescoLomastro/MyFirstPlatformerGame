@@ -6,6 +6,7 @@ import org.example.Props.Sword;
 import org.example.Utility.LoadContent;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -136,7 +137,7 @@ public class Level {
 
     public static boolean IsTileSolid(int tileX, int tileY, int[][] lvlData) {
         int value = lvlData[tileY][tileX];
-        return value != SPRITE_HOLE;
+        return value != SPRITE_HOLE && value != WATER;
     }
 
     public static boolean CanMoveInPosition(float x, float y, float width, float height, int[][] lvlData) {
@@ -148,12 +149,19 @@ public class Level {
         return false;
     }
 
-
+    public static boolean IsOnFloor(Rectangle2D.Float hitbox, float xSpeed, int[][] lvlData) {
+        if(xSpeed > 0)
+            return IsPositionSolid(hitbox.x + hitbox.width + xSpeed, hitbox.y+hitbox.height+1, lvlData);
+        return IsPositionSolid(hitbox.x + xSpeed, hitbox.y+hitbox.height+1, lvlData);
+    }
 
 
 
 
     public ArrayList<Enemy> getEnemies() {
+        for(Enemy e: enemies){
+            e.addLevelData(levelBlockIndexes);
+        }
         return enemies;
     }
 

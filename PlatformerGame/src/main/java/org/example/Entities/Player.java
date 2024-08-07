@@ -10,13 +10,10 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 import static org.example.Constants.HUD.*;
-import static org.example.Constants.Motion.COLLISION_FALL_SPEED;
-import static org.example.Constants.Motion.GRAVITY;
-import static org.example.Constants.Sprites.PLAYER_ANIMATION_SPEED;
+import static org.example.Constants.Sprites.ENTITY_ANIMATION_SPEED;
 import static org.example.Constants.Sprites.Player.*;
 import static org.example.Constants.Window.SCALE;
 import static org.example.Utility.HelpMethods.XPositionNextToWall;
-import static org.example.Utility.HelpMethods.YPositionUnderRoofOrAboveFloor;
 
 public class Player extends Entity{
     private BufferedImage[][] playerNoSwordImages;
@@ -213,7 +210,7 @@ public class Player extends Entity{
 
     private void updateAnimationTick() {
         animationTick++;
-        if(animationTick >= PLAYER_ANIMATION_SPEED){
+        if(animationTick >= ENTITY_ANIMATION_SPEED){
             animationTick = 0;
             animationFrame++;
             if(animationFrame >= getPlayerSpriteAmount(animation)) {

@@ -7,8 +7,9 @@ import java.awt.image.BufferedImage;
 
 import static org.example.Constants.Sprites.Enemy.Shark.*;
 import static org.example.Constants.Sprites.Enemy.Star.*;
-import static org.example.Constants.Sprites.PLAYER_ANIMATION_SPEED;
+import static org.example.Constants.Sprites.ENTITY_ANIMATION_SPEED;
 import static org.example.Constants.Sprites.Player.*;
+import static org.example.Constants.Window.SCALE;
 
 public class Star extends Enemy {
     private static BufferedImage[][] sprites = LoadAnimations();
@@ -16,6 +17,7 @@ public class Star extends Enemy {
     public Star(float initialX, float initialY) {
         super(initialX, initialY, SHARK_WIDTH, SHARK_HEIGHT);
         initHitbox( 17, 21);
+        this.walkSpeed = 1.10f * SCALE;
         xImageOffset = STAR_DRAWOFFSET_X;
         yImageOffset = STAR_DRAWOFFSET_Y;
 
@@ -47,7 +49,7 @@ public class Star extends Enemy {
 
     private void updateAnimationTick() {
         animationTick++;
-        if(animationTick >= PLAYER_ANIMATION_SPEED){
+        if(animationTick >= ENTITY_ANIMATION_SPEED){
             animationTick = 0;
             animationFrame++;
             if(animationFrame >= getEnemySpriteAmount(animation)) {
