@@ -1,23 +1,22 @@
 package org.example.Entities;
 
-import org.example.Constants.Sprites;
-import org.example.Utility.LoadContent;
-
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-
-import static org.example.Constants.Sprites.Enemy.Crabby.*;
-import static org.example.Constants.Sprites.Enemy.Shark.*;
 
 public class EnemyManager {
 
     private ArrayList<Enemy> enemies;
+    private int[][] blockIndexes;
 
-    public EnemyManager(ArrayList<Enemy> enemies) {
+    public EnemyManager(ArrayList<Enemy> enemies, int[][] blockIndexes) {
         this.enemies = enemies;
-    }
+        this.blockIndexes = blockIndexes;
 
+        for(Enemy e : enemies){
+            e.addLevelData(blockIndexes);
+        }
+
+    }
 
 
     public void update(){

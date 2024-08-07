@@ -196,27 +196,8 @@ public class Player extends Entity{
 
 
         updateXPosition(xSpeed);
-        
-
     }
 
-
-
-    private void handleGravity() {
-        if (Level.CanMoveInPosition(hitbox.x, hitbox.y + speedInAir, hitbox.width, hitbox.height, levelBlockIndexes)) {
-            hitbox.y += speedInAir;
-            speedInAir += GRAVITY;
-        } else {
-            hitbox.y = YPositionUnderRoofOrAboveFloor(hitbox, speedInAir);
-            if (speedInAir > 0) {
-                inAir = false;
-                speedInAir = 0;
-            }
-            else {
-                speedInAir = COLLISION_FALL_SPEED;
-            }
-        }
-    }
 
 
 

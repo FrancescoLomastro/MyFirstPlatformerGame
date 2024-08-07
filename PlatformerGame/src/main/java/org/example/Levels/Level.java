@@ -150,9 +150,7 @@ public class Level {
 
 
 
-    public boolean hasSword() {
-        return sword != null && sword.isActive();
-    }
+
 
 
     public ArrayList<Enemy> getEnemies() {

@@ -36,7 +36,7 @@ public class LevelManager {
         this.animationTick = 0;
         loadTextures();
         loadNextLevel(currentLevelIndex);
-        this.enemyManager = new EnemyManager(currentLevel.getEnemies());
+        this.enemyManager = new EnemyManager(currentLevel.getEnemies(), currentLevel.getBlockIndexes());
         this.propManager = new PropManager(currentLevel.getProps());
     }
 

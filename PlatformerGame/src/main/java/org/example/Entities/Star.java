@@ -33,6 +33,7 @@ public class Star extends Enemy {
     }
 
     public void update() {
+        super.update();
         updateAnimationTick();
     }
 

@@ -6,8 +6,11 @@ import org.example.Levels.Level;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
+import static org.example.Constants.Motion.COLLISION_FALL_SPEED;
+import static org.example.Constants.Motion.GRAVITY;
 import static org.example.Constants.Sprites.Player.*;
 import static org.example.Constants.Window.SCALE;
+import static org.example.Utility.HelpMethods.YPositionUnderRoofOrAboveFloor;
 
 public abstract class Entity {
     protected PlayScene playScene;
@@ -71,6 +74,22 @@ public abstract class Entity {
             if (!Level.IsPositionSolid(hitbox.x + hitbox.width, hitbox.y + hitbox.height + 1, levelBlockIndexes))
                 return false;
         return true;
+    }
+
+    protected void handleGravity() {
+        if (Level.CanMoveInPosition(hitbox.x, hitbox.y + speedInAir, hitbox.width, hitbox.height, levelBlockIndexes)) {
+            hitbox.y += speedInAir;
+            speedInAir += GRAVITY;
+        } else {
+            hitbox.y = YPositionUnderRoofOrAboveFloor(hitbox, speedInAir);
+            if (speedInAir > 0) {
+                inAir = false;
+                speedInAir = 0;
+            }
+            else {
+                speedInAir = COLLISION_FALL_SPEED;
+            }
+        }
     }
 
     public void addLevelData(int[][] blockIndexes){

@@ -33,6 +33,7 @@ public class Shark extends Enemy {
     }
 
     public void update() {
+        super.update();
         updateAnimationTick();
     }
 
