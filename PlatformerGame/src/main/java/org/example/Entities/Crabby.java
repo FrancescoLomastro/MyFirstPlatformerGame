@@ -3,6 +3,7 @@ package org.example.Entities;
 import org.example.Utility.LoadContent;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 import static org.example.Constants.Sprites.Enemy.Crabby.*;
@@ -31,12 +32,32 @@ public class Crabby extends Enemy{
         initHitbox( 22, 19);
         xImageOffset = CRABBY_DRAWOFFSET_X;
         yImageOffset = CRABBY_DRAWOFFSET_Y;
+        initAttackBox();
     }
+
+    private void initAttackBox() {
+        attackBox = new Rectangle2D.Float(hitbox.x,hitbox.y,CRABBY_ATTACKBOX_WIDTH, CRABBY_ATTACKBOX_HEIGHT);
+        attackBoxOffsetX = CRABBY_ATTACKBOX_OFFSET_X;
+    }
+
 
     public void update() {
         super.update();
+        updateAttack();
         updateAnimationTick();
+        updateAttackBox();
     }
+
+    private void updateAttack() {
+        if(!inAir){
+            if(animationFrame == 0)
+                attackChecked = false;
+            if(animationFrame == 3 && !attackChecked)
+                checkEnemyHit(attackBox);
+        }
+    }
+
+
 
     public void draw(Graphics g, int xLvlOffset) {
         int imageX = (int) (hitbox.x - xImageOffset) - xLvlOffset + flipX;
@@ -44,6 +65,7 @@ public class Crabby extends Enemy{
         int width = (int) (initialWidth * flipW);
         g.drawImage(sprites[animation][animationFrame], imageX, imageY, width, initialHeight,  null);
         debug_drawHitbox(g, xLvlOffset, hitbox);
+        debug_drawHitbox(g, xLvlOffset, attackBox);
     }
 
 

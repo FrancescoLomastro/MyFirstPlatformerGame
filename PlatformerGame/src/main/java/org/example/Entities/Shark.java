@@ -3,6 +3,7 @@ package org.example.Entities;
 import org.example.Utility.LoadContent;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 
@@ -19,7 +20,14 @@ public class Shark extends Enemy {
         initHitbox( 18, 22);
         xImageOffset = SHARK_DRAWOFFSET_X;
         yImageOffset = SHARK_DRAWOFFSET_Y;
+        initAttackBox();
     }
+
+    private void initAttackBox() {
+        attackBox = new Rectangle2D.Float(hitbox.x,hitbox.y,SHARK_ATTACKBOX_WIDTH, SHARK_ATTACKBOX_HEIGHT);
+        attackBoxOffsetX = SHARK_ATTACKBOX_OFFSET_X;
+    }
+
 
     private static BufferedImage[][] LoadAnimations() {
         BufferedImage temp = LoadContent.GetSpriteAtlas(LoadContent.SHARK_ATLAS);
@@ -34,7 +42,18 @@ public class Shark extends Enemy {
 
     public void update() {
         super.update();
+        updateAttack();
         updateAnimationTick();
+        updateAttackBox();
+    }
+
+    private void updateAttack() {
+        if(!inAir){
+            if(animationFrame == 0)
+                attackChecked = false;
+            if(animationFrame == 3 && !attackChecked)
+                checkEnemyHit(attackBox);
+        }
     }
 
     public void draw(Graphics g, int xLvlOffset) {
@@ -43,6 +62,7 @@ public class Shark extends Enemy {
         int width = (int) (initialWidth * flipW);
         g.drawImage(sprites[animation][animationFrame], imageX, imageY, width, initialHeight,  null);
         debug_drawHitbox(g, xLvlOffset, hitbox);
+        debug_drawHitbox(g, xLvlOffset, attackBox);
     }
 
 

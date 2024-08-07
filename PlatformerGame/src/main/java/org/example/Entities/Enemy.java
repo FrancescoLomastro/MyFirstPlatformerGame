@@ -3,16 +3,20 @@ package org.example.Entities;
 import org.example.Levels.Level;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 import static org.example.Constants.Motion.Dirctions.LEFT;
 import static org.example.Constants.Motion.Dirctions.RIGHT;
 import static org.example.Constants.Sprites.Enemy.*;
+import static org.example.Constants.Window.SCALE;
 import static org.example.Constants.Window.TILES_SIZE;
 import static org.example.Levels.Level.IsOnFloor;
 
 public abstract class Enemy extends Entity{
     protected int walkingDir = LEFT;
     private int attackDistance;
+    protected boolean attackChecked;
+    protected int attackBoxOffsetX;
 
     public Enemy(float initialX, float initialY, int initialWidth, int initialHeight) {
         super(initialX, initialY, initialWidth, initialHeight);
@@ -22,6 +26,8 @@ public abstract class Enemy extends Entity{
     public void update() {
         updateInAir();
         updateBehaviour();
+        flipX();
+        flipW();
     }
 
     private void updateBehaviour() {
@@ -38,8 +44,6 @@ public abstract class Enemy extends Entity{
                     }
 
                     move();
-                    break;
-                case ATTACK:
                     break;
             }
         }
@@ -102,10 +106,38 @@ public abstract class Enemy extends Entity{
         }
     }
 
+    protected void checkEnemyHit(Rectangle2D.Float attackBox) {
+        if(attackBox.intersects(Player.lastPosition)){
+            //player.changeHealth(-GetEnemyDmg(enemyType));
+        }
+        attackChecked = true;
+    }
+
 
     public void draw(Graphics g, int xLvlOffset) {
     }
 
+    public void flipX(){
+        if(walkingDir == RIGHT){
+            flipX = initialWidth;
+        }else
+            flipX = 0;
+    }
+
+    public void flipW(){
+        if(walkingDir == RIGHT){
+            flipW = -1;
+        }else
+            flipW = 1;
+    }
+
+    protected void updateAttackBox() {
+        if(flipW == 1)
+            attackBox.x = hitbox.x + hitbox.width - attackBox.width - attackBoxOffsetX;
+        else
+            attackBox.x = hitbox.x + attackBoxOffsetX;
+        attackBox.y = hitbox.y;
+    }
 
 
 }
