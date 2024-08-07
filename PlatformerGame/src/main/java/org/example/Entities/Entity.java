@@ -51,6 +51,7 @@ public abstract class Entity {
         this.animationTick = 0;
         this.animation = IDLE;
         this.inAir = true;
+        this.walkSpeed = 1.0f * SCALE;
         this.flipX = 0;
         this.flipW = 1;
         this.maxHealth = 100;

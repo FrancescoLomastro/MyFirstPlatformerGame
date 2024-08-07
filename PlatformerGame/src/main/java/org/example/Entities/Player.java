@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.util.Optional;
 
 import static org.example.Constants.HUD.*;
 import static org.example.Constants.Sprites.ENTITY_ANIMATION_SPEED;
@@ -30,11 +31,12 @@ public class Player extends Entity{
 
     private BufferedImage healthHUD;
 
+    public static Rectangle2D.Float lastPosition;
+
     public Player(float y, float x) {
         super(y, x, PLAYER_WIDTH, PLAYER_HEIGHT);
         initHitbox(20,27);
         loadAnimations();
-        this.walkSpeed = 1.0f * SCALE;
         this.jumpSpeed = -2.25f * SCALE;
         this.xImageOffset = 21 * SCALE;
         this.yImageOffset = 4 * SCALE;
@@ -193,6 +195,7 @@ public class Player extends Entity{
 
 
         updateXPosition(xSpeed);
+        lastPosition = hitbox;
     }
 
 
@@ -281,4 +284,7 @@ public class Player extends Entity{
         if(hasSword && !attack)
             attack = true;
     }
+
+
+
 }
