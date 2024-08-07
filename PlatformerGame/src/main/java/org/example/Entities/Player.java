@@ -1,5 +1,6 @@
 package org.example.Entities;
 
+import org.example.GameScenes.PlayScene;
 import org.example.Levels.Level;
 import org.example.Utility.LoadContent;
 
@@ -31,8 +32,6 @@ public class Player extends Entity{
 
     private BufferedImage healthHUD;
 
-    public static Rectangle2D.Float lastPosition;
-    public static Rectangle2D.Float lastCurrentHealth;
 
     public Player(float x, float y) {
         super(x, y, PLAYER_WIDTH, PLAYER_HEIGHT);
@@ -93,8 +92,10 @@ public class Player extends Entity{
 
 
     private void checkSwordPicked() {
-        if(!hasSword)
+        if(!hasSword) {
+            PlayScene playScene = PlayScene.getInstance();
             hasSword = playScene.isSwordPicked();
+        }
     }
 
 
@@ -196,7 +197,6 @@ public class Player extends Entity{
 
 
         updateXPosition(xSpeed);
-        lastPosition = hitbox;
     }
 
 
@@ -285,6 +285,7 @@ public class Player extends Entity{
         if(hasSword && !attack)
             attack = true;
     }
+
 
 
 

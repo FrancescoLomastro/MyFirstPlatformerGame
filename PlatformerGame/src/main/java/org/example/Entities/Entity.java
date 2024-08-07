@@ -13,7 +13,6 @@ import static org.example.Constants.Window.SCALE;
 import static org.example.Utility.HelpMethods.YPositionUnderRoofOrAboveFloor;
 
 public abstract class Entity {
-    protected PlayScene playScene;
 
     protected float initialX, initialY;
     protected int initialWidth, initialHeight;
@@ -113,9 +112,6 @@ public abstract class Entity {
         return hitbox.height;
     }
 
-    public void linkPlayScene(PlayScene playScene) {
-        this.playScene = playScene;
-    }
 
     public Rectangle2D.Float getHitbox() {
         return hitbox;

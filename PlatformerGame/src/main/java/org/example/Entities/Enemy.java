@@ -1,5 +1,6 @@
 package org.example.Entities;
 
+import org.example.GameScenes.PlayScene;
 import org.example.Levels.Level;
 
 import java.awt.*;
@@ -50,12 +51,14 @@ public abstract class Enemy extends Entity{
     }
 
     private boolean isPlayerCloseForAttack() {
-        int absValue = (int) Math.abs(Player.lastPosition.x - hitbox.x);
+        PlayScene playScene = PlayScene.getInstance();
+        int absValue = (int) Math.abs(playScene.getPlayerHitbox().x - hitbox.x);
         return absValue <= attackDistance;
     }
 
     private void turnTowardsPlayer(){
-        if(Player.lastPosition.x > hitbox.x){
+        PlayScene playScene = PlayScene.getInstance();
+        if(playScene.getPlayerHitbox().x > hitbox.x){
             walkingDir = RIGHT;
         }else {
             walkingDir = LEFT;
@@ -63,11 +66,12 @@ public abstract class Enemy extends Entity{
     }
 
     private boolean canSeePlayer() {
-        int playerTileY = (int) (Player.lastPosition.y/TILES_SIZE);
+        PlayScene playScene = PlayScene.getInstance();
+        int playerTileY = (int) (playScene.getPlayerHitbox().y/TILES_SIZE);
         int tileY = (int) (hitbox.y/TILES_SIZE);
         if(playerTileY == tileY){
             if(isPlayerInRange()){
-                if(Level.IsSightClear(levelBlockIndexes,hitbox, Player.lastPosition, tileY)){
+                if(Level.IsSightClear(levelBlockIndexes,hitbox, playScene.getPlayerHitbox(), tileY)){
                     return true;
                 }
             }
@@ -76,7 +80,8 @@ public abstract class Enemy extends Entity{
     }
 
     private boolean isPlayerInRange() {
-        int absValue = (int) Math.abs(Player.lastPosition.x - hitbox.x);
+        PlayScene playScene = PlayScene.getInstance();
+        int absValue = (int) Math.abs(playScene.getPlayerHitbox().x - hitbox.x);
         return absValue <= attackDistance * 5;
     }
 
@@ -107,7 +112,8 @@ public abstract class Enemy extends Entity{
     }
 
     protected void checkEnemyHit(Rectangle2D.Float attackBox) {
-        if(attackBox.intersects(Player.lastPosition)){
+        PlayScene playScene = PlayScene.getInstance();
+        if(attackBox.intersects(playScene.getPlayerHitbox())){
             //player.changeHealth(-GetEnemyDmg(enemyType));
         }
         attackChecked = true;

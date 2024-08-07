@@ -1,5 +1,6 @@
 package org.example.Entities;
 
+import org.example.GameScenes.PlayScene;
 import org.example.Utility.LoadContent;
 
 import java.awt.*;
@@ -14,7 +15,7 @@ import static org.example.Constants.Window.SCALE;
 public class Star extends Enemy {
     private static BufferedImage[][] sprites = LoadAnimations();
 
-    public Star(float initialX, float initialY) {
+    public Star(float initialX, float initialY ) {
         super(initialX, initialY, STAR_WIDTH, STAR_HEIGHT);
         initHitbox( 17, 21);
         xImageOffset = STAR_DRAWOFFSET_X;

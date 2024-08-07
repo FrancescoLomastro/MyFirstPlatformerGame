@@ -1,5 +1,6 @@
 package org.example.Entities;
 
+import org.example.GameScenes.PlayScene;
 import org.example.Utility.LoadContent;
 
 import java.awt.*;

@@ -7,6 +7,7 @@ import org.example.Main.Game;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Rectangle2D;
 
 import static org.example.Constants.Motion.LEFT_LEVEL_BORDER;
 import static org.example.Constants.Motion.RIGHT_LEVEL_BORDER;
@@ -23,13 +24,23 @@ public class PlayScene implements SceneMethods{
     private int maxLevelCameraOffset;
 
 
-    public PlayScene(Game game) {
+    private static PlayScene instance;
+
+    public static void createInstance(Game game){
+        if(instance == null)
+            instance = new PlayScene(game);
+    }
+
+    public static PlayScene getInstance(){
+        return instance;
+    }
+
+    private PlayScene(Game game) {
         this.levelManager = new LevelManager();
         this.player = new Player(
                 levelManager.getPlayerX(),
                 levelManager.getPlayerY());
         this.player.addLevelData(levelManager.getBlockIndexes());
-        this.player.linkPlayScene(this);
         this.maxLevelCameraOffset = levelManager.getMaxLevelCameraOffset();
     }
 
@@ -103,5 +114,9 @@ public class PlayScene implements SceneMethods{
 
     public boolean isSwordPicked() {
         return levelManager.isSwordPicked(player);
+    }
+
+    public Rectangle2D.Float getPlayerHitbox(){
+        return player.getHitbox();
     }
 }
