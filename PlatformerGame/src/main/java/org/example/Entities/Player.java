@@ -32,9 +32,10 @@ public class Player extends Entity{
     private BufferedImage healthHUD;
 
     public static Rectangle2D.Float lastPosition;
+    public static Rectangle2D.Float lastCurrentHealth;
 
-    public Player(float y, float x) {
-        super(y, x, PLAYER_WIDTH, PLAYER_HEIGHT);
+    public Player(float x, float y) {
+        super(x, y, PLAYER_WIDTH, PLAYER_HEIGHT);
         initHitbox(20,27);
         loadAnimations();
         this.jumpSpeed = -2.25f * SCALE;
