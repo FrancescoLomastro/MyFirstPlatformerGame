@@ -1,6 +1,5 @@
 package org.example.Entities;
 
-import org.example.GameScenes.PlayScene;
 import org.example.Utility.LoadContent;
 
 import java.awt.*;
@@ -10,7 +9,6 @@ import java.awt.image.BufferedImage;
 import static org.example.Constants.Sprites.Enemy.*;
 import static org.example.Constants.Sprites.Enemy.Star.*;
 import static org.example.Constants.Sprites.ENTITY_ANIMATION_SPEED;
-import static org.example.Constants.Window.SCALE;
 
 public class Star extends Enemy {
     private static BufferedImage[][] sprites = LoadAnimations();
@@ -18,6 +16,7 @@ public class Star extends Enemy {
     public Star(float initialX, float initialY ) {
         super(initialX, initialY, STAR_WIDTH, STAR_HEIGHT);
         initHitbox( 17, 21);
+        this.damage = -10;
         xImageOffset = STAR_DRAWOFFSET_X;
         yImageOffset = STAR_DRAWOFFSET_Y;
         initAttackBox();
@@ -53,7 +52,7 @@ public class Star extends Enemy {
                 attackChecked = false;
             if((animationFrame == 3 || animationFrame == 4 || animationFrame == 5 || animationFrame == 6)
                     && !attackChecked)
-                checkEnemyHit(attackBox);
+                checkEnemyHitPlayer(attackBox, damage);
         }
     }
 

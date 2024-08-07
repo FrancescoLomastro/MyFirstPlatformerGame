@@ -9,7 +9,6 @@ import java.awt.geom.Rectangle2D;
 import static org.example.Constants.Motion.Dirctions.LEFT;
 import static org.example.Constants.Motion.Dirctions.RIGHT;
 import static org.example.Constants.Sprites.Enemy.*;
-import static org.example.Constants.Window.SCALE;
 import static org.example.Constants.Window.TILES_SIZE;
 import static org.example.Levels.Level.IsOnFloor;
 
@@ -18,10 +17,12 @@ public abstract class Enemy extends Entity{
     private int attackDistance;
     protected boolean attackChecked;
     protected int attackBoxOffsetX;
+    protected int damage;
 
     public Enemy(float initialX, float initialY, int initialWidth, int initialHeight) {
         super(initialX, initialY, initialWidth, initialHeight);
         this.attackDistance = TILES_SIZE;
+        this.damage = -1;
     }
 
     public void update() {
@@ -111,10 +112,10 @@ public abstract class Enemy extends Entity{
         }
     }
 
-    protected void checkEnemyHit(Rectangle2D.Float attackBox) {
+    protected void checkEnemyHitPlayer(Rectangle2D.Float attackBox, int damage) {
         PlayScene playScene = PlayScene.getInstance();
         if(attackBox.intersects(playScene.getPlayerHitbox())){
-            //player.changeHealth(-GetEnemyDmg(enemyType));
+            playScene.hitPlayer(damage);
         }
         attackChecked = true;
     }

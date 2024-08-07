@@ -119,4 +119,8 @@ public class PlayScene implements SceneMethods{
     public Rectangle2D.Float getPlayerHitbox(){
         return player.getHitbox();
     }
+
+    public void hitPlayer(int damage) {
+        player.alterHealth(damage);
+    }
 }

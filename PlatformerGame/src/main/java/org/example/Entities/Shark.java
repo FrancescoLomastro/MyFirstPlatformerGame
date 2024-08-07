@@ -1,6 +1,5 @@
 package org.example.Entities;
 
-import org.example.GameScenes.PlayScene;
 import org.example.Utility.LoadContent;
 
 import java.awt.*;
@@ -11,7 +10,6 @@ import java.awt.image.BufferedImage;
 import static org.example.Constants.Sprites.Enemy.*;
 import static org.example.Constants.Sprites.Enemy.Shark.*;
 import static org.example.Constants.Sprites.ENTITY_ANIMATION_SPEED;
-import static org.example.Constants.Window.SCALE;
 
 public class Shark extends Enemy {
     private static BufferedImage[][] sprites = LoadAnimations();
@@ -19,6 +17,7 @@ public class Shark extends Enemy {
     public Shark(float initialX, float initialY) {
         super(initialX, initialY, SHARK_WIDTH, SHARK_HEIGHT);
         initHitbox( 18, 22);
+        this.damage = -25;
         xImageOffset = SHARK_DRAWOFFSET_X;
         yImageOffset = SHARK_DRAWOFFSET_Y;
         initAttackBox();
@@ -53,7 +52,7 @@ public class Shark extends Enemy {
             if(animationFrame == 0)
                 attackChecked = false;
             if(animationFrame == 3 && !attackChecked)
-                checkEnemyHit(attackBox);
+                checkEnemyHitPlayer(attackBox, damage);
         }
     }
 

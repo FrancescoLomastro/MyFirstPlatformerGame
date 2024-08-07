@@ -116,4 +116,14 @@ public abstract class Entity {
     public Rectangle2D.Float getHitbox() {
         return hitbox;
     }
+
+    public void alterHealth(int damage) {
+        int newHealth = currentHealth + damage;
+        if(newHealth < 0)
+            currentHealth = 0;
+        else if (newHealth > maxHealth)
+            currentHealth = maxHealth;
+        else
+            currentHealth = newHealth;
+    }
 }

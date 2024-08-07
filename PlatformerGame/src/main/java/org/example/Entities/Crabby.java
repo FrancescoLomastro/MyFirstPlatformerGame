@@ -1,6 +1,5 @@
 package org.example.Entities;
 
-import org.example.GameScenes.PlayScene;
 import org.example.Utility.LoadContent;
 
 import java.awt.*;
@@ -10,7 +9,6 @@ import java.awt.image.BufferedImage;
 import static org.example.Constants.Sprites.Enemy.Crabby.*;
 import static org.example.Constants.Sprites.Enemy.*;
 import static org.example.Constants.Sprites.ENTITY_ANIMATION_SPEED;
-import static org.example.Constants.Window.SCALE;
 
 public class Crabby extends Enemy{
 
@@ -31,6 +29,7 @@ public class Crabby extends Enemy{
     public Crabby(float initialX, float initialY) {
         super(initialX, initialY, CRABBY_WIDTH, CRABBY_HEIGHT);
         initHitbox( 22, 19);
+        this.damage = -20;
         xImageOffset = CRABBY_DRAWOFFSET_X;
         yImageOffset = CRABBY_DRAWOFFSET_Y;
         initAttackBox();
@@ -54,7 +53,7 @@ public class Crabby extends Enemy{
             if(animationFrame == 0)
                 attackChecked = false;
             if(animationFrame == 3 && !attackChecked)
-                checkEnemyHit(attackBox);
+                checkEnemyHitPlayer(attackBox, damage);
         }
     }
 
