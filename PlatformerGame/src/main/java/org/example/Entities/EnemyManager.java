@@ -1,6 +1,7 @@
 package org.example.Entities;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 public class EnemyManager {
@@ -28,4 +29,16 @@ public class EnemyManager {
     }
 
 
+    public void checkEnemyAttacked(Rectangle2D.Float attackBox) {
+        for(Enemy e : enemies){
+            if(e.getCurrentHealth() > 0) {
+                if (e.isActive()) {
+                    if (attackBox.intersects(e.getHitbox())) {
+                        e.alterHealth(-10);
+                        return;
+                    }
+                }
+            }
+        }
+    }
 }

@@ -123,4 +123,8 @@ public class PlayScene implements SceneMethods{
     public void hitPlayer(int damage) {
         player.alterHealth(damage);
     }
+
+    public void checkEnemyAttacked(Rectangle2D.Float attackBox) {
+        levelManager.checkEnemyAttacked(attackBox);
+    }
 }

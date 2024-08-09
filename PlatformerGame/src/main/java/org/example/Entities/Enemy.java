@@ -15,7 +15,6 @@ import static org.example.Levels.Level.IsOnFloor;
 public abstract class Enemy extends Entity{
     protected int walkingDir = LEFT;
     private int attackDistance;
-    protected boolean attackChecked;
     protected int attackBoxOffsetX;
     protected int damage;
 
@@ -23,6 +22,7 @@ public abstract class Enemy extends Entity{
         super(initialX, initialY, initialWidth, initialHeight);
         this.attackDistance = TILES_SIZE;
         this.damage = -1;
+        this.currentHealth = 10;
     }
 
     public void update() {

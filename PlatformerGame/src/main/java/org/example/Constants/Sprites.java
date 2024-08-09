@@ -8,12 +8,12 @@ public class Sprites {
     public class Player{
         public static final int IDLE = 0;
         public static final int RUN = 1;
-        public static final int JUMP = 2;
-        public static final int FALL = 3;
-        public static final int LAND = 4;
-        public static final int ATTACK = 6;
-        public static final int HIT = 7;
-        public static final int DEAD = 8;
+        public static final int ATTACK = 2;
+        public static final int HIT = 3;
+        public static final int DEAD = 4;
+        public static final int JUMP = 5;
+        public static final int LAND = 6;
+        public static final int FALL = 7;
 
 
         

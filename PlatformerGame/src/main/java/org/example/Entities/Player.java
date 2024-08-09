@@ -9,7 +9,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.util.Optional;
+import java.awt.image.RescaleOp;
 
 import static org.example.Constants.HUD.*;
 import static org.example.Constants.Sprites.ENTITY_ANIMATION_SPEED;
@@ -52,14 +52,14 @@ public class Player extends Entity{
 
     private void loadAnimations() {
         BufferedImage imgNoSword = LoadContent.GetSpriteAtlas(LoadContent.PLAYER_NO_SWORD_ATLAS);
-        playerNoSwordImages = new BufferedImage[7][8];
+        playerNoSwordImages = new BufferedImage[8][8];
         for (int j = 0; j < playerNoSwordImages.length; j++)
             for (int i = 0; i < playerNoSwordImages[j].length; i++)
                 playerNoSwordImages[j][i] = imgNoSword.getSubimage(i * 64, j * 40, 64, 40);
 
 
         BufferedImage imgWithSword = LoadContent.GetSpriteAtlas(LoadContent.PLAYER_SWORD_ATLAS);
-        playerWithSwordImages = new BufferedImage[12][6];
+        playerWithSwordImages = new BufferedImage[13][6];
         for (int j = 0; j < playerWithSwordImages.length; j++)
             for (int i = 0; i < playerWithSwordImages[j].length; i++)
                 playerWithSwordImages[j][i] = imgWithSword.getSubimage(i * 64, j * 40, 64, 40);
@@ -75,9 +75,17 @@ public class Player extends Entity{
         updateAttackBox();
         updateAnimationTick();
         setAnimation();
+        if(attack)
+            checkEnemyAttacked();
     }
 
-
+    private void checkEnemyAttacked() {
+        if(attackChecked || animationFrame != 1){
+            return;
+        }
+        attackChecked = true;
+        PlayScene.getInstance().checkEnemyAttacked(attackBox);
+    }
 
 
     private void updateAttackBox() {
@@ -105,10 +113,27 @@ public class Player extends Entity{
         int imageY = (int) (hitbox.y - yImageOffset);
         int width = (int) (initialWidth * flipW);
         BufferedImage[][] images = hasSword ? playerWithSwordImages : playerNoSwordImages;
-        g.drawImage(images[animation][animationFrame], imageX , imageY, width , initialHeight, null);
+        if(hitten)
+            drawHittenPlayer(g, imageX, imageY, width, initialHeight, images[animation][animationFrame]);
+        else
+            g.drawImage(images[animation][animationFrame], imageX , imageY, width , initialHeight, null);
         debug_drawHitbox(g, xLvlOffset, hitbox);
         debug_drawHitbox(g, xLvlOffset, attackBox);
         drawHUD(g);
+    }
+
+    private void drawHittenPlayer(Graphics g, int imageX, int imageY, int width, int height, BufferedImage image) {
+        // Disegna l'immagine image ma con un filtro che la rende interamente bianca
+
+        RescaleOp op = new RescaleOp(new float[]{1.0f, 1.0f, 1.0f, 1.0f}, new float[]{255, 255, 255, 0}, null);
+        BufferedImage imageCopy = new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
+        op.filter(image, imageCopy);
+        g.drawImage(imageCopy, imageX, imageY, width, height, null);
+        hittenFrameCounter++;
+        if(hittenFrameCounter == 4) {
+            hittenFrameCounter = 0;
+            hitten = false;
+        }
     }
 
     private void drawHUD(Graphics g) {
@@ -220,9 +245,9 @@ public class Player extends Entity{
             if(animationFrame >= getPlayerSpriteAmount(animation)) {
                 if(landed){
                     landed = false;
-                } else if (attack){
-                    attack = false;
                 }
+                attack = false;
+                attackChecked = false;
                 animationFrame = 0;
             }
         }

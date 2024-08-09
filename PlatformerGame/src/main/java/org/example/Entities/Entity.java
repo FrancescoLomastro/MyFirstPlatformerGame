@@ -41,6 +41,11 @@ public abstract class Entity {
     protected int maxHealth;
     protected int currentHealth;
 
+    protected boolean active;
+    protected boolean attackChecked;
+    protected boolean hitten;
+    protected int hittenFrameCounter;
+
     public Entity(float initialX, float initialY, int initialWidth, int initialHeight) {
         this.initialX = initialX;
         this.initialY = initialY;
@@ -50,11 +55,13 @@ public abstract class Entity {
         this.animationTick = 0;
         this.animation = IDLE;
         this.inAir = true;
-        this.walkSpeed = 0.25f * SCALE;
+        this.walkSpeed = 1.0f * SCALE;
         this.flipX = 0;
         this.flipW = 1;
         this.maxHealth = 100;
         this.currentHealth = maxHealth;
+        this.active = true;
+        this.hittenFrameCounter = 0;
     }
 
     protected void debug_drawHitbox(Graphics g, int xLvlOffset, Rectangle2D.Float hitbox_) {
@@ -113,17 +120,33 @@ public abstract class Entity {
     }
 
 
+
+
     public Rectangle2D.Float getHitbox() {
         return hitbox;
     }
 
     public void alterHealth(int damage) {
         int newHealth = currentHealth + damage;
-        if(newHealth < 0)
+        if(newHealth <= 0) {
             currentHealth = 0;
+            animation = DEAD;
+        }
         else if (newHealth > maxHealth)
             currentHealth = maxHealth;
-        else
+        else {
             currentHealth = newHealth;
+            hitten = true;
+        }
+    }
+
+
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public int getCurrentHealth() {
+        return currentHealth;
     }
 }

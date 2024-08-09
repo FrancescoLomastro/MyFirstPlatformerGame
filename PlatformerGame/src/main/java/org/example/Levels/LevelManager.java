@@ -7,6 +7,7 @@ import org.example.Props.PropManager;
 import org.example.Utility.LoadContent;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.RasterFormatException;
 
@@ -153,5 +154,9 @@ public class LevelManager {
 
     public boolean isSwordPicked(Player player) {
         return propManager.isSwordPicked(player);
+    }
+
+    public void checkEnemyAttacked(Rectangle2D.Float attackBox) {
+        enemyManager.checkEnemyAttacked(attackBox);
     }
 }
