@@ -130,7 +130,7 @@ public class Player extends Entity{
         op.filter(image, imageCopy);
         g.drawImage(imageCopy, imageX, imageY, width, height, null);
         hittenFrameCounter++;
-        if(hittenFrameCounter == 4) {
+        if(hittenFrameCounter >= PLAYER_HITTEN_COUNTER_MAX) {
             hittenFrameCounter = 0;
             hitten = false;
         }

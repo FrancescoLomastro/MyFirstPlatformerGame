@@ -21,6 +21,7 @@ public class Sprites {
         public static final int PLAYER_HEIGHT_DEFAULT = 40;
         public static final int PLAYER_WIDTH = (int) (PLAYER_WIDTH_DEFAULT * SCALE);
         public static final int PLAYER_HEIGHT = (int) (PLAYER_HEIGHT_DEFAULT * SCALE);
+        public static final int PLAYER_HITTEN_COUNTER_MAX = 6;
 
     }
 
