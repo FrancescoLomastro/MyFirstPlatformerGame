@@ -8,7 +8,9 @@ import java.awt.geom.Rectangle2D;
 
 import static org.example.Constants.Motion.Dirctions.LEFT;
 import static org.example.Constants.Motion.Dirctions.RIGHT;
+import static org.example.Constants.Sprites.ENTITY_ANIMATION_SPEED;
 import static org.example.Constants.Sprites.Enemy.*;
+import static org.example.Constants.Sprites.Player.DEAD;
 import static org.example.Constants.Window.TILES_SIZE;
 import static org.example.Levels.Level.IsOnFloor;
 
@@ -22,7 +24,7 @@ public abstract class Enemy extends Entity{
         super(initialX, initialY, initialWidth, initialHeight);
         this.attackDistance = TILES_SIZE;
         this.damage = -1;
-        this.currentHealth = 10;
+        this.currentHealth = 40;
     }
 
     public void update() {
@@ -30,6 +32,21 @@ public abstract class Enemy extends Entity{
         updateBehaviour();
         flipX();
         flipW();
+    }
+
+    protected void updateAnimationTick(int spriteAmount) {
+        animationTick++;
+        if(animationTick >= ENTITY_ANIMATION_SPEED){
+            animationTick = 0;
+            animationFrame++;
+            if(animationFrame >= spriteAmount ) {
+                animationFrame = 0;
+                switch (animation){
+                    case ATTACK,HIT -> animation = IDLE;
+                    case DEAD -> active = false;
+                }
+            }
+        }
     }
 
     private void updateBehaviour() {
@@ -144,6 +161,21 @@ public abstract class Enemy extends Entity{
         else
             attackBox.x = hitbox.x + attackBoxOffsetX;
         attackBox.y = hitbox.y;
+    }
+
+
+    public void alterHealth(int damage) {
+        int newHealth = currentHealth + damage;
+        if(newHealth <= 0) {
+            currentHealth = 0;
+            newAnimation(DEAD);
+        }
+        else if (newHealth > maxHealth)
+            currentHealth = maxHealth;
+        else {
+            currentHealth = newHealth;
+            newAnimation(HIT);
+        }
     }
 
 

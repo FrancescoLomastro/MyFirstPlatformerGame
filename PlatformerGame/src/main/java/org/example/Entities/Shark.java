@@ -43,7 +43,7 @@ public class Shark extends Enemy {
     public void update() {
         super.update();
         updateAttack();
-        updateAnimationTick();
+        updateAnimationTick(getEnemySpriteAmount(animation));
         updateAttackBox();
     }
 
@@ -67,16 +67,6 @@ public class Shark extends Enemy {
 
 
 
-    private void updateAnimationTick() {
-        animationTick++;
-        if(animationTick >= ENTITY_ANIMATION_SPEED){
-            animationTick = 0;
-            animationFrame++;
-            if(animationFrame >= getEnemySpriteAmount(animation)) {
-                animationFrame = 0;
-            }
-        }
-    }
 
 
 

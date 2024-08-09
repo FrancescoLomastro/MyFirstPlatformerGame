@@ -126,19 +126,7 @@ public abstract class Entity {
         return hitbox;
     }
 
-    public void alterHealth(int damage) {
-        int newHealth = currentHealth + damage;
-        if(newHealth <= 0) {
-            currentHealth = 0;
-            animation = DEAD;
-        }
-        else if (newHealth > maxHealth)
-            currentHealth = maxHealth;
-        else {
-            currentHealth = newHealth;
-            hitten = true;
-        }
-    }
+
 
 
 
@@ -148,5 +136,11 @@ public abstract class Entity {
 
     public int getCurrentHealth() {
         return currentHealth;
+    }
+
+    protected void newAnimation(int animation) {
+        this.animation = animation;
+        animationTick = 0;
+        animationFrame = 0;
     }
 }

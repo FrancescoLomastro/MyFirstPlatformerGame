@@ -42,7 +42,7 @@ public class Star extends Enemy {
     public void update() {
         super.update();
         updateAttack();
-        updateAnimationTick();
+        updateAnimationTick(getEnemySpriteAmount(animation));
         updateAttackBox();
     }
 
@@ -65,16 +65,7 @@ public class Star extends Enemy {
         debug_drawHitbox(g, xLvlOffset, attackBox);
     }
 
-    private void updateAnimationTick() {
-        animationTick++;
-        if(animationTick >= ENTITY_ANIMATION_SPEED){
-            animationTick = 0;
-            animationFrame++;
-            if(animationFrame >= getEnemySpriteAmount(animation)) {
-                animationFrame = 0;
-            }
-        }
-    }
+
 
 
 

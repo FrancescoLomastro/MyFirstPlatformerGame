@@ -24,7 +24,9 @@ public class EnemyManager {
 
     public void draw(Graphics g, int xLvlOffset){
         for(Enemy e : enemies){
-            e.draw(g,xLvlOffset);
+            if (e.isActive()) {
+                e.draw(g, xLvlOffset);
+            }
         }
     }
 

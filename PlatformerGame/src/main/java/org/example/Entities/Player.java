@@ -254,6 +254,20 @@ public class Player extends Entity{
     }
 
 
+    public void alterHealth(int damage) {
+        int newHealth = currentHealth + damage;
+        if(newHealth <= 0) {
+            currentHealth = 0;
+            animation = DEAD;
+        }
+        else if (newHealth > maxHealth)
+            currentHealth = maxHealth;
+        else {
+            currentHealth = newHealth;
+            hitten = true;
+        }
+    }
+
 
     private int getPlayerSpriteAmount(int state) {
         switch (state) {
