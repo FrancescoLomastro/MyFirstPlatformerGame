@@ -1,6 +1,5 @@
 package org.example.Levels;
 
-import org.example.Entities.Enemy;
 import org.example.Entities.EnemyManager;
 import org.example.Entities.Player;
 import org.example.Props.PropManager;
@@ -74,8 +73,8 @@ public class LevelManager {
         int sizeDrawn = 0;
         int sizeDrawnMax = currentLevel.getLevelTileWidth() * TILES_SIZE;
         do{
-            g.drawImage(bigCloud, sizeDrawn - (int)(xLvlOffset * 0.3), (int)(204* SCALE), BIG_CLOUD_WIDTH, BIG_CLOUD_HEIGHT, null);
-            sizeDrawn += BIG_CLOUD_WIDTH;
+            g.drawImage(bigCloud, sizeDrawn - (int)(xLvlOffset * 0.3), (int)(204* SCALE), BIG_CLOUD_WIDTH[0], BIG_CLOUD_HEIGHT[1], null);
+            sizeDrawn += BIG_CLOUD_WIDTH[0];
         }while(sizeDrawn < sizeDrawnMax);
     }
 
@@ -128,7 +127,7 @@ public class LevelManager {
         }
 
         deepBackground = LoadContent.GetSpriteAtlas(LoadContent.PLAYSCENE_DEEP_BACKGROUND);
-        bigCloud = LoadContent.GetSpriteAtlas(LoadContent.BIG_CLOUD);
+        bigCloud = LoadContent.GetSpriteAtlas(LoadContent.BIG_CLOUD_1);
         smallCloud = LoadContent.GetSpriteAtlas(LoadContent.SMALL_CLOUD);
     }
 
