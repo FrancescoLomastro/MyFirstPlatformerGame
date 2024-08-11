@@ -10,7 +10,7 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import static org.example.Constants.Prop.SWORD;
+import static org.example.Constants.Prop.Sword.SWORD;
 import static org.example.Constants.Sprites.Level.*;
 import static org.example.Constants.Window.*;
 

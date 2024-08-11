@@ -7,44 +7,55 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.util.Map;
 import java.util.Random;
 
-import static org.example.Constants.Prop.Environment.*;
-import static org.example.Constants.Sprites.Level.*;
+import static org.example.Constants.Prop.BigCloud.*;
+import static org.example.Constants.Prop.Seagull.*;
+import static org.example.Constants.Prop.Ship.*;
+import static org.example.Constants.UI.*;
 import static org.example.Constants.Window.*;
 
 public class MenuScene implements SceneMethods{
     private Game game;
-    private BufferedImage deepBackground;
-    private BufferedImage[] bigClouds, smallCloud;
-    private float bigCloudsDrawn;
     private Random random;
-    private float cloudsOffset;
-    private int maxCloudsOffset;
+    private BufferedImage deepBackground;
 
-
+    private BufferedImage[] bigClouds;
+    private float cloudsOffsetX;
+    private int maxCloudsOffsetX;
     private int[] drawnBigCloudsIndexes;
-    private int initialCloudOffset;
 
+    private BufferedImage smallCloud;
 
     private BufferedImage[] shipImages;
     private int shipAnimationFrame;
     private int shipAnimationTick;
+    private int shipFloatingDirection = 1;
+    private float shipFloatingOffset = 0;
 
+    private BufferedImage[] seagullImages;
+    private int seagullAnimationFrame;
+    private int seagullAnimationTick;
+    private float seagullOffsetX;
+    private int maxSeagullOffsetX;
+    private int seagullFloatingDirection = -1;
+    private float seagullFloatingOffset = 0;
+    private int seagullRandomOffsetY;
 
-    private int direction = 1;
-    private float yoffset = 0;
+    private BufferedImage menuBackground;
 
 
     public MenuScene(Game game) {
         this.game = game;
         this.random = new Random();
-        this.bigCloudsDrawn = 0.0f;
-        this.cloudsOffset = 0;
-        this.initialCloudOffset = 0;
+        this.cloudsOffsetX = 0;
         this.drawnBigCloudsIndexes = new int[3];
         this.shipAnimationTick = 0;
+        this.seagullAnimationTick = 0;
+        this.shipAnimationFrame = 0;
+        this.seagullAnimationFrame = 0;
+        this.seagullOffsetX = GAME_WIDTH/2 ;
+        this.seagullRandomOffsetY = random.nextInt(100);
         loadAnimations();
         createBigClouds();
     }
@@ -55,43 +66,56 @@ public class MenuScene implements SceneMethods{
         bigClouds[0] = LoadContent.GetSpriteAtlas(LoadContent.BIG_CLOUD_1);
         bigClouds[1] = LoadContent.GetSpriteAtlas(LoadContent.BIG_CLOUD_2);
         bigClouds[2] = LoadContent.GetSpriteAtlas(LoadContent.BIG_CLOUD_3);
-
+        smallCloud = LoadContent.GetSpriteAtlas(LoadContent.SMALL_CLOUD);
 
         BufferedImage img = LoadContent.GetSpriteAtlas(LoadContent.SHIP_ATLAS);
         shipImages = new BufferedImage[8];
         for(int i = 0; i < SHIP_SPRITE_AMOUNT; i++) {
             shipImages[i] = img.getSubimage(i*80, 0, 80, 65);
         }
+
+        img = LoadContent.GetSpriteAtlas(LoadContent.SEAGULL_ATLAS);
+        seagullImages = new BufferedImage[6];
+        for(int i = 0; i < SEAGULL_SPRITE_AMOUNT; i++) {
+            seagullImages[i] = img.getSubimage(i*30, 0, 30, 37);
+        }
+
+        menuBackground = LoadContent.GetSpriteAtlas(LoadContent.MENU_BACKGROUND);
     }
 
 
-    private void drawBigClouds(Graphics g, int offset) {
+
+
+
+
+    private void drawBigClouds(Graphics g) {
         int cloudInitialPosition = 0;
         for(int i = 0; i<drawnBigCloudsIndexes.length; i++){
             g.drawImage(bigClouds[drawnBigCloudsIndexes[i]],
-                    cloudInitialPosition - offset + initialCloudOffset,
+                    cloudInitialPosition - (int)(cloudsOffsetX),
                     (int)(218 * SCALE), BIG_CLOUD_WIDTH[drawnBigCloudsIndexes[i]], BIG_CLOUD_HEIGHT[drawnBigCloudsIndexes[i]], null);
-            cloudInitialPosition += (int) (BIG_CLOUD_WIDTH[drawnBigCloudsIndexes[i]] + (300*SCALE));
+            cloudInitialPosition += BIG_CLOUD_WIDTH[drawnBigCloudsIndexes[i]] + 150*SCALE;
         }
     }
 
-    private void drawSmallClouds(Graphics g, int xLvlOffset) {
-        int sizeDrawn = 0;
-        //g.drawImage(smallCloud, sizeDrawn - (int)(xLvlOffset * 0.7), (int)(110* SCALE), SMALL_CLOUD_WIDTH, SMALL_CLOUD_HEIGHT, null);
+    private void drawSmallClouds(Graphics g) {
+        g.drawImage(smallCloud, (int) (180*SCALE), (int)(90* SCALE), SMALL_CLOUD_WIDTH, SMALL_CLOUD_HEIGHT, null);
+        g.drawImage(smallCloud, (int) (280*SCALE), (int)(150* SCALE), SMALL_CLOUD_WIDTH, SMALL_CLOUD_HEIGHT, null);
     }
 
     @Override
     public void update() {
         updateClouds();
         updateShipAnimationTick();
+        updateSeagullAnimationTick();
     }
 
     private void updateShipAnimationTick() {
         shipAnimationTick++;
-        if(yoffset >= 3 || yoffset <= -3){
-            direction = direction*-1;
+        if(shipFloatingOffset >= 3 || shipFloatingOffset <= -3){
+            shipFloatingDirection = shipFloatingDirection *-1;
         }
-        yoffset+=direction*0.025f;
+        shipFloatingOffset += shipFloatingDirection *0.015f;
 
         if (shipAnimationTick >= SHIP_ANIMATION_SPEED) {
             shipAnimationTick = 0;
@@ -101,35 +125,68 @@ public class MenuScene implements SceneMethods{
         }
     }
 
+    private void updateSeagullAnimationTick() {
+        seagullAnimationTick++;
+        if(seagullFloatingOffset >= 3 || seagullFloatingOffset <= -3){
+            seagullFloatingDirection = seagullFloatingDirection *-1;
+        }
+        seagullFloatingOffset += seagullFloatingOffset *0.025f;
+
+        if (seagullAnimationTick >= SEAGULL_ANIMATION_SPEED) {
+            seagullAnimationTick = 0;
+            seagullAnimationFrame++;
+            if (seagullAnimationFrame >= SEAGULL_SPRITE_AMOUNT)
+                seagullAnimationFrame = 0;
+        }
+
+
+        seagullOffsetX = seagullOffsetX - 0.5f*SCALE;
+        if(seagullOffsetX <= -SEAGULL_WIDTH){
+            seagullOffsetX = GAME_WIDTH ;
+            seagullRandomOffsetY = random.nextInt(100);
+        }
+
+
+    }
+
     private void updateClouds() {
-        cloudsOffset = cloudsOffset+ 0.2f * SCALE;
-        if(cloudsOffset > maxCloudsOffset){
-            cloudsOffset = 0;
-            initialCloudOffset = GAME_WIDTH;
+        cloudsOffsetX = cloudsOffsetX + 0.2f*SCALE;
+        if(cloudsOffsetX > maxCloudsOffsetX){
             createBigClouds();
+            cloudsOffsetX = -GAME_WIDTH;
         }
     }
 
     private void createBigClouds() {
         int cloudIndex;
+        maxCloudsOffsetX = 0;
         for (int i = 0; i<3; i++){
             cloudIndex= random.nextInt(3);
             drawnBigCloudsIndexes[i] = cloudIndex;
-            maxCloudsOffset += BIG_CLOUD_WIDTH[cloudIndex];
+            maxCloudsOffsetX += BIG_CLOUD_WIDTH[cloudIndex];
         }
-        maxCloudsOffset += (int) (600 * SCALE);
+        maxCloudsOffsetX += 300*SCALE;
     }
-
 
     @Override
     public void draw(Graphics g) {
         g.drawImage(deepBackground, 0, 0, GAME_WIDTH, GAME_HEIGHT, null);
-        drawBigClouds(g, (int) cloudsOffset);
+        drawBigClouds(g);
         drawShip(g);
+        drawSeagull(g);
+        drawSmallClouds(g);
+        g.drawImage(menuBackground, (int) (450*SCALE), (int) (50*SCALE), MENU_BACKGROUND_WIDTH, MENU_BACKGROUND_HEIGHT, null);
+    }
+
+    private void drawSeagull(Graphics g) {
+        g.drawImage(seagullImages[seagullAnimationFrame],
+                (int) seagullOffsetX,
+                (int) ((300 + shipFloatingOffset + seagullRandomOffsetY) * SCALE),
+                SEAGULL_WIDTH, SEAGULL_HEIGHT, null);
     }
 
     private void drawShip(Graphics g) {
-        g.drawImage(shipImages[shipAnimationFrame], 100, (int) (500 + yoffset), (int) (80*SCALE), (int) (76*SCALE), null);
+        g.drawImage(shipImages[shipAnimationFrame], (int) (50 * SCALE), (int) ((252 + shipFloatingOffset) * SCALE), SHIP_WIDTH, SHIP_HEIGHT, null);
     }
 
     @Override

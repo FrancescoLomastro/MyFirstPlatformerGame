@@ -10,7 +10,7 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.RasterFormatException;
 
-import static org.example.Constants.Prop.Environment.*;
+import static org.example.Constants.Prop.BigCloud.*;
 import static org.example.Constants.Sprites.Level.WATER_ANIMATION_SPEED;
 import static org.example.Constants.Sprites.Level.ANIMATED_WATER_SPRITE_AMOUNT;
 import static org.example.Constants.Window.*;

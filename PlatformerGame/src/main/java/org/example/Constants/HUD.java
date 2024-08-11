@@ -2,7 +2,7 @@ package org.example.Constants;
 
 import static org.example.Constants.Window.SCALE;
 
-public class HUD {
+public class HUD{
     public static final int HEALTH_BAR_WIDTH = (int) (192 * SCALE);
     public static final int HEALTH_BAR_HEIGHT = (int) (34 * SCALE);
     public static final int HEALTH_BAR_X = (int) (10 * SCALE);

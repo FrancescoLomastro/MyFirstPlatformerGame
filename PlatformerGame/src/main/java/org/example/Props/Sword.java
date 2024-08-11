@@ -5,7 +5,7 @@ import org.example.Utility.LoadContent;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import static org.example.Constants.Prop.*;
+import static org.example.Constants.Prop.Sword.*;
 import static org.example.Constants.Window.SCALE;
 import static org.example.Utility.LoadContent.SWORD_IMAGE;
 

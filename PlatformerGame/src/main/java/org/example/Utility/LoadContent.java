@@ -15,14 +15,16 @@ public class LoadContent {
     public static final String LEVEL_ANIMATED_WATER = "animations/Objects/water_animated_sprites.png";
     public static final String PLAYSCENE_DEEP_BACKGROUND = "playScene_deep_background.png";
     public static final String MENUSCENE_DEEP_BACKGROUND = "menuScene_deep_background.png";
-    public static final String BIG_CLOUD_1 = "big_cloud_1.png";
-    public static final String BIG_CLOUD_2 = "big_cloud_2.png";
-    public static final String BIG_CLOUD_3 = "big_cloud_3.png";
-    public static final String SMALL_CLOUD = "small_cloud.png";
+    public static final String BIG_CLOUD_1 = "objects/big_cloud_1.png";
+    public static final String BIG_CLOUD_2 = "objects/big_cloud_2.png";
+    public static final String BIG_CLOUD_3 = "objects/big_cloud_3.png";
+    public static final String SMALL_CLOUD = "objects/small_cloud.png";
     public static final String SWORD_IMAGE = "objects/sword.png";
     public static final String HEALTH_HUD = "hud/health_hud.png";
-    public static final String SEAGUL_ATLAS = "animations/Objects/seagul_sprites.png";
-    public static final String SHIP_ATLAS = "animations/Objects/ship_sprite.png";
+    public static final String SEAGULL_ATLAS = "animations/Objects/seagull_sprites.png";
+    public static final String SHIP_ATLAS = "animations/Objects/ship_sprite_floating.png";
+    public static final String BARREL_CREATURE_ATLAS = "animations/Objects/barrel_creature_sprite.png";
+    public static final String MENU_BACKGROUND = "menu_background.png";
 
 
     public static BufferedImage GetSpriteAtlas(String fileName) {

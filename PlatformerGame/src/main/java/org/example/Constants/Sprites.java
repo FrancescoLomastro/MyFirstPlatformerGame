@@ -78,7 +78,5 @@ public class Sprites {
         public static final int WATER = 50;
         public static final int ANIMATED_WATER_SPRITE_AMOUNT = 4;
         public static final int WATER_ANIMATION_SPEED = 25;
-        public static final int SHIP_SPRITE_AMOUNT = 8;
-        public static final int SHIP_ANIMATION_SPEED = 25;
     }
 }
