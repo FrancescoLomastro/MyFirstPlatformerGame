@@ -26,6 +26,7 @@ public class LoadContent {
     public static final String MENU_BACKGROUND = "menu_background.png";
     public static final String URM_BUTTONS = "ui/urm_buttons.png";
     public static final String MENU_BUTTONS = "ui/menu_buttons.png";
+    public static final String DEATH_SCREEN = "ui/death_screen.png";
 
 
     public static BufferedImage GetSpriteAtlas(String fileName) {

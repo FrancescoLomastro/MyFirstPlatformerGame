@@ -45,6 +45,7 @@ public class Player extends Entity{
 
     private void initAttackBox() {
         attackBox = new Rectangle2D.Float(hitbox.x,hitbox.y, (int)(20*SCALE), (int)(20*SCALE));
+        
         //resetAttackBox();
     }
 
@@ -70,13 +71,18 @@ public class Player extends Entity{
 
 
     public void update(){
-        updatePosition();
-        checkSwordPicked();
-        updateAttackBox();
         updateAnimationTick();
-        setAnimation();
-        if(attack)
-            checkEnemyAttacked();
+        if(animation != DEAD) {
+            updatePosition();
+            checkSwordPicked();
+            updateAttackBox();
+            setAnimation();
+            if (attack)
+                checkEnemyAttacked();
+        }else if(animationFrame == getPlayerSpriteAmount(DEAD)-1){
+            PlayScene.getInstance().setGameOver(true);
+        }
+
     }
 
     private void checkEnemyAttacked() {
@@ -147,7 +153,6 @@ public class Player extends Entity{
 
     private void setAnimation() {
         int oldAnimation = animation;
-
 
         if (moving) {
             animation = RUN;
@@ -258,7 +263,7 @@ public class Player extends Entity{
         int newHealth = currentHealth + damage;
         if(newHealth <= 0) {
             currentHealth = 0;
-            animation = DEAD;
+            newAnimation(DEAD);
         }
         else if (newHealth > maxHealth)
             currentHealth = maxHealth;
@@ -275,6 +280,8 @@ public class Player extends Entity{
                 return 5;
             case RUN:
                 return 6;
+            case DEAD:
+                return 4;
             case JUMP:
             case ATTACK:
                 return 3;

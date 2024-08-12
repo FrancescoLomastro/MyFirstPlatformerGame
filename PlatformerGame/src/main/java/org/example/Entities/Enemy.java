@@ -10,7 +10,6 @@ import static org.example.Constants.Motion.Dirctions.LEFT;
 import static org.example.Constants.Motion.Dirctions.RIGHT;
 import static org.example.Constants.Sprites.ENTITY_ANIMATION_SPEED;
 import static org.example.Constants.Sprites.Enemy.*;
-import static org.example.Constants.Sprites.Player.DEAD;
 import static org.example.Constants.Window.TILES_SIZE;
 import static org.example.Levels.Level.IsOnFloor;
 

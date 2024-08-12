@@ -3,6 +3,7 @@ package org.example.GameScenes;
 import org.example.Entities.Player;
 import org.example.Levels.LevelManager;
 import org.example.Main.Game;
+import org.example.UI.GameOverOverlay;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -18,6 +19,7 @@ public class PlayScene implements SceneMethods{
 
     private Player player;
     private LevelManager levelManager;
+    private GameOverOverlay gameOverOverlay;
 
 
     private int xLevelOffset;
@@ -25,6 +27,7 @@ public class PlayScene implements SceneMethods{
 
 
     private static PlayScene instance;
+    private boolean gameOver;
 
     public static void createInstance(Game game){
         if(instance == null)
@@ -42,19 +45,29 @@ public class PlayScene implements SceneMethods{
                 levelManager.getPlayerY());
         this.player.addLevelData(levelManager.getBlockIndexes());
         this.maxLevelCameraOffset = levelManager.getMaxLevelCameraOffset();
+        this.gameOverOverlay = new GameOverOverlay();
     }
 
     public void update() {
-        levelManager.update();
-        player.update();
-        checkCameraOffset();
+        if(!gameOver){
+            levelManager.update();
+            player.update();
+            checkCameraOffset();
+        }else {
+            gameOverOverlay.update();
+        }
+
     }
 
 
 
     public void draw(Graphics g) {
-        levelManager.draw(g,xLevelOffset);
-        player.draw(g,xLevelOffset);
+
+            levelManager.draw(g, xLevelOffset);
+            player.draw(g,xLevelOffset);
+        if(gameOver) {
+            gameOverOverlay.draw(g);
+        }
 
         //debug_drawLevelBorders(g);
     }
@@ -126,5 +139,10 @@ public class PlayScene implements SceneMethods{
 
     public void checkEnemyAttacked(Rectangle2D.Float attackBox) {
         levelManager.checkEnemyAttacked(attackBox);
+    }
+
+
+    public void setGameOver(boolean b) {
+        this.gameOver = b;
     }
 }
