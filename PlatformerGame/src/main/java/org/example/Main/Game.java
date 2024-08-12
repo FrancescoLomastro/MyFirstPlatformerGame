@@ -1,18 +1,15 @@
 package org.example.Main;
 
-import org.example.Entities.Player;
-import org.example.GameScenes.Scenes;
+import org.example.GameScenes.Scene;
 import org.example.GameScenes.MenuScene;
 import org.example.GameScenes.PlayScene;
 import org.example.GameScenes.SettingsScene;
-import org.example.Levels.LevelManager;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import static org.example.Constants.FrameRate.*;
-import static org.example.Constants.Window.SCALE;
 
 public class Game implements Runnable {
     private GameWindow gameWindow;
@@ -118,7 +115,7 @@ public class Game implements Runnable {
      * Aggiornamento logica di gioco
      */
     public void update() {
-        switch (Scenes.currentScene){
+        switch (Scene.CurrentScene){
             case PLAY -> {
                 playScene.update();
             }
@@ -139,7 +136,7 @@ public class Game implements Runnable {
      * @param g Parametro necessario per poter disegnre sul JPanel (non verrà descritto nelle altre classi)
      */
     public void draw(Graphics g) {
-        switch (Scenes.currentScene){
+        switch (Scene.CurrentScene){
             case PLAY -> {
                 playScene.draw(g);
             }
@@ -161,7 +158,7 @@ public class Game implements Runnable {
 
 
     public void keyPressed(KeyEvent e) {
-        switch (Scenes.currentScene){
+        switch (Scene.CurrentScene){
             case PLAY -> {
                 playScene.keyPressed(e);
             }
@@ -178,7 +175,7 @@ public class Game implements Runnable {
     }
 
     public void keyReleased(KeyEvent e) {
-        switch (Scenes.currentScene){
+        switch (Scene.CurrentScene){
             case PLAY -> {
                 playScene.keyReleased(e);
             }
@@ -195,7 +192,7 @@ public class Game implements Runnable {
     }
 
     public void mouseClicked(MouseEvent e) {
-        switch (Scenes.currentScene){
+        switch (Scene.CurrentScene){
             case PLAY -> {
                 playScene.mouseClicked(e);
             }
@@ -207,6 +204,57 @@ public class Game implements Runnable {
             }
             case SETTINGS -> {
                 settingsScene.mouseClicked(e);
+            }
+        }
+    }
+
+    public void mouseMoved(MouseEvent e) {
+        switch (Scene.CurrentScene){
+            case PLAY -> {
+                playScene.mouseMoved(e);
+            }
+            case MENU -> {
+                menuScene.mouseMoved(e);
+            }
+            case QUIT -> {
+
+            }
+            case SETTINGS -> {
+                settingsScene.mouseMoved(e);
+            }
+        }
+    }
+
+    public void mouseReleased(MouseEvent e) {
+        switch (Scene.CurrentScene){
+            case PLAY -> {
+                playScene.mouseReleased(e);
+            }
+            case MENU -> {
+                menuScene.mouseReleased(e);
+            }
+            case QUIT -> {
+
+            }
+            case SETTINGS -> {
+                settingsScene.mouseReleased(e);
+            }
+        }
+    }
+
+    public void mousePressed(MouseEvent e) {
+        switch (Scene.CurrentScene){
+            case PLAY -> {
+                playScene.mousePressed(e);
+            }
+            case MENU -> {
+                menuScene.mousePressed(e);
+            }
+            case QUIT -> {
+
+            }
+            case SETTINGS -> {
+                settingsScene.mousePressed(e);
             }
         }
     }

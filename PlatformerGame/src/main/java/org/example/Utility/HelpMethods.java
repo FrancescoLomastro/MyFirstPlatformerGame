@@ -1,5 +1,8 @@
 package org.example.Utility;
 
+import org.example.UI.Button;
+
+import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 
 import static org.example.Constants.Window.TILES_SIZE;
@@ -37,4 +40,7 @@ public class HelpMethods {
             return currentTile * TILES_SIZE;
     }
 
+    public static boolean IsMouseIn(MouseEvent e, Button mb){
+        return mb.getBounds().contains(e.getX(), e.getY());
+    }
 }

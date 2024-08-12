@@ -23,8 +23,9 @@ public class LoadContent {
     public static final String HEALTH_HUD = "hud/health_hud.png";
     public static final String SEAGULL_ATLAS = "animations/Objects/seagull_sprites.png";
     public static final String SHIP_ATLAS = "animations/Objects/ship_sprite_floating.png";
-    public static final String BARREL_CREATURE_ATLAS = "animations/Objects/barrel_creature_sprite.png";
     public static final String MENU_BACKGROUND = "menu_background.png";
+    public static final String URM_BUTTONS = "ui/urm_buttons.png";
+    public static final String MENU_BUTTONS = "ui/menu_buttons.png";
 
 
     public static BufferedImage GetSpriteAtlas(String fileName) {

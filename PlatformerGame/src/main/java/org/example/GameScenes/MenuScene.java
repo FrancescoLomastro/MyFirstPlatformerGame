@@ -1,6 +1,7 @@
 package org.example.GameScenes;
 
 import org.example.Main.Game;
+import org.example.UI.MenuButton;
 import org.example.Utility.LoadContent;
 
 import java.awt.*;
@@ -14,6 +15,7 @@ import static org.example.Constants.Prop.Seagull.*;
 import static org.example.Constants.Prop.Ship.*;
 import static org.example.Constants.UI.*;
 import static org.example.Constants.Window.*;
+import static org.example.Utility.HelpMethods.IsMouseIn;
 
 public class MenuScene implements SceneMethods{
     private Game game;
@@ -43,6 +45,7 @@ public class MenuScene implements SceneMethods{
     private int seagullRandomOffsetY;
 
     private BufferedImage menuBackground;
+    private MenuButton[] buttons;
 
 
     public MenuScene(Game game) {
@@ -57,7 +60,16 @@ public class MenuScene implements SceneMethods{
         this.seagullOffsetX = GAME_WIDTH/2 ;
         this.seagullRandomOffsetY = random.nextInt(100);
         loadAnimations();
+        createButtons();
         createBigClouds();
+    }
+
+    private void createButtons() {
+        this.buttons = new MenuButton[3];
+        
+        buttons[0] = new MenuButton((int) (520*SCALE), (int) (160 * SCALE), 0, Scene.PLAY);
+        buttons[1] = new MenuButton((int) (520*SCALE), (int) (220 * SCALE), 1, Scene.SETTINGS);
+        buttons[2] = new MenuButton((int) (520*SCALE), (int) (280 * SCALE), 2, Scene.QUIT);
     }
 
     private void loadAnimations() {
@@ -108,6 +120,9 @@ public class MenuScene implements SceneMethods{
         updateClouds();
         updateShipAnimationTick();
         updateSeagullAnimationTick();
+        buttons[0].update();
+        buttons[1].update();
+        buttons[2].update();
     }
 
     private void updateShipAnimationTick() {
@@ -176,6 +191,9 @@ public class MenuScene implements SceneMethods{
         drawSeagull(g);
         drawSmallClouds(g);
         g.drawImage(menuBackground, (int) (450*SCALE), (int) (50*SCALE), MENU_BACKGROUND_WIDTH, MENU_BACKGROUND_HEIGHT, null);
+        buttons[0].draw(g);
+        buttons[1].draw(g);
+        buttons[2].draw(g);
     }
 
     private void drawSeagull(Graphics g) {
@@ -196,17 +214,38 @@ public class MenuScene implements SceneMethods{
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        for (MenuButton button : buttons) {
+            if (IsMouseIn(e,button)) {
+                button.setMousePressed(true);
+                break;
+            }
+        }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        for(MenuButton mb : buttons){
+            if(IsMouseIn(e,mb)){
+                if(mb.isMousePressed()){  //l'utente potrebbe cliccare fuori e rilasciare dentro. Non voglio che succeda
+                    mb.changeScene();
+                }
+                break;
+            }
+        }
+        resetButtons();
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-
+        for(MenuButton button : buttons){
+            button.setMouseOver(false);
+        }
+        for(MenuButton button : buttons){
+            if(IsMouseIn(e,button)){
+                button.setMouseOver(true);
+                break;
+            }
+        }
     }
 
     @Override
@@ -217,5 +256,11 @@ public class MenuScene implements SceneMethods{
     @Override
     public void keyReleased(KeyEvent e) {
 
+    }
+
+    private void resetButtons() {
+        for(MenuButton mb : buttons){
+            mb.resetBools();
+        }
     }
 }
