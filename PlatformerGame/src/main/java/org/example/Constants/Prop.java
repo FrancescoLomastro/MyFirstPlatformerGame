@@ -60,9 +60,12 @@ public class Prop {
     }
 
     public class Sword {
+        public static final int SWORD_SPRITE_AMOUNT = 5;
+        public static final int SWORD_ANIMATION_SPEED = 60;
+
         public static final int SWORD = 0;
-        public static final int SWORD_WIDTH_DEFAULT = 8;
-        public static final int SWORD_HEIGHT_DEFAULT = 13;
+        public static final int SWORD_WIDTH_DEFAULT = 16;
+        public static final int SWORD_HEIGHT_DEFAULT = 17;
         public static final int SWORD_WIDTH = (int) (SWORD_WIDTH_DEFAULT * SCALE);
         public static final int SWORD_HEIGHT = (int) (SWORD_HEIGHT_DEFAULT * SCALE);
     }
