@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 
 import static org.example.Constants.Sprites.Enemy.*;
 import static org.example.Constants.Sprites.Enemy.Shark.*;
-import static org.example.Constants.Sprites.ENTITY_ANIMATION_SPEED;
+import static org.example.Constants.Window.TILES_SIZE;
 
 public class Shark extends Enemy {
     private static BufferedImage[][] sprites = LoadAnimations();
@@ -17,6 +17,7 @@ public class Shark extends Enemy {
     public Shark(float initialX, float initialY) {
         super(initialX, initialY, SHARK_WIDTH, SHARK_HEIGHT);
         initHitbox( 18, 22);
+        this.attackDistance = TILES_SIZE/2;
         this.damage = -25;
         xImageOffset = SHARK_DRAWOFFSET_X;
         yImageOffset = SHARK_DRAWOFFSET_Y;

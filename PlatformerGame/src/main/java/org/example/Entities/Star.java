@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import static org.example.Constants.Sprites.Enemy.*;
 import static org.example.Constants.Sprites.Enemy.Star.*;
 import static org.example.Constants.Sprites.ENTITY_ANIMATION_SPEED;
+import static org.example.Constants.Window.TILES_SIZE;
 
 public class Star extends Enemy {
     private static BufferedImage[][] sprites = LoadAnimations();
@@ -16,6 +17,7 @@ public class Star extends Enemy {
     public Star(float initialX, float initialY ) {
         super(initialX, initialY, STAR_WIDTH, STAR_HEIGHT);
         initHitbox( 17, 21);
+        this.attackDistance = TILES_SIZE/8;
         this.damage = -10;
         xImageOffset = STAR_DRAWOFFSET_X;
         yImageOffset = STAR_DRAWOFFSET_Y;

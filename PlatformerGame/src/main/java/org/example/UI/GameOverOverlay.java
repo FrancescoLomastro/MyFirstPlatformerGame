@@ -70,8 +70,8 @@ public class GameOverOverlay {
     public void mouseReleased(MouseEvent e) {
         if(IsMouseIn(e, rageQuit)){
             if(rageQuit.isMousePressed()){
-                //playing.resetAll();
-                //playing.setGameState(Gamestate.MENU);
+                PlayScene.getInstance().reset();
+
             }
         }else if(IsMouseIn(e, playAgain)){
             if(playAgain.isMousePressed()){

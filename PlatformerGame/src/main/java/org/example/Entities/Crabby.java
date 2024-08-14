@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import static org.example.Constants.Sprites.Enemy.Crabby.*;
 import static org.example.Constants.Sprites.Enemy.*;
 import static org.example.Constants.Sprites.ENTITY_ANIMATION_SPEED;
+import static org.example.Constants.Window.TILES_SIZE;
 
 public class Crabby extends Enemy{
 

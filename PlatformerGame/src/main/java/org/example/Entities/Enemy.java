@@ -15,7 +15,7 @@ import static org.example.Levels.Level.IsOnFloor;
 
 public abstract class Enemy extends Entity{
     protected int walkingDir = LEFT;
-    private int attackDistance;
+    protected int attackDistance;
     protected int attackBoxOffsetX;
     protected int damage;
 
