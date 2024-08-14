@@ -33,4 +33,9 @@ public class Sword extends Prop {
         g.drawImage(image, (int) (hitbox.x - xLvlOffset), (int) hitbox.y, SWORD_WIDTH, SWORD_HEIGHT, null);
         debug_drawHitbox(g, xLvlOffset);
     }
+
+    @Override
+    public void reset() {
+        active = true;
+    }
 }

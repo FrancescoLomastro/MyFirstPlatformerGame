@@ -5,12 +5,13 @@ import java.awt.geom.Rectangle2D;
 
 import static org.example.Constants.Window.SCALE;
 
-public class Prop {
+public abstract class Prop {
     protected int x;
     protected int y;
     protected int objectType;
     protected Rectangle2D.Float hitbox;
-    protected boolean doAnimation, active = true;
+    protected boolean doAnimation;
+    protected boolean active = true;
     protected int aniTick, aniIndex;
     protected int xDrawOffset, yDrawOffset;
 
@@ -53,4 +54,6 @@ public class Prop {
     public boolean isActive() {
         return active;
     }
+
+    public abstract void reset();
 }

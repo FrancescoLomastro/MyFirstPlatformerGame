@@ -28,13 +28,17 @@ public class PropManager {
 
     public void update(){
         for(Prop p : props){
-            p.update();
+            if(p.isActive()){
+                p.update();
+            }
         }
     }
 
     public void draw(Graphics g, int xLvlOffset){
         for(Prop p : props){
-            p.draw(g,xLvlOffset);
+            if(p.isActive()) {
+                p.draw(g, xLvlOffset);
+            }
         }
     }
 
@@ -43,10 +47,16 @@ public class PropManager {
     public boolean isSwordPicked(Player player) {
         if(sword != null && sword.isActive()){
             if(player.getHitbox().intersects(sword.getHitbox())){
-                props.remove(sword);
+                sword.setActive(false);
                 return true;
             }
         }
         return false;
+    }
+
+    public void reset() {
+        for(Prop p : props){
+            p.reset();
+        }
     }
 }

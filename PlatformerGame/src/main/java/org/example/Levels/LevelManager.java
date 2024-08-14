@@ -160,5 +160,7 @@ public class LevelManager {
     }
 
     public void reset() {
+        enemyManager.reset();
+        propManager.reset();
     }
 }
