@@ -1,24 +1,33 @@
 package org.example.Entities;
 
+import org.example.Levels.Level;
 import org.example.Utility.LoadContent;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
+import static org.example.Constants.Motion.Dirctions.LEFT;
+import static org.example.Constants.Motion.Dirctions.RIGHT;
 import static org.example.Constants.Sprites.Enemy.*;
 import static org.example.Constants.Sprites.Enemy.Star.*;
 import static org.example.Constants.Sprites.ENTITY_ANIMATION_SPEED;
+import static org.example.Constants.Window.SCALE;
 import static org.example.Constants.Window.TILES_SIZE;
+import static org.example.Levels.Level.IsOnFloor;
 
 public class Star extends Enemy {
     private static BufferedImage[][] sprites = LoadAnimations();
+    private int attackTick;
+    private int attackMaxTick;
 
     public Star(float initialX, float initialY ) {
         super(initialX, initialY, STAR_WIDTH, STAR_HEIGHT);
         initHitbox( 17, 21);
-        this.attackDistance = TILES_SIZE/8;
+        this.attackDistance = TILES_SIZE*2;
         this.damage = -10;
+        this.attackTick = 0;
+        this.attackMaxTick = 300;
         xImageOffset = STAR_DRAWOFFSET_X;
         yImageOffset = STAR_DRAWOFFSET_Y;
         initAttackBox();
@@ -43,17 +52,88 @@ public class Star extends Enemy {
 
     public void update() {
         super.update();
+        updateStarBehaviour();
         updateAttack();
-        updateAnimationTick(getEnemySpriteAmount(animation));
+        updateStarAnimationTick(getEnemySpriteAmount(animation));
         updateAttackBox();
+    }
+
+    private void updateStarBehaviour() {
+        if(!inAir){
+            switch (animation){
+                case ATTACK:
+                    attackMove();
+                    break;
+                default:
+                    walkSpeed = 0.5f * SCALE;
+                    break;
+            }
+        }
+    }
+
+    private void attackMove() {
+        if(animationFrame > 2) {
+            walkSpeed = 0.7f * SCALE;
+            float xSpeed = 0;
+            if (walkingDir == LEFT)
+                xSpeed = -walkSpeed;
+            else
+                xSpeed = +walkSpeed;
+            if (Level.CanMoveInPosition(hitbox.x + xSpeed, hitbox.y, hitbox.width, hitbox.height, levelBlockIndexes)) {
+                if (IsOnFloor(hitbox, xSpeed, levelBlockIndexes)) {
+                    hitbox.x += xSpeed;
+                } else {
+                    walkingDir = (walkingDir == LEFT) ? RIGHT : LEFT;
+                    newAnimation(RUN);
+                    walkSpeed = 0.5f * SCALE;
+                    attackTick = 0;
+                }
+            } else {
+                walkingDir = (walkingDir == LEFT) ? RIGHT : LEFT;
+                newAnimation(RUN);
+                walkSpeed = 0.5f * SCALE;
+                attackTick = 0;
+            }
+        }
+    }
+
+    private void updateStarAnimationTick(int spriteAmount) {
+        animationTick++;
+        if(animation == ATTACK)
+            attackTick++;
+        if(animationTick >= ENTITY_ANIMATION_SPEED){
+            animationTick = 0;
+            animationFrame++;
+            if(animationFrame >= spriteAmount ) {
+                animationFrame = 0;
+                switch (animation){
+                    case ATTACK -> {
+                        if(attackTick >= attackMaxTick){
+                            animation = IDLE;
+                            attackTick = 0;
+                        }else {
+                            animationFrame = 3;
+                        }
+                    }
+                    case HIT -> animation = IDLE;
+                    case DEAD -> active = false;
+                }
+            }
+        }
+    }
+
+
+    private void handleAttack() {
+        if(attackTick < attackMaxTick){
+            attackTick++;
+        }
     }
 
     private void updateAttack() {
         if(!inAir){
             if(animationFrame == 0)
                 attackChecked = false;
-            if((animationFrame == 3 || animationFrame == 4 || animationFrame == 5 || animationFrame == 6)
-                    && !attackChecked)
+            if((animationFrame >= 3) && (animation == ATTACK) && !attackChecked)
                 checkEnemyHitPlayer(attackBox, damage);
         }
     }

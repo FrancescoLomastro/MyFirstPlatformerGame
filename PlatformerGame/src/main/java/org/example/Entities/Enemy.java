@@ -10,27 +10,30 @@ import static org.example.Constants.Motion.Dirctions.LEFT;
 import static org.example.Constants.Motion.Dirctions.RIGHT;
 import static org.example.Constants.Sprites.ENTITY_ANIMATION_SPEED;
 import static org.example.Constants.Sprites.Enemy.*;
+import static org.example.Constants.Window.SCALE;
 import static org.example.Constants.Window.TILES_SIZE;
 import static org.example.Levels.Level.IsOnFloor;
 
 public abstract class Enemy extends Entity{
-    protected int walkingDir = LEFT;
+    protected int walkingDir;
     protected int attackDistance;
     protected int attackBoxOffsetX;
     protected int damage;
 
     public Enemy(float initialX, float initialY, int initialWidth, int initialHeight) {
         super(initialX, initialY, initialWidth, initialHeight);
+        this.walkingDir = LEFT;
         this.attackDistance = TILES_SIZE;
         this.damage = -1;
         this.currentHealth = 40;
+        this.walkSpeed = 0.5f * SCALE;
     }
 
     public void update() {
-            updateInAir();
-            updateBehaviour();
-            flipX();
-            flipW();
+        updateInAir();
+        updateBehaviour();
+        flipX();
+        flipW();
     }
 
     protected void updateAnimationTick(int spriteAmount) {
@@ -48,21 +51,21 @@ public abstract class Enemy extends Entity{
         }
     }
 
-    private void updateBehaviour() {
+    protected void updateBehaviour() {
         if(!inAir){
             switch (animation){
                 case IDLE:
                     animation = RUN;
                     break;
                 case RUN:
+                    move();
                     if(canSeePlayer()) {
                         turnTowardsPlayer();
                         if (isPlayerCloseForAttack())
-                            animation = ATTACK;
+                            newAnimation(ATTACK);
                     }
-
-                    move();
                     break;
+
             }
         }
     }
@@ -102,7 +105,7 @@ public abstract class Enemy extends Entity{
         return absValue <= attackDistance * 5;
     }
 
-    private void move() {
+    protected void move() {
         float xSpeed = 0;
         if(walkingDir == LEFT)
             xSpeed = -walkSpeed;
@@ -132,8 +135,8 @@ public abstract class Enemy extends Entity{
         PlayScene playScene = PlayScene.getInstance();
         if(attackBox.intersects(playScene.getPlayerHitbox())){
             playScene.hitPlayer(damage);
+            attackChecked = true;
         }
-        attackChecked = true;
     }
 
 
