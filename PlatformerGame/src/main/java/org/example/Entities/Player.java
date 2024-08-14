@@ -335,15 +335,11 @@ public class Player extends Entity{
 
 
     public void reset() {
+        super.reset();
         inAir = false;
         attack = false;
         moving = false;
         hasSword = false;
-        animation = IDLE;
-        speedInAir = 0;
-        currentHealth = maxHealth;
-        hitbox.x = initialX;
-        hitbox.y = initialY;
         resetBooleanDirections();
         if (!onTheFloor(levelBlockIndexes))
             inAir = true;

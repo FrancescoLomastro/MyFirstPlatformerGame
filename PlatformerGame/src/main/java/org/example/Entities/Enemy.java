@@ -27,10 +27,10 @@ public abstract class Enemy extends Entity{
     }
 
     public void update() {
-        updateInAir();
-        updateBehaviour();
-        flipX();
-        flipW();
+            updateInAir();
+            updateBehaviour();
+            flipX();
+            flipW();
     }
 
     protected void updateAnimationTick(int spriteAmount) {
@@ -176,6 +176,7 @@ public abstract class Enemy extends Entity{
             newAnimation(HIT);
         }
     }
+
 
 
 }

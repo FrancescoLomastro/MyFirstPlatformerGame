@@ -8,6 +8,7 @@ import java.awt.geom.Rectangle2D;
 
 import static org.example.Constants.Motion.COLLISION_FALL_SPEED;
 import static org.example.Constants.Motion.GRAVITY;
+import static org.example.Constants.Sprites.Enemy.IDLE;
 import static org.example.Constants.Sprites.Player.*;
 import static org.example.Constants.Window.SCALE;
 import static org.example.Utility.HelpMethods.YPositionUnderRoofOrAboveFloor;
@@ -142,5 +143,14 @@ public abstract class Entity {
         this.animation = animation;
         animationTick = 0;
         animationFrame = 0;
+    }
+
+    public void reset() {
+        hitbox.x = initialX;
+        hitbox.y = initialY;
+        currentHealth = maxHealth;
+        newAnimation(IDLE);
+        active = true;
+        speedInAir = 0;
     }
 }

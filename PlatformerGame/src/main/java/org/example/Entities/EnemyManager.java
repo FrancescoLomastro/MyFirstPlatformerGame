@@ -18,7 +18,9 @@ public class EnemyManager {
 
     public void update(){
         for(Enemy e : enemies){
-            e.update();
+            if(e.isActive()) {
+                e.update();
+            }
         }
     }
 
@@ -36,7 +38,7 @@ public class EnemyManager {
             if(e.getCurrentHealth() > 0) {
                 if (e.isActive()) {
                     if (attackBox.intersects(e.getHitbox())) {
-                        e.alterHealth(-10);
+                        e.alterHealth(-100);
                         return;
                     }
                 }
@@ -45,5 +47,8 @@ public class EnemyManager {
     }
 
     public void reset() {
+        for(Enemy e : enemies){
+            e.reset();
+        }
     }
 }
