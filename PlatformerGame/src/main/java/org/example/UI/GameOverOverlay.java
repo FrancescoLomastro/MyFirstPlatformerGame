@@ -1,6 +1,7 @@
 package org.example.UI;
 
 
+import org.example.GameScenes.PlayScene;
 import org.example.Utility.LoadContent;
 
 import java.awt.*;
@@ -15,7 +16,7 @@ import static org.example.Utility.HelpMethods.IsMouseIn;
 public class GameOverOverlay {
     private BufferedImage img;
     private int imgX, imgY, imgW, imgH;
-    private UrmButton menu, playAgain;
+    private UrmButton rageQuit, playAgain;
 
     public GameOverOverlay() {
         createImg();
@@ -27,7 +28,7 @@ public class GameOverOverlay {
         int playX = (int) (440 * SCALE);
         int y = (int) (195 * SCALE);
         playAgain = new UrmButton(playX, y, URM_SIZE, URM_SIZE, 0);
-        menu = new UrmButton(menuX, y, URM_SIZE, URM_SIZE, 2);
+        rageQuit = new UrmButton(menuX, y, URM_SIZE, URM_SIZE, 2);
     }
 
 
@@ -44,7 +45,7 @@ public class GameOverOverlay {
         g.setColor(new Color(0, 0, 0, 200));
         g.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
         g.drawImage(img, imgX, imgY, imgW, imgH, null);
-        menu.draw(g);
+        rageQuit.draw(g);
         playAgain.draw(g);
 
     }
@@ -57,42 +58,41 @@ public class GameOverOverlay {
 
     public void mouseMoved(MouseEvent e) {
         playAgain.setMouseOver(false);
-        menu.setMouseOver(false);
+        rageQuit.setMouseOver(false);
 
-        if(IsMouseIn(e, menu)){
-            menu.setMouseOver(true);
+        if(IsMouseIn(e, rageQuit)){
+            rageQuit.setMouseOver(true);
         }else if(IsMouseIn(e, playAgain)){
             playAgain.setMouseOver(true);
         }
     }
 
     public void mouseReleased(MouseEvent e) {
-        if(IsMouseIn(e, menu)){
-            if(menu.isMousePressed()){
+        if(IsMouseIn(e, rageQuit)){
+            if(rageQuit.isMousePressed()){
                 //playing.resetAll();
                 //playing.setGameState(Gamestate.MENU);
             }
         }else if(IsMouseIn(e, playAgain)){
             if(playAgain.isMousePressed()){
-                //playing.resetAll();
-                //playing.getGame().getAudioPlayer().setLevelSong(playing.getLevelManager().getLvlIndex());
+                PlayScene.getInstance().reset();
             }
         }
 
-        menu.resetBools();
+        rageQuit.resetBools();
         playAgain.resetBools();
     }
 
     public void mousePressed(MouseEvent e) {
-        if(IsMouseIn(e, menu)){
-            menu.setMousePressed(true);
+        if(IsMouseIn(e, rageQuit)){
+            rageQuit.setMousePressed(true);
         }else if(IsMouseIn(e, playAgain)){
             playAgain.setMousePressed(true);
         }
     }
 
     public void update(){
-        menu.update();
+        rageQuit.update();
         playAgain.update();
     }
 

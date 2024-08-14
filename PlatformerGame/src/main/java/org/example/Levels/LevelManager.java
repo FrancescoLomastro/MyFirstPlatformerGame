@@ -158,4 +158,7 @@ public class LevelManager {
     public void checkEnemyAttacked(Rectangle2D.Float attackBox) {
         enemyManager.checkEnemyAttacked(attackBox);
     }
+
+    public void reset() {
+    }
 }

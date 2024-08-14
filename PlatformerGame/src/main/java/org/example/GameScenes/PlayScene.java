@@ -62,9 +62,8 @@ public class PlayScene implements SceneMethods{
 
 
     public void draw(Graphics g) {
-
-            levelManager.draw(g, xLevelOffset);
-            player.draw(g,xLevelOffset);
+        levelManager.draw(g, xLevelOffset);
+        player.draw(g,xLevelOffset);
         if(gameOver) {
             gameOverOverlay.draw(g);
         }
@@ -96,17 +95,23 @@ public class PlayScene implements SceneMethods{
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        if(gameOver){
+            gameOverOverlay.mousePressed(e);
+        }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        if(gameOver){
+            gameOverOverlay.mouseReleased(e);
+        }
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-
+        if(gameOver){
+            gameOverOverlay.mouseMoved(e);
+        }
     }
 
     @Override
@@ -144,5 +149,15 @@ public class PlayScene implements SceneMethods{
 
     public void setGameOver(boolean b) {
         this.gameOver = b;
+    }
+
+    public void reset() {
+        gameOver = false;
+        //paused = false;
+        player.reset();
+        levelManager.reset();
+        xLevelOffset = 0;
+        //lvlCompleted = false;
+        //playerDying = false;
     }
 }

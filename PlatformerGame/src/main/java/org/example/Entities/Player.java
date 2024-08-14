@@ -15,6 +15,7 @@ import static org.example.Constants.HUD.*;
 import static org.example.Constants.Sprites.ENTITY_ANIMATION_SPEED;
 import static org.example.Constants.Sprites.Player.*;
 import static org.example.Constants.Window.SCALE;
+import static org.example.Levels.Level.IsOnFloor;
 import static org.example.Utility.HelpMethods.XPositionNextToWall;
 
 public class Player extends Entity{
@@ -333,6 +334,24 @@ public class Player extends Entity{
     }
 
 
+    public void reset() {
+        inAir = false;
+        attack = false;
+        moving = false;
+        animation = IDLE;
+        speedInAir = 0;
+        currentHealth = maxHealth;
+        hitbox.x = initialX;
+        hitbox.y = initialY;
+        resetBooleanDirections();
+        if (!onTheFloor(levelBlockIndexes))
+            inAir = true;
+    }
 
+    private void resetBooleanDirections() {
+        left = false;
+        right = false;
+    }
 
 }
+
