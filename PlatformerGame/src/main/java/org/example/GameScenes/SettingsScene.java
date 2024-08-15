@@ -1,52 +1,117 @@
 package org.example.GameScenes;
 
 import org.example.Main.Game;
+import org.example.UI.AudioOptions;
+import org.example.UI.UrmButton;
+import org.example.Utility.LoadContent;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 
-public class SettingsScene implements SceneMethods{
+import static org.example.Constants.UI.URMButtons.URM_SIZE;
+import static org.example.Constants.Window.*;
+import static org.example.GameScenes.Scene.MENU;
+import static org.example.Utility.HelpMethods.IsMouseIn;
+
+public class SettingsScene implements SceneMethods {
+    private AudioOptions audioOptions;
+    private Game game;
+    private BufferedImage settingsBackground;
+    private int bgX, bgY, bgW, bgH;
+    private UrmButton menuB;
+
+
     public SettingsScene(Game game) {
+        this.game = game;
+        loadImgs();
+        loadButton();
+        audioOptions = game.getAudioOptions();
+    }
+
+    private void loadButton() {
+        int menuX = (int) (387 * SCALE);
+        int menuY = (int) (325 * SCALE);
+
+        menuB = new UrmButton(menuX, menuY, URM_SIZE, URM_SIZE, 2);
+    }
+
+    private void loadImgs() {
+        settingsBackground = LoadContent.GetSpriteAtlas(LoadContent.SETTINGS_BACKGROUND);
+
+        bgW = (int) (settingsBackground.getWidth() * SCALE);
+        bgH = (int) (settingsBackground.getHeight() * SCALE);
+        bgX = GAME_WIDTH / 2 - bgW / 2;
+        bgY = (int) (33 * SCALE);
     }
 
     @Override
     public void update() {
-        
+        menuB.update();
+        audioOptions.update();
     }
 
     @Override
     public void draw(Graphics g) {
+        g.drawImage(settingsBackground, bgX, bgY, bgW, bgH, null);
+
+        menuB.draw(g);
+        audioOptions.draw(g);
 
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-
+    public void mouseDragged(MouseEvent e) {
+        audioOptions.mouseDragged(e);
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
+        if (IsMouseIn(e, menuB)) {
+            menuB.setMousePressed(true);
+        } else audioOptions.mousePressed(e);
 
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        if (IsMouseIn(e, menuB)) {
+            if (menuB.isMousePressed())
+                Scene.CurrentScene = MENU;
+        } else audioOptions.mouseReleased(e);
+
+        menuB.resetBools();
 
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
+        menuB.setMouseOver(false);
+
+        if (IsMouseIn(e, menuB))
+            menuB.setMouseOver(true);
+        else audioOptions.mouseMoved(e);
 
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
+            Scene.CurrentScene = MENU;
 
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+        // TODO Auto-generated method stub
 
     }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        // TODO Auto-generated method stub
+
+    }
+
+
 }

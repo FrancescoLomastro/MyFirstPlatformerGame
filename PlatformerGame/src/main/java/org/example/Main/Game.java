@@ -4,6 +4,7 @@ import org.example.GameScenes.Scene;
 import org.example.GameScenes.MenuScene;
 import org.example.GameScenes.PlayScene;
 import org.example.GameScenes.SettingsScene;
+import org.example.UI.AudioOptions;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -22,6 +23,8 @@ public class Game implements Runnable {
     private MenuScene menuScene;
     private SettingsScene settingsScene;
 
+    private AudioOptions audioOptions;
+
     public Game() {
         initClasses();
         startLoop();
@@ -32,6 +35,8 @@ public class Game implements Runnable {
      */
     private void initClasses() {
         PlayScene.createInstance(this);
+        this.audioOptions = new AudioOptions();
+
         this.playScene = PlayScene.getInstance();
         this.menuScene = new MenuScene(this);
         this.settingsScene = new SettingsScene(this);
@@ -40,9 +45,6 @@ public class Game implements Runnable {
         this.gameWindow = new GameWindow(gamePanel);
         gamePanel.setFocusable(true);
         gamePanel.requestFocus();
-
-
-
 
     }
 
@@ -257,5 +259,22 @@ public class Game implements Runnable {
                 settingsScene.mousePressed(e);
             }
         }
+    }
+
+
+
+    public void mouseDragged(MouseEvent e) {
+        switch (Scene.CurrentScene){
+            case PLAY -> {
+                //playScene.mouseDragged(e);
+            }
+            case SETTINGS -> {
+                settingsScene.mouseDragged(e);
+            }
+        }
+    }
+
+    public AudioOptions getAudioOptions() {
+        return audioOptions;
     }
 }

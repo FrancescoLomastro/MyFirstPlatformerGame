@@ -23,10 +23,14 @@ public class LoadContent {
     public static final String HEALTH_HUD = "hud/health_hud.png";
     public static final String SEAGULL_ATLAS = "animations/objects/seagull_sprites.png";
     public static final String SHIP_ATLAS = "animations/objects/ship_sprite_floating.png";
-    public static final String MENU_BACKGROUND = "menu_background.png";
+    public static final String MENU_BACKGROUND = "ui/menu_background.png";
     public static final String URM_BUTTONS = "ui/urm_buttons.png";
     public static final String MENU_BUTTONS = "ui/menu_buttons.png";
     public static final String DEATH_SCREEN = "ui/death_screen.png";
+    public static final String SETTINGS_BACKGROUND = "ui/settings_background.png";
+    public static final String SOUND_BUTTONS = "ui/sound_buttons.png";
+    public static final String VOLUME_BUTTONS = "ui/volume_buttons.png";
+
 
 
     public static BufferedImage GetSpriteAtlas(String fileName) {

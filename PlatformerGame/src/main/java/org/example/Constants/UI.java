@@ -20,4 +20,19 @@ public class UI{
         public static final int B_HEIGHT = (int) (B_HEIGHT_DEFAULT * SCALE);
     }
 
+    public static class SoundButtons{
+        public static final int SOUND_SIZE_DEFAULT = 42;
+        public static final int SOUND_SIZE = (int) (SOUND_SIZE_DEFAULT*SCALE);
+    }
+
+    public static class VolumeButtons{
+        public static final int VOLUME_WIDTH_DEFAULT = 28;
+        public static final int VOLUME_HEIGHT_DEFAULT = 44;
+        public static final int SLIDER_WIDTH_DEFAULT = 215;
+        public static final int VOLUME_WIDTH = (int) (VOLUME_WIDTH_DEFAULT*SCALE);
+        public static final int VOLUME_HEIGHT = (int) (VOLUME_HEIGHT_DEFAULT*SCALE);
+        public static final int SLIDER_WIDTH = (int) (SLIDER_WIDTH_DEFAULT*SCALE);
+    }
+
+
 }
