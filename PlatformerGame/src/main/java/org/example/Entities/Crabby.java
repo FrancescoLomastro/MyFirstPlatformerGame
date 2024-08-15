@@ -53,7 +53,7 @@ public class Crabby extends Enemy{
         if(!inAir){
             if(animationFrame == 0)
                 attackChecked = false;
-            if(animationFrame == 3 && !attackChecked)
+            if(animationFrame == 3 && animation == ATTACK && !attackChecked)
                 checkEnemyHitPlayer(attackBox, damage);
         }
     }

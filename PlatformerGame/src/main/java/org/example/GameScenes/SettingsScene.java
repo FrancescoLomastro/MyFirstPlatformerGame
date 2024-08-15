@@ -14,8 +14,11 @@ import static org.example.Constants.UI.URMButtons.URM_SIZE;
 import static org.example.Constants.Window.*;
 import static org.example.GameScenes.Scene.MENU;
 import static org.example.Utility.HelpMethods.IsMouseIn;
+import static org.example.Utility.LoadContent.SETTINGS_BACKGROUND;
+import static org.example.Utility.LoadContent.SETTINGS_DEEP_BACKGROUND;
 
 public class SettingsScene implements SceneMethods {
+    private BufferedImage deepBackgroundImg;
     private AudioOptions audioOptions;
     private BufferedImage settingsBackground;
     private int bgX, bgY, bgW, bgH;
@@ -37,6 +40,7 @@ public class SettingsScene implements SceneMethods {
 
     private void loadImgs() {
         settingsBackground = LoadContent.GetSpriteAtlas(LoadContent.SETTINGS_BACKGROUND);
+        deepBackgroundImg = LoadContent.GetSpriteAtlas(SETTINGS_DEEP_BACKGROUND);
 
         bgW = (int) (settingsBackground.getWidth() * SCALE);
         bgH = (int) (settingsBackground.getHeight() * SCALE);
@@ -52,6 +56,7 @@ public class SettingsScene implements SceneMethods {
 
     @Override
     public void draw(Graphics g) {
+        g.drawImage(deepBackgroundImg, 0, 0, GAME_WIDTH, GAME_HEIGHT, null);
         g.drawImage(settingsBackground, bgX, bgY, bgW, bgH, null);
 
         menuB.draw(g);
