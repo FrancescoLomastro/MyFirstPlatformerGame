@@ -34,8 +34,9 @@ public class Game implements Runnable {
      * Metodo usato per inizializzare i principali attributi della classe Game
      */
     private void initClasses() {
-        PlayScene.createInstance(this);
+
         this.audioOptions = new AudioOptions();
+        PlayScene.createInstance(this);
 
         this.playScene = PlayScene.getInstance();
         this.menuScene = new MenuScene(this);

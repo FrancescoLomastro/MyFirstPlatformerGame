@@ -3,7 +3,9 @@ package org.example.GameScenes;
 import org.example.Entities.Player;
 import org.example.Levels.LevelManager;
 import org.example.Main.Game;
+import org.example.UI.AudioOptions;
 import org.example.UI.GameOverOverlay;
+import org.example.UI.PauseOverlay;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -20,6 +22,7 @@ public class PlayScene implements SceneMethods{
     private Player player;
     private LevelManager levelManager;
     private GameOverOverlay gameOverOverlay;
+    private PauseOverlay pauseOverlay;
 
 
     private int xLevelOffset;
@@ -28,6 +31,7 @@ public class PlayScene implements SceneMethods{
 
     private static PlayScene instance;
     private boolean gameOver;
+    private boolean paused;
 
     public static void createInstance(Game game){
         if(instance == null)
@@ -46,10 +50,14 @@ public class PlayScene implements SceneMethods{
         this.player.addLevelData(levelManager.getBlockIndexes());
         this.maxLevelCameraOffset = levelManager.getMaxLevelCameraOffset();
         this.gameOverOverlay = new GameOverOverlay();
+        this.pauseOverlay = new PauseOverlay(game.getAudioOptions());
     }
 
     public void update() {
-        if(!gameOver){
+        if(paused){
+            pauseOverlay.update();
+        }
+        else if(!gameOver){
             levelManager.update();
             player.update();
             checkCameraOffset();
@@ -64,7 +72,9 @@ public class PlayScene implements SceneMethods{
     public void draw(Graphics g) {
         levelManager.draw(g, xLevelOffset);
         player.draw(g,xLevelOffset);
-        if(gameOver) {
+        if(paused){
+            pauseOverlay.draw(g);
+        } else if(gameOver) {
             gameOverOverlay.draw(g);
         }
 
@@ -90,38 +100,54 @@ public class PlayScene implements SceneMethods{
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        player.mouseClicked(e);
+        if(!gameOver)
+            player.mouseClicked(e);
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
         if(gameOver){
             gameOverOverlay.mousePressed(e);
+        }else if (paused){
+            pauseOverlay.mousePressed(e);
         }
+
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
         if(gameOver){
             gameOverOverlay.mouseReleased(e);
-        }
+        }else if(paused)
+            pauseOverlay.mouseReleased(e);
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
         if(gameOver){
             gameOverOverlay.mouseMoved(e);
-        }
+        }else if(paused)
+            pauseOverlay.mouseMoved(e);
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        player.keyPressed(e);
+        if(gameOver)
+        {
+            gameOverOverlay.keyPressed(e);
+        }
+        else{
+            if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
+                paused = true;
+            else
+                player.keyPressed(e);
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        player.keyReleased(e);
+        if(!gameOver)
+            player.keyReleased(e);
     }
 
     private void debug_drawLevelBorders(Graphics g) {
@@ -160,4 +186,9 @@ public class PlayScene implements SceneMethods{
         //lvlCompleted = false;
         //playerDying = false;
     }
+
+    public void unpauseGame(){
+        paused = false;
+    }
+
 }

@@ -17,14 +17,12 @@ import static org.example.Utility.HelpMethods.IsMouseIn;
 
 public class SettingsScene implements SceneMethods {
     private AudioOptions audioOptions;
-    private Game game;
     private BufferedImage settingsBackground;
     private int bgX, bgY, bgW, bgH;
     private UrmButton menuB;
 
 
     public SettingsScene(Game game) {
-        this.game = game;
         loadImgs();
         loadButton();
         audioOptions = game.getAudioOptions();

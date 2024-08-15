@@ -30,6 +30,7 @@ public class LoadContent {
     public static final String SETTINGS_BACKGROUND = "ui/settings_background.png";
     public static final String SOUND_BUTTONS = "ui/sound_buttons.png";
     public static final String VOLUME_BUTTONS = "ui/volume_buttons.png";
+    public static final String PAUSE_BACKGROUND = "ui/pause_background.png";
 
 
 
