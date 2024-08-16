@@ -1,5 +1,7 @@
 package org.example.Entities;
 
+import org.example.GameScenes.PlayScene;
+
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
@@ -17,10 +19,16 @@ public class EnemyManager {
 
 
     public void update(){
+        boolean isAnyActive = false;
         for(Enemy e : enemies){
             if(e.isActive()) {
+                isAnyActive = true;
                 e.update();
             }
+        }
+
+        if(isAnyActive == false){
+            PlayScene.getInstance().setLevelCompleted(true);
         }
     }
 

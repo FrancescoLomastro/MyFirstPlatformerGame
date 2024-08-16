@@ -2,8 +2,10 @@ package org.example.Utility;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoadContent {
     public static final String PLAYER_NO_SWORD_ATLAS = "animations/entities/player_no_sword_sprites.png";
@@ -31,6 +33,7 @@ public class LoadContent {
     public static final String SOUND_BUTTONS = "ui/sound_buttons.png";
     public static final String VOLUME_BUTTONS = "ui/volume_buttons.png";
     public static final String PAUSE_BACKGROUND = "ui/pause_background.png";
+    public static final String LVL_COMPLETE_SCREEN = "ui/lvl_completed_screen.png";
     public static final String SETTINGS_DEEP_BACKGROUND = "ui/settings_deep_background.png";
 
 
@@ -40,7 +43,6 @@ public class LoadContent {
         InputStream is = LoadContent.class.getResourceAsStream("/" + fileName);
         try {
             img = ImageIO.read(is);
-
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -53,5 +55,37 @@ public class LoadContent {
         return img;
     }
 
+    public static int GetNumberOfFilesInFolder(String folderPath){
+        int fileCount = 0;
+        try {
+            URL url = LoadContent.class.getClassLoader().getResource(folderPath);
+
+            if (url != null) {
+                List<String> fileNames = listFiles(folderPath);
+                fileCount = fileNames.size();
+            } else {
+                System.out.println("La cartella '" + folderPath + "' non esiste.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return fileCount;
+    }
+
+
+    private static List<String> listFiles(String folderPath) throws IOException {
+        List<String> fileNames = new ArrayList<>();
+        try (InputStream is = LoadContent.class.getResourceAsStream("/"+folderPath)) {
+            if (is != null) {
+                try (BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
+                    String resource;
+                    while ((resource = br.readLine()) != null) {
+                        fileNames.add(resource);
+                    }
+                }
+            }
+        }
+        return fileNames;
+    }
 
 }

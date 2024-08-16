@@ -24,8 +24,6 @@ public class Level {
     private int maxLevelOffsetX; // Amount of right space in the level that the camera is not seeing at the beginning
 
     private ArrayList<Prop> props;
-
-    private Sword sword;
     private ArrayList<Enemy> enemies ;
 
 
@@ -38,7 +36,7 @@ public class Level {
         this.enemies= new ArrayList<>();
         this.props= new ArrayList<>();
         extractLevelData();
-        calcolateMaxLevelOffsetX();
+        calculateMaxLevelOffsetX();
     }
 
     public static boolean IsSightClear(int[][] levelBlockIndexes, Rectangle2D.Float firstHitbox, Rectangle2D.Float secondHitbox, int tileY) {
@@ -119,7 +117,7 @@ public class Level {
         }
     }
 
-    private void calcolateMaxLevelOffsetX() {
+    private void calculateMaxLevelOffsetX() {
         maxLevelOffsetX = TILES_SIZE * (levelImage.getWidth() - TILES_IN_WIDTH);
     }
 

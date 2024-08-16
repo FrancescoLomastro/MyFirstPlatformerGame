@@ -2,6 +2,7 @@ package org.example.Levels;
 
 import org.example.Entities.EnemyManager;
 import org.example.Entities.Player;
+import org.example.GameScenes.Scene;
 import org.example.Props.PropManager;
 import org.example.Utility.LoadContent;
 
@@ -9,6 +10,7 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.RasterFormatException;
+import java.util.Scanner;
 
 import static org.example.Constants.Prop.BigCloud.*;
 import static org.example.Constants.Sprites.Level.WATER_ANIMATION_SPEED;
@@ -16,12 +18,14 @@ import static org.example.Constants.Sprites.Level.ANIMATED_WATER_SPRITE_AMOUNT;
 import static org.example.Constants.Window.*;
 
 public class LevelManager {
+
     private BufferedImage bigCloud, smallCloud;
     private BufferedImage deepBackground;
     private BufferedImage[] textures;
     private BufferedImage[] animatedWater;
     private Level currentLevel;
     private int currentLevelIndex;
+    private int maxLevelIndex;
 
     //Animation Variables
     protected int animationTick;
@@ -31,11 +35,12 @@ public class LevelManager {
     private PropManager propManager;
 
     public LevelManager() {
-        this.currentLevelIndex = 0;
+        this.currentLevelIndex = -1;
+        this.maxLevelIndex = LoadContent.GetNumberOfFilesInFolder("levels");
         this.animationFrame = 0;
         this.animationTick = 0;
         loadTextures();
-        loadNextLevel(currentLevelIndex);
+        loadNextLevel();
         this.enemyManager = new EnemyManager(currentLevel.getEnemies());
         this.propManager = new PropManager(currentLevel.getProps());
     }
@@ -131,9 +136,7 @@ public class LevelManager {
         smallCloud = LoadContent.GetSpriteAtlas(LoadContent.SMALL_CLOUD);
     }
 
-    private void loadNextLevel(int currentLevelIndex) {
-        currentLevel = new Level(currentLevelIndex);
-    }
+
 
     public int getPlayerX() {
         return currentLevel.getPlayerX();
@@ -162,5 +165,18 @@ public class LevelManager {
     public void reset() {
         enemyManager.reset();
         propManager.reset();
+    }
+
+    public void loadNextLevel() {
+        currentLevelIndex++;
+        if(currentLevelIndex >= maxLevelIndex) {
+            currentLevelIndex = 0;
+            System.out.println("No More Levels, Game Completed");
+            Scene.CurrentScene = Scene.MENU;
+        }
+
+        currentLevel = new Level(currentLevelIndex);
+        enemyManager = new EnemyManager(currentLevel.getEnemies());
+        propManager = new PropManager(currentLevel.getProps());
     }
 }

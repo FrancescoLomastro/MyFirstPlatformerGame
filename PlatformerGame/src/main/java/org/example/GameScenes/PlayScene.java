@@ -5,6 +5,7 @@ import org.example.Levels.LevelManager;
 import org.example.Main.Game;
 import org.example.UI.AudioOptions;
 import org.example.UI.GameOverOverlay;
+import org.example.UI.LevelCompletedOverlay;
 import org.example.UI.PauseOverlay;
 
 import java.awt.*;
@@ -12,13 +13,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 
-import static org.example.Constants.Motion.LEFT_LEVEL_BORDER;
-import static org.example.Constants.Motion.RIGHT_LEVEL_BORDER;
-import static org.example.Constants.Window.GAME_HEIGHT;
-import static org.example.Constants.Window.SCALE;
+import static org.example.Constants.Motion.*;
+import static org.example.Constants.Window.*;
 
 public class PlayScene implements SceneMethods{
 
+    private LevelCompletedOverlay levelCompletedOverlay;
     private Player player;
     private LevelManager levelManager;
     private GameOverOverlay gameOverOverlay;
@@ -32,6 +32,7 @@ public class PlayScene implements SceneMethods{
     private static PlayScene instance;
     private boolean gameOver;
     private boolean paused;
+    private boolean levelCompleted;
 
     public static void createInstance(Game game){
         if(instance == null)
@@ -51,13 +52,15 @@ public class PlayScene implements SceneMethods{
         this.maxLevelCameraOffset = levelManager.getMaxLevelCameraOffset();
         this.gameOverOverlay = new GameOverOverlay();
         this.pauseOverlay = new PauseOverlay(game.getAudioOptions());
+        this.levelCompletedOverlay = new LevelCompletedOverlay();
     }
 
     public void update() {
         if(paused){
             pauseOverlay.update();
-        }
-        else if(!gameOver){
+        }else if(levelCompleted){
+            levelCompletedOverlay.update();
+        }else if(!gameOver){
             levelManager.update();
             player.update();
             checkCameraOffset();
@@ -74,6 +77,8 @@ public class PlayScene implements SceneMethods{
         player.draw(g,xLevelOffset);
         if(paused){
             pauseOverlay.draw(g);
+        } else if(levelCompleted) {
+            levelCompletedOverlay.draw(g);
         } else if(gameOver) {
             gameOverOverlay.draw(g);
         }
@@ -110,7 +115,8 @@ public class PlayScene implements SceneMethods{
             gameOverOverlay.mousePressed(e);
         }else if (paused){
             pauseOverlay.mousePressed(e);
-        }
+        }else if (levelCompleted)
+            levelCompletedOverlay.mousePressed(e);
 
     }
 
@@ -118,16 +124,20 @@ public class PlayScene implements SceneMethods{
     public void mouseReleased(MouseEvent e) {
         if(gameOver){
             gameOverOverlay.mouseReleased(e);
-        }else if(paused)
+        }else if(paused) {
             pauseOverlay.mouseReleased(e);
+        }else if (levelCompleted)
+            levelCompletedOverlay.mouseReleased(e);
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
         if(gameOver){
             gameOverOverlay.mouseMoved(e);
-        }else if(paused)
+        }else if(paused) {
             pauseOverlay.mouseMoved(e);
+        }else if (levelCompleted)
+            levelCompletedOverlay.mouseMoved(e);
     }
 
     @Override
@@ -179,16 +189,28 @@ public class PlayScene implements SceneMethods{
 
     public void reset() {
         gameOver = false;
-        //paused = false;
+        paused = false;
         player.reset();
         levelManager.reset();
         xLevelOffset = 0;
-        //lvlCompleted = false;
-        //playerDying = false;
+        levelCompleted = false;
+        maxLevelCameraOffset = levelManager.getMaxLevelCameraOffset();
     }
 
     public void unpauseGame(){
         paused = false;
     }
 
+    public void setLevelCompleted(boolean b) {
+        levelCompleted = b;
+    }
+
+    public void loadNextLevel() {
+        levelManager.loadNextLevel();
+        this.player = new Player(
+                levelManager.getPlayerX(),
+                levelManager.getPlayerY());
+        player.addLevelData(levelManager.getBlockIndexes());
+        reset();
+    }
 }
