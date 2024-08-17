@@ -13,8 +13,6 @@ import static org.example.Utility.LoadContent.SWORD_ATLAS;
 
 public class Sword extends Prop {
     private BufferedImage[] images;
-    private int animationFrame;
-    private int animationTick;
 
 
     public Sword(int x, int y, int objectType) {

@@ -14,17 +14,17 @@ public class LoadContent {
     public static final String SHARK_ATLAS = "animations/entities/shark_atlas.png";
     public static final String STAR_ATLAS = "animations/entities/star_atlas.png";
     public static final String LEVEL_GROUND_TEXTURE = "level_texture.png";
-    public static final String LEVEL_ANIMATED_WATER = "animations/objects/water_animated_sprites.png";
+    public static final String LEVEL_ANIMATED_WATER = "animations/props/water_animated_sprites.png";
     public static final String PLAYSCENE_DEEP_BACKGROUND = "playScene_deep_background.png";
     public static final String MENUSCENE_DEEP_BACKGROUND = "menuScene_deep_background.png";
     public static final String BIG_CLOUD_1 = "objects/big_cloud_1.png";
     public static final String BIG_CLOUD_2 = "objects/big_cloud_2.png";
     public static final String BIG_CLOUD_3 = "objects/big_cloud_3.png";
     public static final String SMALL_CLOUD = "objects/small_cloud.png";
-    public static final String SWORD_ATLAS = "animations/objects/sword_sprites.png";
+    public static final String SWORD_ATLAS = "animations/props/sword_sprites.png";
     public static final String HEALTH_HUD = "hud/health_hud.png";
-    public static final String SEAGULL_ATLAS = "animations/objects/seagull_sprites.png";
-    public static final String SHIP_ATLAS = "animations/objects/ship_sprite_floating.png";
+    public static final String SEAGULL_ATLAS = "animations/props/seagull_sprites.png";
+    public static final String SHIP_ATLAS = "animations/props/ship_sprite_floating.png";
     public static final String MENU_BACKGROUND = "ui/menu_background.png";
     public static final String URM_BUTTONS = "ui/urm_buttons.png";
     public static final String MENU_BUTTONS = "ui/menu_buttons.png";
@@ -35,6 +35,7 @@ public class LoadContent {
     public static final String PAUSE_BACKGROUND = "ui/pause_background.png";
     public static final String LVL_COMPLETE_SCREEN = "ui/lvl_completed_screen.png";
     public static final String SETTINGS_DEEP_BACKGROUND = "ui/settings_deep_background.png";
+    public static final String CANNON_ATLAS = "animations/props/cannon_atlas.png";
 
 
 

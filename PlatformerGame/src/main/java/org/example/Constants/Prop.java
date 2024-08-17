@@ -93,4 +93,18 @@ public class Prop {
         public static final int SEAGULL_HEIGHT = (int) (SEAGULL_HEIGHT_DEFAULT * SCALE);
 
     }
+
+    public class Cannon {
+        public static final int CANNON_SPRITE_AMOUNT = 7;
+        public static final int CANNON_ANIMATION_SPEED = 25;
+
+        public static final int CANNON_WIDTH_DEFAULT = 40;
+        public static final int CANNON_HEIGHT_DEFAULT = 26;
+        public static final int CANNON_WIDTH = (int) (CANNON_WIDTH_DEFAULT * SCALE);
+        public static final int CANNON_HEIGHT = (int) (CANNON_HEIGHT_DEFAULT * SCALE);
+
+
+        public static final int CANNON_RIGHT = 0;
+        public static final int CANNON_LEFT = 1;
+    }
 }

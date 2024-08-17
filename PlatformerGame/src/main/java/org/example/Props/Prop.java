@@ -12,7 +12,8 @@ public abstract class Prop {
     protected Rectangle2D.Float hitbox;
     protected boolean doAnimation;
     protected boolean active = true;
-    protected int aniTick, aniIndex;
+    protected int animationFrame;
+    protected int animationTick;
     protected int xDrawOffset, yDrawOffset;
 
     public Prop(int x, int y, int objectType) {
