@@ -16,13 +16,14 @@ import static org.example.Levels.Level.IsAllTilesClear;
 public class Cannon extends Prop{
     private int tileY;
     private int attackDistance;
-    private BufferedImage[] images;
+    private static BufferedImage[] images = LoadAnimation();
+
+
     private ArrayList<CannonBall> cannonBalls;
 
 
     public Cannon(int x, int y, int objectType) {
         super(x, y, objectType);
-        loadAnimation();
         this.cannonBalls = new ArrayList<>();
         attackDistance = TILES_SIZE;
         tileY = y / TILES_SIZE;
@@ -31,13 +32,13 @@ public class Cannon extends Prop{
         hitbox.y += (int)(6 * SCALE);
     }
 
-    private void loadAnimation() {
-        images = new BufferedImage[7];
+    private static BufferedImage[] LoadAnimation() {
+        BufferedImage[] imgs = new BufferedImage[7];
         BufferedImage temp = LoadContent.GetSpriteAtlas(LoadContent.CANNON_ATLAS);
-        for (int i = 0; i < images.length; i++) {
-            images[i] = temp.getSubimage(40*i, 0, 40, 26);
+        for (int i = 0; i < imgs.length; i++) {
+            imgs[i] = temp.getSubimage(40*i, 0, 40, 26);
         }
-
+        return imgs;
     }
 
     public void update(){

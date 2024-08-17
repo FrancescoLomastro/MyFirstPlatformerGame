@@ -37,7 +37,7 @@ public class LoadContent {
     public static final String SETTINGS_DEEP_BACKGROUND = "ui/settings_deep_background.png";
     public static final String CANNON_ATLAS = "animations/props/cannon_atlas.png";
     public static final String CANNON_BALL = "objects/cannon_ball.png";
-
+    public static final String POTION_ATLAS = "animations/props/potion_sprites.png";
 
 
     public static BufferedImage GetSpriteAtlas(String fileName) {

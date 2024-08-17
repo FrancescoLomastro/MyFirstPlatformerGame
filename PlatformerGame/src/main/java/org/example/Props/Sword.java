@@ -12,12 +12,20 @@ import static org.example.Constants.Window.SCALE;
 import static org.example.Utility.LoadContent.SWORD_ATLAS;
 
 public class Sword extends Prop {
-    private BufferedImage[] images;
+    private static BufferedImage[] images = LoadAnimation();
+
+    private static BufferedImage[] LoadAnimation() {
+        BufferedImage[] imgs = new BufferedImage[7];
+        BufferedImage img = LoadContent.GetSpriteAtlas(SWORD_ATLAS);
+        for(int i = 0; i < SWORD_SPRITE_AMOUNT; i++) {
+            imgs[i] = img.getSubimage(i*SWORD_WIDTH_DEFAULT, 0, SWORD_WIDTH_DEFAULT, SWORD_HEIGHT_DEFAULT);
+        }
+        return imgs;
+    }
 
 
     public Sword(int x, int y, int objectType) {
         super(x, y, objectType);
-        loadAnimation();
         initHitbox(SWORD_WIDTH_DEFAULT, SWORD_HEIGHT_DEFAULT);
         xDrawOffset = (int) (5 * SCALE);
         yDrawOffset = (int) (15 * SCALE);
@@ -26,14 +34,7 @@ public class Sword extends Prop {
         active = true;
     }
 
-    private void loadAnimation() {
-        images = new BufferedImage[7];
-        BufferedImage img = LoadContent.GetSpriteAtlas(SWORD_ATLAS);
-        for(int i = 0; i < SWORD_SPRITE_AMOUNT; i++) {
-            images[i] = img.getSubimage(i*SWORD_WIDTH_DEFAULT, 0, SWORD_WIDTH_DEFAULT, SWORD_HEIGHT_DEFAULT);
-        }
 
-    }
 
     @Override
     public void update(){

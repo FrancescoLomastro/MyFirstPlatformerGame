@@ -65,6 +65,8 @@ public class LevelManager {
                     g.drawImage(animatedWater[animationFrame], TILES_SIZE * i - xLvlOffset, TILES_SIZE * j, TILES_SIZE, TILES_SIZE, null);
                 else
                     g.drawImage(textures[index], TILES_SIZE * i - xLvlOffset, TILES_SIZE * j, TILES_SIZE, TILES_SIZE, null);
+                g.setColor(Color.BLUE);
+                g.drawRect(TILES_SIZE * i - xLvlOffset, TILES_SIZE * j, TILES_SIZE, TILES_SIZE);
             }
     }
 

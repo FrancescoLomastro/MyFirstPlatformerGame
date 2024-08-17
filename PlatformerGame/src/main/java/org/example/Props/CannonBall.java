@@ -11,13 +11,12 @@ import static org.example.Constants.Prop.Cannon.*;
 import static org.example.Constants.Window.SCALE;
 
 public class CannonBall {
-    private BufferedImage image;
+    private static BufferedImage image = LoadImage();
     private Rectangle2D.Float hitbox;
     private int dir;
     private boolean active=true;
 
     public CannonBall(int x, int y, int dir) {
-        image = LoadContent.GetSpriteAtlas(LoadContent.CANNON_BALL);
         int xOffset = (int) (-3 * SCALE);
         int yOffset = (int) (5 * SCALE);
         if(dir == 1) {
@@ -25,6 +24,10 @@ public class CannonBall {
         }
         this.hitbox = new Rectangle2D.Float(x + xOffset,y + yOffset,CANNON_BALL_WIDTH,CANNON_BALL_HEIGHT);
         this.dir = dir;
+    }
+
+    private static BufferedImage LoadImage() {
+        return LoadContent.GetSpriteAtlas(LoadContent.CANNON_BALL);
     }
 
     public void updatePosition(){

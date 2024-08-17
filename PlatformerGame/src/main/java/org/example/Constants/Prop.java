@@ -104,8 +104,8 @@ public class Prop {
         public static final int CANNON_HEIGHT = (int) (CANNON_HEIGHT_DEFAULT * SCALE);
 
 
-        public static final int CANNON_RIGHT = 0;
-        public static final int CANNON_LEFT = 1;
+        public static final int CANNON_RIGHT = 1;
+        public static final int CANNON_LEFT = 2;
 
 
         public static final int CANNON_BALL_DEFAULT_WIDTH = 15;
@@ -113,5 +113,19 @@ public class Prop {
         public static final int CANNON_BALL_WIDTH = (int)(SCALE * CANNON_BALL_DEFAULT_WIDTH);
         public static final int CANNON_BALL_HEIGHT = (int)(SCALE * CANNON_BALL_DEFAULT_HEIGHT);
         public static final float CANNON_BALL_SPEED = 0.75f * SCALE;
+    }
+
+    public class Potion {
+
+        public static final int POTION_SPRITE_AMOUNT = 7;
+        public static final int POTION_ANIMATION_SPEED = 25;
+
+        public static final int POTION_WIDTH_DEFAULT = 12;
+        public static final int POTION_HEIGHT_DEFAULT = 16;
+        public static final int POTION_WIDTH = (int) (POTION_WIDTH_DEFAULT * SCALE);
+        public static final int POTION_HEIGHT = (int) (POTION_HEIGHT_DEFAULT * SCALE);
+
+
+        public static final int POTION = 3;
     }
 }

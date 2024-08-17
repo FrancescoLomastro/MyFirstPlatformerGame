@@ -2,6 +2,7 @@ package org.example.Levels;
 
 import org.example.Entities.*;
 import org.example.Props.Cannon;
+import org.example.Props.Potion;
 import org.example.Props.Prop;
 import org.example.Props.Sword;
 import org.example.Utility.LoadContent;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 
 import static org.example.Constants.Prop.Cannon.CANNON_LEFT;
 import static org.example.Constants.Prop.Cannon.CANNON_RIGHT;
+import static org.example.Constants.Prop.Potion.POTION;
 import static org.example.Constants.Prop.Sword.SWORD;
 import static org.example.Constants.Sprites.Level.*;
 import static org.example.Constants.Window.*;
@@ -110,6 +112,7 @@ public class Level {
             case 0 -> this.props.add( new Sword(i * TILES_SIZE,j *TILES_SIZE, SWORD));
             case 1 -> this.props.add( new Cannon(i * TILES_SIZE,j *TILES_SIZE, CANNON_RIGHT));
             case 2 -> this.props.add( new Cannon(i * TILES_SIZE,j *TILES_SIZE, CANNON_LEFT));
+            case 4 -> this.props.add( new Potion(i * TILES_SIZE,j *TILES_SIZE, POTION));
         }
     }
 
