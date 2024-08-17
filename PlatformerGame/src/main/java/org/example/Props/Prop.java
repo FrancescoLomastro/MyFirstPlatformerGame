@@ -15,6 +15,7 @@ public abstract class Prop {
     protected int animationFrame;
     protected int animationTick;
     protected int xDrawOffset, yDrawOffset;
+    protected int[][] levelBlockIndexes;
 
     public Prop(int x, int y, int objectType) {
         this.y = y;
@@ -57,4 +58,8 @@ public abstract class Prop {
     }
 
     public abstract void reset();
+
+    public void addLevelData(int[][] levelBlockIndexes) {
+        this.levelBlockIndexes = levelBlockIndexes;
+    }
 }

@@ -198,6 +198,9 @@ public class Level {
     }
 
     public ArrayList<Prop> getProps() {
+        for(Prop p: props){
+            p.addLevelData(levelBlockIndexes);
+        }
         return props;
     }
 

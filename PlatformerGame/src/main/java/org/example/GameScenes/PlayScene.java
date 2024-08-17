@@ -3,7 +3,6 @@ package org.example.GameScenes;
 import org.example.Entities.Player;
 import org.example.Levels.LevelManager;
 import org.example.Main.Game;
-import org.example.UI.AudioOptions;
 import org.example.UI.GameOverOverlay;
 import org.example.UI.LevelCompletedOverlay;
 import org.example.UI.PauseOverlay;
@@ -173,6 +172,8 @@ public class PlayScene implements SceneMethods{
     public Rectangle2D.Float getPlayerHitbox(){
         return player.getHitbox();
     }
+
+
 
     public void hitPlayer(int damage) {
         player.alterHealth(damage);
