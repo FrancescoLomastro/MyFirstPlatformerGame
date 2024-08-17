@@ -106,5 +106,12 @@ public class Prop {
 
         public static final int CANNON_RIGHT = 0;
         public static final int CANNON_LEFT = 1;
+
+
+        public static final int CANNON_BALL_DEFAULT_WIDTH = 15;
+        public static final int CANNON_BALL_DEFAULT_HEIGHT = 15;
+        public static final int CANNON_BALL_WIDTH = (int)(SCALE * CANNON_BALL_DEFAULT_WIDTH);
+        public static final int CANNON_BALL_HEIGHT = (int)(SCALE * CANNON_BALL_DEFAULT_HEIGHT);
+        public static final float CANNON_BALL_SPEED = 0.75f * SCALE;
     }
 }

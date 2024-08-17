@@ -36,6 +36,7 @@ public class LoadContent {
     public static final String LVL_COMPLETE_SCREEN = "ui/lvl_completed_screen.png";
     public static final String SETTINGS_DEEP_BACKGROUND = "ui/settings_deep_background.png";
     public static final String CANNON_ATLAS = "animations/props/cannon_atlas.png";
+    public static final String CANNON_BALL = "objects/cannon_ball.png";
 
 
 
