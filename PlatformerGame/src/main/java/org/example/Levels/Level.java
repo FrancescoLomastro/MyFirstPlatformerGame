@@ -1,10 +1,7 @@
 package org.example.Levels;
 
 import org.example.Entities.*;
-import org.example.Props.Cannon;
-import org.example.Props.Potion;
-import org.example.Props.Prop;
-import org.example.Props.Sword;
+import org.example.Props.*;
 import org.example.Utility.LoadContent;
 
 import java.awt.*;
@@ -14,6 +11,7 @@ import java.util.ArrayList;
 
 import static org.example.Constants.Prop.Cannon.CANNON_LEFT;
 import static org.example.Constants.Prop.Cannon.CANNON_RIGHT;
+import static org.example.Constants.Prop.InactiveProp.*;
 import static org.example.Constants.Prop.Potion.POTION;
 import static org.example.Constants.Prop.Sword.SWORD;
 import static org.example.Constants.Sprites.Level.*;
@@ -28,6 +26,7 @@ public class Level {
 
     private int maxLevelOffsetX; // Amount of right space in the level that the camera is not seeing at the beginning
 
+    private ArrayList<InactiveProp> inactiveProps;
     private ArrayList<Prop> props;
     private ArrayList<Enemy> enemies ;
 
@@ -40,6 +39,7 @@ public class Level {
         this.levelImage = LoadContent.GetSpriteAtlas("levels/"+index+".png");
         this.enemies= new ArrayList<>();
         this.props= new ArrayList<>();
+        this.inactiveProps = new ArrayList<>();
         extractLevelData();
         calculateMaxLevelOffsetX();
     }
@@ -106,10 +106,18 @@ public class Level {
     private void extractObjects(Color color, int j, int i) {
         int value = color.getBlue();
         switch (value){
-            case 0 -> this.props.add( new Sword(i * TILES_SIZE,j *TILES_SIZE, SWORD));
-            case 1 -> this.props.add( new Cannon(i * TILES_SIZE,j *TILES_SIZE, CANNON_RIGHT));
-            case 2 -> this.props.add( new Cannon(i * TILES_SIZE,j *TILES_SIZE, CANNON_LEFT));
-            case 4 -> this.props.add( new Potion(i * TILES_SIZE,j *TILES_SIZE, POTION));
+            case 50 -> this.props.add( new Sword(i * TILES_SIZE,j *TILES_SIZE, SWORD));
+            case 55 -> this.props.add( new Cannon(i * TILES_SIZE,j *TILES_SIZE, CANNON_RIGHT));
+            case 60 -> this.props.add( new Cannon(i * TILES_SIZE,j *TILES_SIZE, CANNON_LEFT));
+            case 65 -> this.props.add( new Potion(i * TILES_SIZE,j *TILES_SIZE, POTION));
+
+
+            case 0 -> this.inactiveProps.add(new InactiveProp(i * TILES_SIZE, j * TILES_SIZE, STAND_BARREL));
+            case 1 -> this.inactiveProps.add(new InactiveProp(i * TILES_SIZE, j * TILES_SIZE, SIDE_BARREL));
+            case 2 -> this.inactiveProps.add(new InactiveProp(i * TILES_SIZE, j * TILES_SIZE, DOUBLE_SIDE_BARREL));
+            case 3 -> this.inactiveProps.add(new InactiveProp(i * TILES_SIZE, j * TILES_SIZE, STAND_POTION1));
+            case 4 -> this.inactiveProps.add(new InactiveProp(i * TILES_SIZE, j * TILES_SIZE, BARREL_POTION1));
+            case 5 -> this.inactiveProps.add(new InactiveProp(i * TILES_SIZE, j * TILES_SIZE, SIDE_POTION2));
         }
     }
 
@@ -205,6 +213,10 @@ public class Level {
             p.addLevelData(levelBlockIndexes);
         }
         return props;
+    }
+
+    public ArrayList<InactiveProp> getInactiveProps() {
+        return inactiveProps;
     }
 
 }

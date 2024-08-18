@@ -10,7 +10,6 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.RasterFormatException;
-import java.util.Scanner;
 
 import static org.example.Constants.Prop.BigCloud.*;
 import static org.example.Constants.Sprites.Level.WATER_ANIMATION_SPEED;
@@ -42,7 +41,7 @@ public class LevelManager {
         loadTextures();
         loadNextLevel();
         this.enemyManager = new EnemyManager(currentLevel.getEnemies());
-        this.propManager = new PropManager(currentLevel.getProps());
+        this.propManager = new PropManager(currentLevel.getProps(), currentLevel.getInactiveProps());
     }
 
 
@@ -181,6 +180,6 @@ public class LevelManager {
 
         currentLevel = new Level(currentLevelIndex);
         enemyManager = new EnemyManager(currentLevel.getEnemies());
-        propManager = new PropManager(currentLevel.getProps());
+        propManager = new PropManager(currentLevel.getProps(), currentLevel.getInactiveProps());
     }
 }

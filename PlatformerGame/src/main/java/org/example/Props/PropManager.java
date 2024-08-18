@@ -1,6 +1,5 @@
 package org.example.Props;
 
-import org.example.Entities.Enemy;
 import org.example.Entities.Player;
 
 import java.awt.*;
@@ -11,8 +10,11 @@ public class PropManager {
     private ArrayList<Prop> props;
     private Sword sword;
 
-    public PropManager(ArrayList<Prop> props) {
+    private ArrayList<InactiveProp> inactiveProps;
+
+    public PropManager(ArrayList<Prop> props, ArrayList<InactiveProp> inactiveProps) {
         this.props = props;
+        this.inactiveProps = inactiveProps;
         sword = findSword();
     }
 
@@ -39,6 +41,9 @@ public class PropManager {
             if(p.isActive()) {
                 p.draw(g, xLvlOffset);
             }
+        }
+        for (InactiveProp p : inactiveProps){
+            p.draw(g, xLvlOffset);
         }
     }
 

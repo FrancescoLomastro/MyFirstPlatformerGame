@@ -128,4 +128,21 @@ public class Prop {
 
         public static final int POTION = 3;
     }
+
+    public class InactiveProp {
+
+        public static final int IP_WIDTH_DEFAULT = 32;
+        public static final int IP_HEIGHT_DEFAULT = 32;
+        public static final int IP_WIDTH = (int) (IP_WIDTH_DEFAULT * SCALE);
+        public static final int IP_HEIGHT = (int) (IP_HEIGHT_DEFAULT * SCALE);
+
+
+        public static final int STAND_BARREL = 0;
+        public static final int SIDE_BARREL = 1;
+        public static final int DOUBLE_SIDE_BARREL = 2;
+        public static final int STAND_POTION1 = 3;
+        public static final int BARREL_POTION1 = 4;
+        public static final int SIDE_POTION2 = 5;
+
+    }
 }
