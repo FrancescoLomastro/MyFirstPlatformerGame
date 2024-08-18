@@ -1,6 +1,7 @@
 package org.example.Props;
 
 import org.example.Entities.Player;
+import org.example.Props.UnAnimated.UnAnimatedProp;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -10,9 +11,9 @@ public class PropManager {
     private ArrayList<Prop> props;
     private Sword sword;
 
-    private ArrayList<InactiveProp> inactiveProps;
+    private ArrayList<UnAnimatedProp> inactiveProps;
 
-    public PropManager(ArrayList<Prop> props, ArrayList<InactiveProp> inactiveProps) {
+    public PropManager(ArrayList<Prop> props, ArrayList<UnAnimatedProp> inactiveProps) {
         this.props = props;
         this.inactiveProps = inactiveProps;
         sword = findSword();
@@ -42,7 +43,7 @@ public class PropManager {
                 p.draw(g, xLvlOffset);
             }
         }
-        for (InactiveProp p : inactiveProps){
+        for (UnAnimatedProp p : inactiveProps){
             p.draw(g, xLvlOffset);
         }
     }

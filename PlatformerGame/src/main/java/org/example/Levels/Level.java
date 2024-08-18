@@ -2,6 +2,9 @@ package org.example.Levels;
 
 import org.example.Entities.*;
 import org.example.Props.*;
+import org.example.Props.UnAnimated.Barrel;
+import org.example.Props.UnAnimated.Bottle;
+import org.example.Props.UnAnimated.UnAnimatedProp;
 import org.example.Utility.LoadContent;
 
 import java.awt.*;
@@ -9,11 +12,11 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import static org.example.Constants.Prop.Cannon.CANNON_LEFT;
-import static org.example.Constants.Prop.Cannon.CANNON_RIGHT;
-import static org.example.Constants.Prop.InactiveProp.*;
-import static org.example.Constants.Prop.Potion.POTION;
-import static org.example.Constants.Prop.Sword.SWORD;
+import static org.example.Constants.Prop.Barrels.*;
+import static org.example.Constants.Prop.Bottles.*;
+import static org.example.Constants.Prop.Cannon.*;
+import static org.example.Constants.Prop.Potion.*;
+import static org.example.Constants.Prop.Sword.*;
 import static org.example.Constants.Sprites.Level.*;
 import static org.example.Constants.Window.*;
 
@@ -26,7 +29,7 @@ public class Level {
 
     private int maxLevelOffsetX; // Amount of right space in the level that the camera is not seeing at the beginning
 
-    private ArrayList<InactiveProp> inactiveProps;
+    private ArrayList<UnAnimatedProp> unAnimatedProps;
     private ArrayList<Prop> props;
     private ArrayList<Enemy> enemies ;
 
@@ -39,7 +42,7 @@ public class Level {
         this.levelImage = LoadContent.GetSpriteAtlas("levels/"+index+".png");
         this.enemies= new ArrayList<>();
         this.props= new ArrayList<>();
-        this.inactiveProps = new ArrayList<>();
+        this.unAnimatedProps = new ArrayList<>();
         extractLevelData();
         calculateMaxLevelOffsetX();
     }
@@ -114,12 +117,12 @@ public class Level {
             case 65 -> this.props.add( new Potion(i * TILES_SIZE,j *TILES_SIZE, POTION));
 
 
-            case 0 -> this.inactiveProps.add(new InactiveProp(i * TILES_SIZE, j * TILES_SIZE, STAND_BARREL));
-            case 1 -> this.inactiveProps.add(new InactiveProp(i * TILES_SIZE, j * TILES_SIZE, SIDE_BARREL));
-            case 2 -> this.inactiveProps.add(new InactiveProp(i * TILES_SIZE, j * TILES_SIZE, DOUBLE_SIDE_BARREL));
-            case 3 -> this.inactiveProps.add(new InactiveProp(i * TILES_SIZE, j * TILES_SIZE, STAND_POTION1));
-            case 4 -> this.inactiveProps.add(new InactiveProp(i * TILES_SIZE, j * TILES_SIZE, BARREL_POTION1));
-            case 5 -> this.inactiveProps.add(new InactiveProp(i * TILES_SIZE, j * TILES_SIZE, SIDE_POTION2));
+            case 0 -> this.unAnimatedProps.add(new Barrel(i * TILES_SIZE, j * TILES_SIZE, STAND_BARREL));
+            case 1 -> this.unAnimatedProps.add(new Barrel(i * TILES_SIZE, j * TILES_SIZE, SIDE_BARREL));
+            case 2 -> this.unAnimatedProps.add(new Barrel(i * TILES_SIZE, j * TILES_SIZE, DOUBLE_SIDE_BARREL));
+            case 3 -> this.unAnimatedProps.add(new Barrel(i * TILES_SIZE, j * TILES_SIZE, BARREL_POTION));
+            case 4 -> this.unAnimatedProps.add(new Bottle(i * TILES_SIZE, j * TILES_SIZE, STAND_POTION1));
+            case 5 -> this.unAnimatedProps.add(new Bottle(i * TILES_SIZE, j * TILES_SIZE, SIDE_POTION2));
         }
     }
 
@@ -217,8 +220,8 @@ public class Level {
         return props;
     }
 
-    public ArrayList<InactiveProp> getInactiveProps() {
-        return inactiveProps;
+    public ArrayList<UnAnimatedProp> getUnAnimatedProps() {
+        return unAnimatedProps;
     }
 
 }

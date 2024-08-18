@@ -41,7 +41,7 @@ public class LevelManager {
         loadTextures();
         loadNextLevel();
         this.enemyManager = new EnemyManager(currentLevel.getEnemies());
-        this.propManager = new PropManager(currentLevel.getProps(), currentLevel.getInactiveProps());
+        this.propManager = new PropManager(currentLevel.getProps(), currentLevel.getUnAnimatedProps());
     }
 
 
@@ -180,6 +180,6 @@ public class LevelManager {
 
         currentLevel = new Level(currentLevelIndex);
         enemyManager = new EnemyManager(currentLevel.getEnemies());
-        propManager = new PropManager(currentLevel.getProps(), currentLevel.getInactiveProps());
+        propManager = new PropManager(currentLevel.getProps(), currentLevel.getUnAnimatedProps());
     }
 }
