@@ -7,8 +7,8 @@ public class Motion {
     public static float GRAVITY = 0.04f * SCALE;
     public static float COLLISION_FALL_SPEED = 0.5f * SCALE;
 
-    public static int LEFT_LEVEL_BORDER = (int)(0.2 * GAME_WIDTH);
-    public static int RIGHT_LEVEL_BORDER = (int)(0.8 * GAME_WIDTH);
+    public static int LEFT_LEVEL_BORDER = (int)(0.4 * GAME_WIDTH);
+    public static int RIGHT_LEVEL_BORDER = (int)(0.6 * GAME_WIDTH);
 
 
     public class Dirctions{

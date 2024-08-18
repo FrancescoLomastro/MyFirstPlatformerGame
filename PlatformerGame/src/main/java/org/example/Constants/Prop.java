@@ -145,4 +145,18 @@ public class Prop {
         public static final int SIDE_POTION2 = 5;
 
     }
+
+    public class Candle {
+
+        public static final int CANDLE_SPRITE_AMOUNT = 6;
+        public static final int CANDLE_ANIMATION_SPEED = 25;
+
+
+        public static final int CANDLE_WIDTH_DEFAULT = 32;
+        public static final int CANDLE_HEIGHT_DEFAULT = 32;
+        public static final int CANDLE_WIDTH = (int) (CANDLE_WIDTH_DEFAULT * SCALE);
+        public static final int CANDLE_HEIGHT = (int) (CANDLE_HEIGHT_DEFAULT * SCALE);
+
+
+    }
 }

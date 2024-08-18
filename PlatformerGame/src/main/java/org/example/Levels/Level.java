@@ -106,6 +106,7 @@ public class Level {
     private void extractObjects(Color color, int j, int i) {
         int value = color.getBlue();
         switch (value){
+            case 45 -> this.props.add( new Candle(i * TILES_SIZE,j *TILES_SIZE, 0));
             case 50 -> this.props.add( new Sword(i * TILES_SIZE,j *TILES_SIZE, SWORD));
             case 55 -> this.props.add( new Cannon(i * TILES_SIZE,j *TILES_SIZE, CANNON_RIGHT));
             case 60 -> this.props.add( new Cannon(i * TILES_SIZE,j *TILES_SIZE, CANNON_LEFT));

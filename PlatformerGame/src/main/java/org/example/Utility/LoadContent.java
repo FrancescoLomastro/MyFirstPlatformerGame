@@ -23,6 +23,7 @@ public class LoadContent {
     public static final String SMALL_CLOUD = "objects/small_cloud.png";
     public static final String SWORD_ATLAS = "animations/props/sword_sprites.png";
     public static final String HEALTH_HUD = "hud/health_hud.png";
+    public static final String CANDLE_ATLAS = "animations/props/candle_sprites.png";
     public static final String SEAGULL_ATLAS = "animations/props/seagull_sprites.png";
     public static final String SHIP_ATLAS = "animations/props/ship_sprite_floating.png";
     public static final String MENU_BACKGROUND = "ui/menu_background.png";
