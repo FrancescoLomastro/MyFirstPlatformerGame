@@ -55,15 +55,16 @@ public class Level {
         }
     }
 
-    public static boolean IsAllTilesWalkable(int xStart, int xEnd, int y, int[][] lvlData) {
+        public static boolean IsAllTilesWalkable(int xStart, int xEnd, int y, int[][] lvlData) {
         if(IsAllTilesClear(xStart, xEnd, y, lvlData)){
             for (int i = 0; i < xEnd - xStart; i++) {
                 if (!IsTileSolid(xStart + i, y + 1, lvlData)) {
                     return false;
                 }
             }
+            return true;
         }
-        return true;
+        return false;
     }
 
     public static boolean IsAllTilesClear(int xStart, int xEnd, int y, int[][] lvlData) {
