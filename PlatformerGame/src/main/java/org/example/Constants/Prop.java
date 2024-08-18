@@ -153,6 +153,16 @@ public class Prop {
         public static final int SIDE_POTION2 = 1;
     }
 
+    public class Door {
+        public static final int DOOR_WIDTH_DEFAULT = 64;
+        public static final int DOOR_HEIGHT_DEFAULT = 64;
+        public static final int DOOR_WIDTH = (int) (DOOR_WIDTH_DEFAULT * SCALE);
+        public static final int DOOR_HEIGHT = (int) (DOOR_HEIGHT_DEFAULT * SCALE);
+
+
+        public static final int DOOR = 0;
+    }
+
     public class Candle {
 
         public static final int CANDLE_SPRITE_AMOUNT = 6;

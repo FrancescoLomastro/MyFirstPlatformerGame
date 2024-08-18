@@ -4,6 +4,7 @@ import org.example.Entities.*;
 import org.example.Props.*;
 import org.example.Props.UnAnimated.Barrel;
 import org.example.Props.UnAnimated.Bottle;
+import org.example.Props.UnAnimated.Door;
 import org.example.Props.UnAnimated.UnAnimatedProp;
 import org.example.Utility.LoadContent;
 
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import static org.example.Constants.Prop.Barrels.*;
 import static org.example.Constants.Prop.Bottles.*;
 import static org.example.Constants.Prop.Cannon.*;
+import static org.example.Constants.Prop.Door.DOOR;
 import static org.example.Constants.Prop.Potion.*;
 import static org.example.Constants.Prop.Sword.*;
 import static org.example.Constants.Sprites.Level.*;
@@ -123,6 +125,8 @@ public class Level {
             case 3 -> this.unAnimatedProps.add(new Barrel(i * TILES_SIZE, j * TILES_SIZE, BARREL_POTION));
             case 4 -> this.unAnimatedProps.add(new Bottle(i * TILES_SIZE, j * TILES_SIZE, STAND_POTION1));
             case 5 -> this.unAnimatedProps.add(new Bottle(i * TILES_SIZE, j * TILES_SIZE, SIDE_POTION2));
+
+            case 10 -> this.unAnimatedProps.add(new Door(i * TILES_SIZE, j * TILES_SIZE, DOOR));
         }
     }
 
