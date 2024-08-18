@@ -92,16 +92,13 @@ public class Level {
         if(playerSpawnPoint == null)
         {
             int value = color.getGreen();
-            if (value == 100)
+            if (value == 0)
                 playerSpawnPoint= new Point(i*TILES_SIZE, j*TILES_SIZE);
         }
     }
 
     private void extractEnvironment(Color color, int j, int i) {
         int value = color.getRed();
-        if (value >= 51) {
-            value = 0;
-        }
 
         levelBlockIndexes[j][i] = value;
     }
@@ -119,9 +116,9 @@ public class Level {
     private void extractEnemies(Color color, int j, int i) {
         int value = color.getGreen();
         switch (value){
-            case 0 -> this.enemies.add(new Crabby(i * TILES_SIZE, j * TILES_SIZE));
-            case 1 -> this.enemies.add(new Shark(i * TILES_SIZE, j * TILES_SIZE));
-            case 2 -> this.enemies.add(new Star(i * TILES_SIZE, j * TILES_SIZE));
+            case 30 -> this.enemies.add(new Crabby(i * TILES_SIZE, j * TILES_SIZE));
+            case 60 -> this.enemies.add(new Shark(i * TILES_SIZE, j * TILES_SIZE));
+            case 90 -> this.enemies.add(new Star(i * TILES_SIZE, j * TILES_SIZE));
         }
     }
 
@@ -172,6 +169,9 @@ public class Level {
 
     public static boolean IsTileSolid(int tileX, int tileY, int[][] lvlData) {
         int value = lvlData[tileY][tileX];
+        if (value >= 132 && value <= 179){
+            return false;
+        }
         return value != SPRITE_HOLE && value != WATER;
     }
 

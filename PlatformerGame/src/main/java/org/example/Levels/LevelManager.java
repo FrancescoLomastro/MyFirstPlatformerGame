@@ -65,8 +65,8 @@ public class LevelManager {
                     g.drawImage(animatedWater[animationFrame], TILES_SIZE * i - xLvlOffset, TILES_SIZE * j, TILES_SIZE, TILES_SIZE, null);
                 else
                     g.drawImage(textures[index], TILES_SIZE * i - xLvlOffset, TILES_SIZE * j, TILES_SIZE, TILES_SIZE, null);
-                g.setColor(Color.BLUE);
-                g.drawRect(TILES_SIZE * i - xLvlOffset, TILES_SIZE * j, TILES_SIZE, TILES_SIZE);
+                //g.setColor(Color.BLUE);
+                //g.drawRect(TILES_SIZE * i - xLvlOffset, TILES_SIZE * j, TILES_SIZE, TILES_SIZE);
             }
     }
 
@@ -113,11 +113,13 @@ public class LevelManager {
 
     private void loadTextures() {
         BufferedImage img = LoadContent.GetSpriteAtlas(LoadContent.LEVEL_GROUND_TEXTURE);
-        textures = new BufferedImage[60];
+        textures = new BufferedImage[256];
 
-            for (int row = 0; row < 5; row++) {
+            for (int row = 0; row < 21; row++) {
                 for (int columns = 0; columns < 12; columns++) {
                     int index = row * 12 + columns;
+                    if(index > 255)
+                        break;
                     try {
                         textures[index] = img.getSubimage(columns * 32, row * 32, 32, 32);
                     } catch (RasterFormatException e) {
