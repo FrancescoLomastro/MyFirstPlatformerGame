@@ -73,10 +73,13 @@ public class Sprites {
 
     }
 
-    public class Level{
+    public class Levels {
         public static final int SPRITE_HOLE = 255;
         public static final int WATER = 50;
         public static final int ANIMATED_WATER_SPRITE_AMOUNT = 4;
         public static final int WATER_ANIMATION_SPEED = 25;
+
+        public static final int SURFACE_WATER = 0;
+        public static final int DEEP_WATER = 1;
     }
 }

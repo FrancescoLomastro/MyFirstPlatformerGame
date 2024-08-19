@@ -5,6 +5,7 @@ import org.example.Entities.Player;
 import org.example.GameScenes.Scene;
 import org.example.Props.PropManager;
 import org.example.Utility.LoadContent;
+import org.example.Utility.Pair;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -12,8 +13,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.RasterFormatException;
 
 import static org.example.Constants.Prop.BigCloud.*;
-import static org.example.Constants.Sprites.Level.WATER_ANIMATION_SPEED;
-import static org.example.Constants.Sprites.Level.ANIMATED_WATER_SPRITE_AMOUNT;
+import static org.example.Constants.Sprites.Levels.*;
 import static org.example.Constants.Window.*;
 
 public class LevelManager {
@@ -22,6 +22,7 @@ public class LevelManager {
     private BufferedImage deepBackground;
     private BufferedImage[] textures;
     private BufferedImage[] animatedWater;
+    private BufferedImage deep_water;
     private Level currentLevel;
     private int currentLevelIndex;
     private int maxLevelIndex;
@@ -60,13 +61,18 @@ public class LevelManager {
         for (int j = 0; j < TILES_IN_HEIGHT; j++)
             for (int i = 0; i < currentLevel.getLevelTileWidth(); i++) {
                 int index = currentLevel.getBlockIndex(i, j);
-                if(index == 50) //Animated Water
-                    g.drawImage(animatedWater[animationFrame], TILES_SIZE * i - xLvlOffset, TILES_SIZE * j, TILES_SIZE, TILES_SIZE, null);
-                else
-                    g.drawImage(textures[index], TILES_SIZE * i - xLvlOffset, TILES_SIZE * j, TILES_SIZE, TILES_SIZE, null);
-                //g.setColor(Color.BLUE);
-                //g.drawRect(TILES_SIZE * i - xLvlOffset, TILES_SIZE * j, TILES_SIZE, TILES_SIZE);
+                g.drawImage(textures[index], TILES_SIZE * i - xLvlOffset, TILES_SIZE * j, TILES_SIZE, TILES_SIZE, null);
             }
+        drawWater(g, xLvlOffset);
+    }
+
+    private void drawWater(Graphics g, int xLvlOffset) {
+        for(Pair pair : currentLevel.getWaterBlocks()) {
+            switch (pair.getFirst()) {
+                case SURFACE_WATER ->    g.drawImage(animatedWater[animationFrame], pair.getSecond().x - xLvlOffset, pair.getSecond().y, TILES_SIZE, TILES_SIZE, null);
+                case DEEP_WATER ->       g.drawImage(deep_water, pair.getSecond().x - xLvlOffset, pair.getSecond().y, TILES_SIZE, TILES_SIZE, null);
+            }
+        }
     }
 
     private void drawBackground(Graphics g, int xLvlOffset) {
@@ -133,6 +139,7 @@ public class LevelManager {
         for(int i = 0; i < ANIMATED_WATER_SPRITE_AMOUNT; i++) {
             animatedWater[i] = img.getSubimage(i*32, 0, 32, 32);
         }
+        deep_water = img.getSubimage(ANIMATED_WATER_SPRITE_AMOUNT * 32, 0, 32,32);
 
         deepBackground = LoadContent.GetSpriteAtlas(LoadContent.PLAYSCENE_DEEP_BACKGROUND);
         bigCloud = LoadContent.GetSpriteAtlas(LoadContent.BIG_CLOUD_1);
