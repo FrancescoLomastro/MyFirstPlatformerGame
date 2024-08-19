@@ -20,6 +20,8 @@ import static org.example.Constants.Prop.Cannon.*;
 import static org.example.Constants.Prop.Door.DOOR;
 import static org.example.Constants.Prop.Potion.*;
 import static org.example.Constants.Prop.Sword.*;
+import static org.example.Constants.Prop.Water.DEEP_WATER;
+import static org.example.Constants.Prop.Water.SURFACE_WATER;
 import static org.example.Constants.Sprites.Levels.*;
 import static org.example.Constants.Window.*;
 
@@ -29,7 +31,7 @@ public class Level {
     private Point playerSpawnPoint;
     private int[][] levelBlockIndexes;
     private int maxLevelOffsetX; // Amount of right space in the level that the camera is not seeing at the beginning
-    private ArrayList<Pair> waterBlocks;
+
 
     private ArrayList<UnAnimatedProp> unAnimatedProps;
     private ArrayList<Prop> props;
@@ -38,7 +40,6 @@ public class Level {
 
     public Level(int currentLevelIndex) {
         this.index = currentLevelIndex;
-        this.waterBlocks = new ArrayList<>();
         this.levelImage = LoadContent.GetSpriteAtlas("levels/"+index+".png");
         this.enemies= new ArrayList<>();
         this.props= new ArrayList<>();
@@ -116,6 +117,8 @@ public class Level {
             case 60 -> this.props.add( new Cannon(i * TILES_SIZE,j *TILES_SIZE, CANNON_LEFT));
             case 65 -> this.props.add( new Potion(i * TILES_SIZE,j *TILES_SIZE, POTION));
 
+            case 20 -> this.props.add(new Water(i*TILES_SIZE, j*TILES_SIZE, SURFACE_WATER));
+            case 21 -> this.props.add(new Water(i*TILES_SIZE, j*TILES_SIZE, DEEP_WATER));
 
             case 0 -> this.unAnimatedProps.add(new Barrel(i * TILES_SIZE, j * TILES_SIZE, STAND_BARREL));
             case 1 -> this.unAnimatedProps.add(new Barrel(i * TILES_SIZE, j * TILES_SIZE, SIDE_BARREL));
@@ -126,8 +129,6 @@ public class Level {
 
             case 10 -> this.unAnimatedProps.add(new Door(i * TILES_SIZE, j * TILES_SIZE, DOOR));
 
-            case 20 -> this.waterBlocks.add(new Pair(SURFACE_WATER, new Point(i*TILES_SIZE, j*TILES_SIZE)));
-            case 21 -> this.waterBlocks.add(new Pair(DEEP_WATER, new Point(i*TILES_SIZE, j*TILES_SIZE)));
         }
     }
 
@@ -229,7 +230,4 @@ public class Level {
         return unAnimatedProps;
     }
 
-    public ArrayList<Pair> getWaterBlocks() {
-        return waterBlocks;
-    }
 }

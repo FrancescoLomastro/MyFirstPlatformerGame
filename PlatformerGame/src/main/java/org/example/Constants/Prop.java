@@ -177,5 +177,20 @@ public class Prop {
 
     }
 
+    public class Water {
+        public static final int ANIMATED_WATER_SPRITE_AMOUNT = 4;
+        public static final int WATER_ANIMATION_SPEED = 25;
+
+        public static final int SURFACE_WATER = 0;
+        public static final int DEEP_WATER = 1;
+
+        public static final int WATER_WIDTH_DEFAULT = 32;
+        public static final int WATER_HEIGHT_DEFAULT = 32;
+        public static final int WATER_WIDTH = (int) (WATER_WIDTH_DEFAULT * SCALE);
+        public static final int WATER_HEIGHT = (int) (WATER_HEIGHT_DEFAULT * SCALE);
+
+
+    }
+
 
 }

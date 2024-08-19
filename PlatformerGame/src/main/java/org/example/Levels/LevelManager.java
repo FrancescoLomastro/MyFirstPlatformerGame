@@ -21,8 +21,6 @@ public class LevelManager {
     private BufferedImage bigCloud, smallCloud;
     private BufferedImage deepBackground;
     private BufferedImage[] textures;
-    private BufferedImage[] animatedWater;
-    private BufferedImage deep_water;
     private Level currentLevel;
     private int currentLevelIndex;
     private int maxLevelIndex;
@@ -63,17 +61,8 @@ public class LevelManager {
                 int index = currentLevel.getBlockIndex(i, j);
                 g.drawImage(textures[index], TILES_SIZE * i - xLvlOffset, TILES_SIZE * j, TILES_SIZE, TILES_SIZE, null);
             }
-        drawWater(g, xLvlOffset);
     }
 
-    private void drawWater(Graphics g, int xLvlOffset) {
-        for(Pair pair : currentLevel.getWaterBlocks()) {
-            switch (pair.getFirst()) {
-                case SURFACE_WATER ->    g.drawImage(animatedWater[animationFrame], pair.getSecond().x - xLvlOffset, pair.getSecond().y, TILES_SIZE, TILES_SIZE, null);
-                case DEEP_WATER ->       g.drawImage(deep_water, pair.getSecond().x - xLvlOffset, pair.getSecond().y, TILES_SIZE, TILES_SIZE, null);
-            }
-        }
-    }
 
     private void drawBackground(Graphics g, int xLvlOffset) {
         g.drawImage(deepBackground, 0, 0, GAME_WIDTH, GAME_HEIGHT, null);
@@ -100,21 +89,12 @@ public class LevelManager {
     }
 
     public void update() {
-        updateAnimationTick();
         propManager.update();
         enemyManager.update();
     }
 
 
-    private void updateAnimationTick() {
-        animationTick++;
-        if (animationTick >= WATER_ANIMATION_SPEED) {
-            animationTick = 0;
-            animationFrame++;
-            if (animationFrame >= ANIMATED_WATER_SPRITE_AMOUNT)
-                animationFrame = 0;
-        }
-    }
+
 
     private void loadTextures() {
         BufferedImage img = LoadContent.GetSpriteAtlas(LoadContent.LEVEL_GROUND_TEXTURE);
@@ -134,12 +114,7 @@ public class LevelManager {
             }
 
 
-        img = LoadContent.GetSpriteAtlas(LoadContent.LEVEL_ANIMATED_WATER);
-        animatedWater = new BufferedImage[ANIMATED_WATER_SPRITE_AMOUNT];
-        for(int i = 0; i < ANIMATED_WATER_SPRITE_AMOUNT; i++) {
-            animatedWater[i] = img.getSubimage(i*32, 0, 32, 32);
-        }
-        deep_water = img.getSubimage(ANIMATED_WATER_SPRITE_AMOUNT * 32, 0, 32,32);
+
 
         deepBackground = LoadContent.GetSpriteAtlas(LoadContent.PLAYSCENE_DEEP_BACKGROUND);
         bigCloud = LoadContent.GetSpriteAtlas(LoadContent.BIG_CLOUD_1);
