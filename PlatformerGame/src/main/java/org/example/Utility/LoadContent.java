@@ -42,7 +42,11 @@ public class LoadContent {
     public static final String UAP_BARRELS = "objects/uap_barrels.png";
     public static final String UAP_BOTTLES = "objects/uap_bottles.png";
     public static final String DOOR = "objects/door.png";
-
+    public static final String WATER_LIGHT_1_ATLAS = "animations/props/water_light_1.png";
+    public static final String WATER_LIGHT_2_ATLAS = "animations/props/water_light_2.png";
+    public static final String BACK_PALM_1_ATLAS = "animations/props/back_palm_1.png";
+    public static final String BACK_PALM_2_ATLAS = "animations/props/back_palm_2.png";
+    public static final String BACK_PALM_3_ATLAS = "animations/props/back_palm_3.png";
 
     public static BufferedImage GetSpriteAtlas(String fileName) {
         BufferedImage img = null;

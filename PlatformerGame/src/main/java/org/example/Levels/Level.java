@@ -7,13 +7,13 @@ import org.example.Props.UnAnimated.Bottle;
 import org.example.Props.UnAnimated.Door;
 import org.example.Props.UnAnimated.UnAnimatedProp;
 import org.example.Utility.LoadContent;
-import org.example.Utility.Pair;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import static org.example.Constants.Prop.BackPalm.*;
 import static org.example.Constants.Prop.Barrels.*;
 import static org.example.Constants.Prop.Bottles.*;
 import static org.example.Constants.Prop.Cannon.*;
@@ -22,6 +22,8 @@ import static org.example.Constants.Prop.Potion.*;
 import static org.example.Constants.Prop.Sword.*;
 import static org.example.Constants.Prop.Water.DEEP_WATER;
 import static org.example.Constants.Prop.Water.SURFACE_WATER;
+import static org.example.Constants.Prop.WaterLight.WATER_LIGHT_1;
+import static org.example.Constants.Prop.WaterLight.WATER_LIGHT_2;
 import static org.example.Constants.Sprites.Levels.*;
 import static org.example.Constants.Window.*;
 
@@ -111,6 +113,10 @@ public class Level {
     private void extractObjects(Color color, int j, int i) {
         int value = color.getBlue();
         switch (value){
+            case 40 -> this.props.add( new BackPalm(i * TILES_SIZE,j *TILES_SIZE, BACK_PALM_1));
+            case 41 -> this.props.add( new BackPalm(i * TILES_SIZE,j *TILES_SIZE, BACK_PALM_2));
+            case 42 -> this.props.add( new BackPalm(i * TILES_SIZE,j *TILES_SIZE, BACK_PALM_3));
+
             case 45 -> this.props.add( new Candle(i * TILES_SIZE,j *TILES_SIZE, 0));
             case 50 -> this.props.add( new Sword(i * TILES_SIZE,j *TILES_SIZE, SWORD));
             case 55 -> this.props.add( new Cannon(i * TILES_SIZE,j *TILES_SIZE, CANNON_RIGHT));
@@ -119,6 +125,14 @@ public class Level {
 
             case 20 -> this.props.add(new Water(i*TILES_SIZE, j*TILES_SIZE, SURFACE_WATER));
             case 21 -> this.props.add(new Water(i*TILES_SIZE, j*TILES_SIZE, DEEP_WATER));
+            case 25 -> {
+                this.props.add(new Water(i*TILES_SIZE, j*TILES_SIZE, SURFACE_WATER));
+                this.props.add(new WaterLight(i*TILES_SIZE, j*TILES_SIZE, WATER_LIGHT_1));
+            }
+            case 26 -> {
+                this.props.add(new Water(i*TILES_SIZE, j*TILES_SIZE, SURFACE_WATER));
+                this.props.add(new WaterLight(i*TILES_SIZE, j*TILES_SIZE, WATER_LIGHT_2));
+            }
 
             case 0 -> this.unAnimatedProps.add(new Barrel(i * TILES_SIZE, j * TILES_SIZE, STAND_BARREL));
             case 1 -> this.unAnimatedProps.add(new Barrel(i * TILES_SIZE, j * TILES_SIZE, SIDE_BARREL));

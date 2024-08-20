@@ -12,9 +12,6 @@ public class EnemyManager {
 
     public EnemyManager(ArrayList<Enemy> enemies) {
         this.enemies = enemies;
-
-
-
     }
 
 

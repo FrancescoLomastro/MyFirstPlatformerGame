@@ -192,5 +192,45 @@ public class Prop {
 
     }
 
+    public class WaterLight {
+        public static final int WATER_LIGHT_1_SPRITE_AMOUNT = 2;
+        public static final int WATER_LIGHT_2_SPRITE_AMOUNT = 4;
+        public static final int WATER_LIGHT_ANIMATION_SPEED = 25;
+
+        public static final int WATER_LIGHT_1 = 0;
+        public static final int WATER_LIGHT_2 = 1;
+
+        public static final int WATER_LIGHT_WIDTH_DEFAULT = 56;
+        public static final int WATER_LIGHT_HEIGHT_DEFAULT = 36;
+        public static final int WATER_LIGHT_WIDTH = (int) (WATER_LIGHT_WIDTH_DEFAULT * SCALE);
+        public static final int WATER_LIGHT_HEIGHT = (int) (WATER_LIGHT_HEIGHT_DEFAULT * SCALE *2);
+
+
+    }
+
+    public class BackPalm {
+        public static final int BACK_PALM_SPRITE_AMOUNT = 4;
+        public static final int BACK_PALM_ANIMATION_SPEED = 40;
+
+        public static final int BACK_PALM_1 = 0;
+        public static final int BACK_PALM_2 = 1;
+
+        public static final int BACK_PALM_3 = 2;
+
+        public static final int BACK_PALM_1_WIDTH_DEFAULT = 49;
+        public static final int BACK_PALM_1_HEIGHT_DEFAULT = 53;
+
+        public static final int BACK_PALM_2_WIDTH_DEFAULT = 64;
+        public static final int BACK_PALM_2_HEIGHT_DEFAULT = 62;
+
+        public static final int BACK_PALM_3_WIDTH_DEFAULT = 50;
+        public static final int BACK_PALM_3_HEIGHT_DEFAULT = 53;
+
+
+        public static final int BACK_PALM_WIDTH = (int) (64 * SCALE);
+        public static final int BACK_PALM_HEIGHT = (int) (64 * SCALE);
+
+    }
+
 
 }

@@ -5,7 +5,6 @@ import org.example.Entities.Player;
 import org.example.GameScenes.Scene;
 import org.example.Props.PropManager;
 import org.example.Utility.LoadContent;
-import org.example.Utility.Pair;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
