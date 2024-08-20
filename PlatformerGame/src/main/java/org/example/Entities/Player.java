@@ -355,5 +355,10 @@ public class Player extends Entity{
     public void kill() {
         alterHealth(-maxHealth);
     }
+
+    public void resetDirBooleans() {
+        left = false;
+        right = false;
+    }
 }
 

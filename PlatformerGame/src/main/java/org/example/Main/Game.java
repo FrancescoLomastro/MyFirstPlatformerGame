@@ -12,18 +12,24 @@ import java.awt.event.MouseEvent;
 
 import static org.example.Constants.FrameRate.*;
 
+/**
+ * This class is used to create the game.
+ * It creates the game and starts the game loop.
+ * It also manages the scenes, and the audio options.
+ */
 public class Game implements Runnable {
     private GameWindow gameWindow;
     private GamePanel gamePanel;
     private Thread gameThread;
 
-
-
+    /* Scenes */
     private PlayScene playScene;
     private MenuScene menuScene;
     private SettingsScene settingsScene;
 
+    /* Audio */
     private AudioOptions audioOptions;
+
 
     public Game() {
         initClasses();
@@ -31,7 +37,7 @@ public class Game implements Runnable {
     }
 
     /**
-     * Metodo usato per inizializzare i principali attributi della classe Game
+     * This method is used to initialize the classes used by the game.
      */
     private void initClasses() {
 
@@ -44,13 +50,14 @@ public class Game implements Runnable {
 
         this.gamePanel = new GamePanel(this);
         this.gameWindow = new GameWindow(gamePanel);
+
+        /* Set the focus on the game panel */
         gamePanel.setFocusable(true);
         gamePanel.requestFocus();
-
     }
 
     /**
-     * Metodo usato per lanciare un thread secondorio rispetto Main, che si occupi del Loop di gioco
+     * This method is used to start the game loop using a new thread.
      */
     private void startLoop() {
         gameThread = new Thread(this);
@@ -61,14 +68,14 @@ public class Game implements Runnable {
 
 
     /**
-     * Questo metodo è il Loop del gioco, è progettato per aggiornare il frame corrente {@code FPS_SET} volte ongi
-     * secondo attraverso il metodo draw(), e aggiorna la logica di gioco {@code UPS_SET} volte ogni secondo attraverso
-     * il metodo update()
+     * This method is the Loop of the game, it is designed to update the current frame {@code FPS_SET} times ongi
+     * second through the draw() method, and update the game logic {@code UPS_SET} times every second through
+     * the update() method.
      *
-     * In realtà il loop non chiama direttamente il metodo draw() ma ha bisogno di passare per il metodo repaint() del
-     * JPanel, questo metodo è gia implementato dal JPanel e consente di aggiornare il contenuto grafico al suo interno.
-     * Attraverso un override del metodo paintComponent() di gamePanel è possibile richiamare il metodo draw() di questa
-     * classe
+     * Actually the loop does not call the draw() method directly but needs to go through the repaint() method of the
+     * JPanel, this method is already implemented by the JPanel and allows updating the graphical content inside it.
+     * Through an override of the paintComponent() method of gamePanel it is possible to call the draw() method of this
+     * class
      */
     @Override
     public void run() {
@@ -104,18 +111,29 @@ public class Game implements Runnable {
                 deltaF--;
             }
 
+            
             if (System.currentTimeMillis() - debug_FPS_previousTime >= 1000) {
                 debug_FPS_previousTime = System.currentTimeMillis();
-                System.out.println("FPS: " + debug_FPS_frames_num + " | UPS: " + debug_FPS_updates_num);
+                debug_FPS_UPS_printer(debug_FPS_frames_num,debug_FPS_updates_num);
                 debug_FPS_frames_num = 0;
                 debug_FPS_updates_num = 0;
             }
         }
     }
 
+    /**
+     * This method is used to print the current FPS and UPS on the console.
+     * @param debug_FPS_frames_num the number of frames in the last second.
+     * @param debug_FPS_updates_num the number of updates in the last second.
+     */
+    private void debug_FPS_UPS_printer(int debug_FPS_frames_num, int debug_FPS_updates_num) {
+        System.out.println("FPS: " + debug_FPS_frames_num + " | UPS: " + debug_FPS_updates_num);
+    }
+
 
     /**
-     * Aggiornamento logica di gioco
+     * Update the game logic, movement, animations...  without drawing anything.
+     * It calls the update() method of the current scene.
      */
     public void update() {
         switch (Scene.CurrentScene){
@@ -135,8 +153,9 @@ public class Game implements Runnable {
     }
 
     /**
-     * Aggiornamento frame mostrato a schermo
-     * @param g Parametro necessario per poter disegnre sul JPanel (non verrà descritto nelle altre classi)
+     * Frame update shown on screen.
+     * It calls the draw() method of the current scene.
+     * @param g Parameter needed to be able to draw on the JPanel (will not be described in the other classes).
      */
     public void draw(Graphics g) {
         switch (Scene.CurrentScene){
@@ -155,11 +174,11 @@ public class Game implements Runnable {
         }
     }
 
-
-
-
-
-
+    /**
+     * This method is used to handle the key pressed event.
+     * It calls the keyPressed() method of the current scene.
+     * @param e the key event.
+     */
     public void keyPressed(KeyEvent e) {
         switch (Scene.CurrentScene){
             case PLAY -> {
@@ -176,7 +195,13 @@ public class Game implements Runnable {
             }
         }
     }
-
+    
+    
+    /**
+     * This method is used to handle the key released event.
+     * It calls the keyReleased() method of the current scene.
+     * @param e the key event.
+     */
     public void keyReleased(KeyEvent e) {
         switch (Scene.CurrentScene){
             case PLAY -> {
@@ -194,6 +219,11 @@ public class Game implements Runnable {
         }
     }
 
+    /**
+     * This method is used to handle the mouse clicked event.
+     * It calls the mouseClicked() method of the current scene.
+     * @param e the mouse event.
+     */
     public void mouseClicked(MouseEvent e) {
         switch (Scene.CurrentScene){
             case PLAY -> {
@@ -211,6 +241,11 @@ public class Game implements Runnable {
         }
     }
 
+    /**
+     * This method is used to handle the mouse moved event.
+     * It calls the mouseMoved() method of the current scene.
+     * @param e the mouse event.
+     */
     public void mouseMoved(MouseEvent e) {
         switch (Scene.CurrentScene){
             case PLAY -> {
@@ -228,6 +263,11 @@ public class Game implements Runnable {
         }
     }
 
+    /**
+     * This method is used to handle the mouse released event.
+     * It calls the mouseReleased() method of the current scene.
+     * @param e the mouse event.
+     */
     public void mouseReleased(MouseEvent e) {
         switch (Scene.CurrentScene){
             case PLAY -> {
@@ -245,6 +285,11 @@ public class Game implements Runnable {
         }
     }
 
+    /**
+     * This method is used to handle the mouse pressed event.
+     * It calls the mousePressed() method of the current scene.
+     * @param e the mouse event.
+     */
     public void mousePressed(MouseEvent e) {
         switch (Scene.CurrentScene){
             case PLAY -> {
@@ -262,12 +307,14 @@ public class Game implements Runnable {
         }
     }
 
-
-
+    /**
+     * This method is used to handle the mouse dragged event.
+     * It calls the mouseDragged() method of the current scene.
+     * @param e the mouse event.
+     */
     public void mouseDragged(MouseEvent e) {
         switch (Scene.CurrentScene){
             case PLAY -> {
-                //playScene.mouseDragged(e);
             }
             case SETTINGS -> {
                 settingsScene.mouseDragged(e);
@@ -275,7 +322,21 @@ public class Game implements Runnable {
         }
     }
 
+    /** This method is a getter for the audio options.
+     * @return
+     */
     public AudioOptions getAudioOptions() {
         return audioOptions;
+    }
+
+    /**
+     * This method is used to handle the focus lost event.
+     * It calls the resetPlayerDirBooleans() method of the PlayScene.
+     */
+    public void windowFocusLost() {
+        if(Scene.CurrentScene == Scene.PLAY) {
+            PlayScene.getInstance().resetPlayerDirBooleans();
+        }
+
     }
 }

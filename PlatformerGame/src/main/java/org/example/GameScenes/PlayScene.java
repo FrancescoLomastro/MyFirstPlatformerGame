@@ -218,4 +218,8 @@ public class PlayScene implements SceneMethods{
     public void killPlayer() {
         player.kill();
     }
+
+    public void resetPlayerDirBooleans() {
+        player.resetDirBooleans();
+    }
 }
