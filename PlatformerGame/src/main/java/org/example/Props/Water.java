@@ -1,11 +1,13 @@
 package org.example.Props;
 
+import org.example.GameScenes.PlayScene;
 import org.example.Utility.LoadContent;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import static org.example.Constants.Prop.Water.*;
+import static org.example.Constants.Window.TILES_SIZE;
 
 public class Water extends Prop {
 
@@ -24,6 +26,7 @@ public class Water extends Prop {
 
     public Water(int x, int y, int objectType) {
         super(x, y, objectType);
+        initHitbox(TILES_SIZE, TILES_SIZE);
     }
 
 
@@ -34,6 +37,14 @@ public class Water extends Prop {
 
     public void update(){
         updateAnimationTick();
+        checkPlayerCollision();
+    }
+
+    private void checkPlayerCollision() {
+        PlayScene playScene = PlayScene.getInstance();
+        if(hitbox.intersects(playScene.getPlayerHitbox())) {
+            playScene.killPlayer();
+        }
     }
 
     public void draw(Graphics g, int xLvlOffset) {

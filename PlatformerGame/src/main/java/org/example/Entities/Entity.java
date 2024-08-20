@@ -153,4 +153,5 @@ public abstract class Entity {
         active = true;
         speedInAir = 0;
     }
+
 }

@@ -214,4 +214,8 @@ public class PlayScene implements SceneMethods{
         player.addLevelData(levelManager.getBlockIndexes());
         reset();
     }
+
+    public void killPlayer() {
+        player.kill();
+    }
 }

@@ -262,15 +262,17 @@ public class Player extends Entity{
 
     public void alterHealth(int damage) {
         int newHealth = currentHealth + damage;
-        if(newHealth <= 0) {
-            currentHealth = 0;
-            newAnimation(DEAD);
-        }
-        else if (newHealth > maxHealth)
-            currentHealth = maxHealth;
-        else {
-            currentHealth = newHealth;
-            hitten = true;
+        if(currentHealth > 0) {
+            if(newHealth <= 0) {
+                currentHealth = 0;
+                newAnimation(DEAD);
+            }
+            else if (newHealth > maxHealth)
+                currentHealth = maxHealth;
+            else {
+                currentHealth = newHealth;
+                hitten = true;
+            }
         }
     }
 
@@ -350,5 +352,8 @@ public class Player extends Entity{
         right = false;
     }
 
+    public void kill() {
+        alterHealth(-maxHealth);
+    }
 }
 
