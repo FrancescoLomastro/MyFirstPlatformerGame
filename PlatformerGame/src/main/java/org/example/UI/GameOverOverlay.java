@@ -33,7 +33,7 @@ public class GameOverOverlay {
 
 
     private void createImg() {
-        img = LoadContent.GetSpriteAtlas(LoadContent.DEATH_SCREEN);
+        img = LoadContent.GetResourceAsBufferedImage(LoadContent.DEATH_BOARD);
         imgW = (int) (img.getWidth() * SCALE);
         imgH = (int) (img.getHeight() * SCALE);
         imgX =  GAME_WIDTH /2 - imgW / 2;

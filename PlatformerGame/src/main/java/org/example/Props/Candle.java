@@ -6,15 +6,14 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import static org.example.Constants.Prop.Candle.*;
-import static org.example.Constants.Window.SCALE;
-import static org.example.Utility.LoadContent.CANDLE_ATLAS;
+import static org.example.Utility.LoadContent.CANDLE_SPRITE;
 
 public class Candle extends Prop {
     private static BufferedImage[] images = LoadAnimation();
 
     private static BufferedImage[] LoadAnimation() {
         BufferedImage[] imgs = new BufferedImage[7];
-        BufferedImage img = LoadContent.GetSpriteAtlas(CANDLE_ATLAS);
+        BufferedImage img = LoadContent.GetResourceAsBufferedImage(CANDLE_SPRITE);
         for(int i = 0; i < CANDLE_SPRITE_AMOUNT; i++) {
             imgs[i] = img.getSubimage(i*CANDLE_WIDTH_DEFAULT, 0, CANDLE_WIDTH_DEFAULT, CANDLE_HEIGHT_DEFAULT);
         }

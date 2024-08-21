@@ -8,18 +8,15 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import static org.example.Constants.Prop.Potion.*;
-import static org.example.Constants.Prop.Sword.*;
 import static org.example.Constants.Window.SCALE;
-import static org.example.Constants.Window.TILES_SIZE;
-import static org.example.Utility.LoadContent.POTION_ATLAS;
-import static org.example.Utility.LoadContent.SWORD_ATLAS;
+import static org.example.Utility.LoadContent.POTION_SPRITE;
 
 public class Potion extends Prop{
     private static BufferedImage[] sprites = LoadAnimations();
 
     private static BufferedImage[] LoadAnimations() {
         BufferedImage[] imgs = new BufferedImage[7];
-        BufferedImage temp = LoadContent.GetSpriteAtlas(POTION_ATLAS);
+        BufferedImage temp = LoadContent.GetResourceAsBufferedImage(POTION_SPRITE);
         for(int i = 0; i < POTION_SPRITE_AMOUNT; i++) {
             imgs[i] = temp.getSubimage(i*POTION_WIDTH_DEFAULT, 0, POTION_WIDTH_DEFAULT, POTION_HEIGHT_DEFAULT);
         }

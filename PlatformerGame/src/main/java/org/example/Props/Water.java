@@ -14,7 +14,7 @@ public class Water extends Prop {
     private static BufferedImage[] images = LoadImages();
 
     private static BufferedImage[] LoadImages() {
-        BufferedImage temp = LoadContent.GetSpriteAtlas(LoadContent.LEVEL_ANIMATED_WATER);
+        BufferedImage temp = LoadContent.GetResourceAsBufferedImage(LoadContent.WATER_SPRITE);
         BufferedImage[] imgs = new BufferedImage[ANIMATED_WATER_SPRITE_AMOUNT+1];
         for(int i = 0; i < ANIMATED_WATER_SPRITE_AMOUNT; i++) {
             imgs[i] = temp.getSubimage(i*32, 0, 32, 32);

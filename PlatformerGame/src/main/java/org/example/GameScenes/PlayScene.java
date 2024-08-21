@@ -47,7 +47,7 @@ public class PlayScene implements SceneMethods{
         this.player = new Player(
                 levelManager.getPlayerX(),
                 levelManager.getPlayerY());
-        this.player.addLevelData(levelManager.getBlockIndexes());
+        this.player.addLevelData(levelManager.getTextureIndex());
         this.maxLevelCameraOffset = levelManager.getMaxLevelCameraOffset();
         this.gameOverOverlay = new GameOverOverlay();
         this.pauseOverlay = new PauseOverlay(game.getAudioOptions());
@@ -211,7 +211,7 @@ public class PlayScene implements SceneMethods{
         this.player = new Player(
                 levelManager.getPlayerX(),
                 levelManager.getPlayerY());
-        player.addLevelData(levelManager.getBlockIndexes());
+        player.addLevelData(levelManager.getTextureIndex());
         reset();
     }
 

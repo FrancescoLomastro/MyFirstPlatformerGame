@@ -8,15 +8,13 @@ import java.awt.image.BufferedImage;
 
 import static org.example.Constants.Sprites.Enemy.Crabby.*;
 import static org.example.Constants.Sprites.Enemy.*;
-import static org.example.Constants.Sprites.ENTITY_ANIMATION_SPEED;
-import static org.example.Constants.Window.TILES_SIZE;
 
 public class Crabby extends Enemy{
 
     private static BufferedImage[][] sprites = LoadAnimations();
 
     private static BufferedImage[][] LoadAnimations() {
-        BufferedImage temp = LoadContent.GetSpriteAtlas(LoadContent.CRABBY_ATLAS);
+        BufferedImage temp = LoadContent.GetResourceAsBufferedImage(LoadContent.CRABBY_ATLAS);
         BufferedImage[][] images = new BufferedImage[5][9];
         for(int j = 0; j < images.length; j++){
             for(int i = 0; i < images[j].length; i++){

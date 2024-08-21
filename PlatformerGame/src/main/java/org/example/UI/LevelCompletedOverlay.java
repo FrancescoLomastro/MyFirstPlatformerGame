@@ -32,7 +32,7 @@ public class LevelCompletedOverlay {
     }
 
     private void initImg() {
-        img = LoadContent.GetSpriteAtlas(LoadContent.LVL_COMPLETE_SCREEN);
+        img = LoadContent.GetResourceAsBufferedImage(LoadContent.LEVEL_COMPLETE_BOARD);
         bgW = (int) (img.getWidth() * SCALE);
         bgH = (int) (img.getHeight() * SCALE);
         bgX = GAME_WIDTH / 2 - bgW / 2;

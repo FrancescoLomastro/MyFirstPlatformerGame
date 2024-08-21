@@ -73,26 +73,26 @@ public class MenuScene implements SceneMethods{
     }
 
     private void loadAnimations() {
-        deepBackground = LoadContent.GetSpriteAtlas(LoadContent.MENUSCENE_DEEP_BACKGROUND);
+        deepBackground = LoadContent.GetResourceAsBufferedImage(LoadContent.MENUSCENE_DEEP_BACKGROUND);
         bigClouds = new BufferedImage[3];
-        bigClouds[0] = LoadContent.GetSpriteAtlas(LoadContent.BIG_CLOUD_1);
-        bigClouds[1] = LoadContent.GetSpriteAtlas(LoadContent.BIG_CLOUD_2);
-        bigClouds[2] = LoadContent.GetSpriteAtlas(LoadContent.BIG_CLOUD_3);
-        smallCloud = LoadContent.GetSpriteAtlas(LoadContent.SMALL_CLOUD);
+        bigClouds[0] = LoadContent.GetResourceAsBufferedImage(LoadContent.BIG_CLOUD_1);
+        bigClouds[1] = LoadContent.GetResourceAsBufferedImage(LoadContent.BIG_CLOUD_2);
+        bigClouds[2] = LoadContent.GetResourceAsBufferedImage(LoadContent.BIG_CLOUD_3);
+        smallCloud = LoadContent.GetResourceAsBufferedImage(LoadContent.SMALL_CLOUD);
 
-        BufferedImage img = LoadContent.GetSpriteAtlas(LoadContent.SHIP_ATLAS);
+        BufferedImage img = LoadContent.GetResourceAsBufferedImage(LoadContent.SHIP_SPRITE);
         shipImages = new BufferedImage[8];
         for(int i = 0; i < SHIP_SPRITE_AMOUNT; i++) {
             shipImages[i] = img.getSubimage(i*80, 0, 80, 65);
         }
 
-        img = LoadContent.GetSpriteAtlas(LoadContent.SEAGULL_ATLAS);
+        img = LoadContent.GetResourceAsBufferedImage(LoadContent.SEAGULL_SPRITE);
         seagullImages = new BufferedImage[6];
         for(int i = 0; i < SEAGULL_SPRITE_AMOUNT; i++) {
             seagullImages[i] = img.getSubimage(i*30, 0, 30, 37);
         }
 
-        menuBackground = LoadContent.GetSpriteAtlas(LoadContent.MENU_BACKGROUND);
+        menuBackground = LoadContent.GetResourceAsBufferedImage(LoadContent.MENU_BOARD);
     }
 
 

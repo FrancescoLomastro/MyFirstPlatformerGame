@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import static org.example.Constants.Prop.Cannon.*;
 import static org.example.Constants.Window.*;
-import static org.example.Levels.Level.IsAllTilesClear;
+import static org.example.Levels.Level.areAllTilesClear;
 
 public class Cannon extends Prop{
     private int tileY;
@@ -34,7 +34,7 @@ public class Cannon extends Prop{
 
     private static BufferedImage[] LoadAnimation() {
         BufferedImage[] imgs = new BufferedImage[7];
-        BufferedImage temp = LoadContent.GetSpriteAtlas(LoadContent.CANNON_ATLAS);
+        BufferedImage temp = LoadContent.GetResourceAsBufferedImage(LoadContent.CANNON_SPRITE);
         for (int i = 0; i < imgs.length; i++) {
             imgs[i] = temp.getSubimage(40*i, 0, 40, 26);
         }
@@ -157,9 +157,9 @@ public class Cannon extends Prop{
         int playerXTile = (int) (PlayScene.getInstance().getPlayerHitbox().x / TILES_SIZE);
 
         if(cannonXTile > playerXTile) {
-            return IsAllTilesClear(playerXTile,cannonXTile,tileY,lvlData);
+            return areAllTilesClear(playerXTile,cannonXTile,tileY,lvlData);
         }else{
-            return IsAllTilesClear(cannonXTile,playerXTile,tileY,lvlData);
+            return areAllTilesClear(cannonXTile,playerXTile,tileY,lvlData);
         }
     }
 

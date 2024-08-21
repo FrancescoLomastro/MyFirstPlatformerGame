@@ -31,7 +31,7 @@ public class Shark extends Enemy {
 
 
     private static BufferedImage[][] LoadAnimations() {
-        BufferedImage temp = LoadContent.GetSpriteAtlas(LoadContent.SHARK_ATLAS);
+        BufferedImage temp = LoadContent.GetResourceAsBufferedImage(LoadContent.SHARK_ATLAS);
         BufferedImage[][] images = new BufferedImage[5][8];
         for(int j = 0; j < images.length; j++){
             for(int i = 0; i < images[j].length; i++){

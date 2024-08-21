@@ -14,7 +14,7 @@ public class Door extends UnAnimatedProp {
     private static BufferedImage image = LoadImage();
 
     private static BufferedImage LoadImage() {
-        BufferedImage img = LoadContent.GetSpriteAtlas(DOOR);
+        BufferedImage img = LoadContent.GetResourceAsBufferedImage(DOOR);
         return img;
     }
 

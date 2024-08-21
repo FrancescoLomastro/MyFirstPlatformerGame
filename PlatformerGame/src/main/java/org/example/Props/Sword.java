@@ -5,18 +5,16 @@ import org.example.Utility.LoadContent;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import static org.example.Constants.Prop.Ship.SHIP_ANIMATION_SPEED;
-import static org.example.Constants.Prop.Ship.SHIP_SPRITE_AMOUNT;
 import static org.example.Constants.Prop.Sword.*;
 import static org.example.Constants.Window.SCALE;
-import static org.example.Utility.LoadContent.SWORD_ATLAS;
+import static org.example.Utility.LoadContent.SWORD_SPRITE;
 
 public class Sword extends Prop {
     private static BufferedImage[] images = LoadAnimation();
 
     private static BufferedImage[] LoadAnimation() {
         BufferedImage[] imgs = new BufferedImage[7];
-        BufferedImage img = LoadContent.GetSpriteAtlas(SWORD_ATLAS);
+        BufferedImage img = LoadContent.GetResourceAsBufferedImage(SWORD_SPRITE);
         for(int i = 0; i < SWORD_SPRITE_AMOUNT; i++) {
             imgs[i] = img.getSubimage(i*SWORD_WIDTH_DEFAULT, 0, SWORD_WIDTH_DEFAULT, SWORD_HEIGHT_DEFAULT);
         }

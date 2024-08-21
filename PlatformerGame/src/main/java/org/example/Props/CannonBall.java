@@ -27,7 +27,7 @@ public class CannonBall {
     }
 
     private static BufferedImage LoadImage() {
-        return LoadContent.GetSpriteAtlas(LoadContent.CANNON_BALL);
+        return LoadContent.GetResourceAsBufferedImage(LoadContent.CANNON_BALL);
     }
 
     public void updatePosition(){

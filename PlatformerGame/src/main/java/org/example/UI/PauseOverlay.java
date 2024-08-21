@@ -13,7 +13,7 @@ import java.awt.image.BufferedImage;
 import static org.example.Constants.UI.URMButtons.*;
 import static org.example.Constants.Window.*;
 import static org.example.Utility.HelpMethods.IsMouseIn;
-import static org.example.Utility.LoadContent.PAUSE_BACKGROUND;
+import static org.example.Utility.LoadContent.PAUSE_BOARD;
 
 public class PauseOverlay {
     private BufferedImage backgroundImg;
@@ -43,7 +43,7 @@ public class PauseOverlay {
 
 
     private void loadBackground() {
-        backgroundImg = LoadContent.GetSpriteAtlas(PAUSE_BACKGROUND);
+        backgroundImg = LoadContent.GetResourceAsBufferedImage(PAUSE_BOARD);
         bgWidth = (int) (backgroundImg.getWidth() * SCALE);
         bgHeight = (int) (backgroundImg.getHeight() * SCALE);
         bgX  = GAME_WIDTH / 2 - bgWidth/ 2;

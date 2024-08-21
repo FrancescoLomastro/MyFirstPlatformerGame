@@ -40,7 +40,7 @@ public class Star extends Enemy {
 
 
     private static BufferedImage[][] LoadAnimations() {
-        BufferedImage temp = LoadContent.GetSpriteAtlas(LoadContent.STAR_ATLAS);
+        BufferedImage temp = LoadContent.GetResourceAsBufferedImage(LoadContent.STAR_ATLAS);
         BufferedImage[][] images = new BufferedImage[5][8];
         for(int j = 0; j < images.length; j++){
             for(int i = 0; i < images[j].length; i++){

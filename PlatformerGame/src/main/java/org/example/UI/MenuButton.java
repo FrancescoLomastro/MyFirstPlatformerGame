@@ -26,7 +26,7 @@ public class MenuButton extends Button {
 
     private void loadImgs() {
         imgs = new BufferedImage[3];
-        BufferedImage temp = LoadContent.GetSpriteAtlas(LoadContent.MENU_BUTTONS);
+        BufferedImage temp = LoadContent.GetResourceAsBufferedImage(LoadContent.MENU_BUTTONS);
         for(int i = 0; i < imgs.length; i++) {
             imgs[i] = temp.getSubimage(i* B_WIDTH_DEFAULT, rowIndex * B_HEIGHT_DEFAULT, B_WIDTH_DEFAULT, B_HEIGHT_DEFAULT);
         }

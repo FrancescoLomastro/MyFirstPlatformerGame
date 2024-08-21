@@ -30,7 +30,7 @@ public class VolumeButton extends Button{
 
 
     private void loadImgs() {
-        BufferedImage temp = LoadContent.GetSpriteAtlas(LoadContent.VOLUME_BUTTONS);
+        BufferedImage temp = LoadContent.GetResourceAsBufferedImage(LoadContent.VOLUME_BUTTONS);
         imgs = new BufferedImage[3];
         for (int i = 0; i < imgs.length; i++) {
             imgs[i] = temp.getSubimage(i * VOLUME_WIDTH_DEFAULT, 0, VOLUME_WIDTH_DEFAULT, VOLUME_HEIGHT_DEFAULT);

@@ -15,7 +15,6 @@ import static org.example.Constants.HUD.*;
 import static org.example.Constants.Sprites.ENTITY_ANIMATION_SPEED;
 import static org.example.Constants.Sprites.Player.*;
 import static org.example.Constants.Window.SCALE;
-import static org.example.Levels.Level.IsOnFloor;
 import static org.example.Utility.HelpMethods.XPositionNextToWall;
 
 public class Player extends Entity{
@@ -53,20 +52,20 @@ public class Player extends Entity{
 
 
     private void loadAnimations() {
-        BufferedImage imgNoSword = LoadContent.GetSpriteAtlas(LoadContent.PLAYER_NO_SWORD_ATLAS);
+        BufferedImage imgNoSword = LoadContent.GetResourceAsBufferedImage(LoadContent.PLAYER_ATLAS_NO_SWORD);
         playerNoSwordImages = new BufferedImage[8][8];
         for (int j = 0; j < playerNoSwordImages.length; j++)
             for (int i = 0; i < playerNoSwordImages[j].length; i++)
                 playerNoSwordImages[j][i] = imgNoSword.getSubimage(i * 64, j * 40, 64, 40);
 
 
-        BufferedImage imgWithSword = LoadContent.GetSpriteAtlas(LoadContent.PLAYER_SWORD_ATLAS);
+        BufferedImage imgWithSword = LoadContent.GetResourceAsBufferedImage(LoadContent.PLAYER_ATLAS_SWORD);
         playerWithSwordImages = new BufferedImage[13][6];
         for (int j = 0; j < playerWithSwordImages.length; j++)
             for (int i = 0; i < playerWithSwordImages[j].length; i++)
                 playerWithSwordImages[j][i] = imgWithSword.getSubimage(i * 64, j * 40, 64, 40);
 
-        healthHUD = LoadContent.GetSpriteAtlas(LoadContent.HEALTH_HUD);
+        healthHUD = LoadContent.GetResourceAsBufferedImage(LoadContent.HEALTH_HUD);
     }
 
 

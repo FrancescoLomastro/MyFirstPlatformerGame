@@ -16,55 +16,319 @@ import java.util.ArrayList;
 import static org.example.Constants.Prop.BackPalm.*;
 import static org.example.Constants.Prop.Barrels.*;
 import static org.example.Constants.Prop.Bottles.*;
+import static org.example.Constants.Prop.Candle.*;
 import static org.example.Constants.Prop.Cannon.*;
-import static org.example.Constants.Prop.Door.DOOR;
+import static org.example.Constants.Prop.Door.*;
 import static org.example.Constants.Prop.Potion.*;
 import static org.example.Constants.Prop.Sword.*;
-import static org.example.Constants.Prop.Water.DEEP_WATER;
-import static org.example.Constants.Prop.Water.SURFACE_WATER;
-import static org.example.Constants.Prop.WaterLight.WATER_LIGHT_1;
-import static org.example.Constants.Prop.WaterLight.WATER_LIGHT_2;
+import static org.example.Constants.Prop.Water.*;
+import static org.example.Constants.Prop.WaterLight.*;
 import static org.example.Constants.Sprites.Levels.*;
 import static org.example.Constants.Window.*;
 
+/**
+ * This class is responsible for loading the level image and extracting the level data from it.
+ * Level data corresponds to tiles, enemies, props and player spawn point.
+ */
 public class Level {
-    private BufferedImage levelImage;
-    private int index;
+    private final BufferedImage levelImage;
+    private final ArrayList<UnAnimatedProp> unAnimatedProps;
+    private final ArrayList<Prop> animatedProps;
+    private final ArrayList<Enemy> enemies ;
     private Point playerSpawnPoint;
+
+    /**
+     * A matrix that contains the texture indexes of the tiles in the level
+     */
     private int[][] levelBlockIndexes;
-    private int maxLevelOffsetX; // Amount of right space in the level that the camera is not seeing at the beginning
 
+    /**
+     * The amount of right space in the level that the camera is not seeing at the beginning
+     */
+    private final int levelXOffset_max;
 
-    private ArrayList<UnAnimatedProp> unAnimatedProps;
-    private ArrayList<Prop> props;
-    private ArrayList<Enemy> enemies ;
-
-
+    
     public Level(int currentLevelIndex) {
-        this.index = currentLevelIndex;
-        this.levelImage = LoadContent.GetSpriteAtlas("levels/"+index+".png");
+        this.levelImage = LoadContent.GetResourceAsBufferedImage("levels/"+currentLevelIndex+".png");
         this.enemies= new ArrayList<>();
-        this.props= new ArrayList<>();
+        this.animatedProps = new ArrayList<>();
         this.unAnimatedProps = new ArrayList<>();
+        this.levelXOffset_max = TILES_SIZE * (levelImage.getWidth() - TILES_IN_WIDTH);
         extractLevelData();
-        calculateMaxLevelOffsetX();
     }
 
-    public static boolean IsSightClear(int[][] levelBlockIndexes, Rectangle2D.Float firstHitbox, Rectangle2D.Float secondHitbox, int tileY) {
+    /**
+     * Extracts the level data from the level image
+     * Textures (RED), Enemies and player spawn (GREEN), Props (BLUE) 
+     */
+    private void extractLevelData() {
+        levelBlockIndexes = new int[levelImage.getHeight()][levelImage.getWidth()];
+        for (int j = 0; j < levelImage.getHeight(); j++)
+            for (int i = 0; i < levelImage.getWidth(); i++) {
+                Color color = new Color(levelImage.getRGB(i, j));
+                
+                extractTextures(color.getRed(), j, i);
+                extractEnemies(color.getGreen(), j , i);
+                extractProps(color.getBlue(), j, i);
+                extractPlayerSpawn(color.getGreen(), i, j);
+            }
+    }
+
+    /**
+     * Extracts the textures from the level image
+     */
+    private void extractTextures(int redIndex, int j, int i) {
+        levelBlockIndexes[j][i] = redIndex;
+    }
+
+    /**
+     * Extracts the enemies from the level image
+     */
+    private void extractEnemies(int greenIndex, int j, int i) {
+        switch (greenIndex){
+            case 30 -> this.enemies.add(new Crabby(i * TILES_SIZE, j * TILES_SIZE));
+            case 60 -> this.enemies.add(new Shark(i * TILES_SIZE, j * TILES_SIZE));
+            case 90 -> this.enemies.add(new Star(i * TILES_SIZE, j * TILES_SIZE));
+        }
+    }
+
+    /**
+     * Extracts the animated and not animated props from the level image
+     */
+    private void extractProps(int blueIndex, int j, int i) {
+        switch (blueIndex){
+            
+            /* Not animated props goes from 0 to 19 */
+            case 0 -> this.unAnimatedProps.add(new Barrel(i * TILES_SIZE, j * TILES_SIZE, STAND_BARREL));
+            case 1 -> this.unAnimatedProps.add(new Barrel(i * TILES_SIZE, j * TILES_SIZE, SIDE_BARREL));
+            case 2 -> this.unAnimatedProps.add(new Barrel(i * TILES_SIZE, j * TILES_SIZE, DOUBLE_SIDE_BARREL));
+            case 3 -> this.unAnimatedProps.add(new Barrel(i * TILES_SIZE, j * TILES_SIZE, BARREL_POTION));
+            case 4 -> this.unAnimatedProps.add(new Bottle(i * TILES_SIZE, j * TILES_SIZE, STAND_POTION1));
+            case 5 -> this.unAnimatedProps.add(new Bottle(i * TILES_SIZE, j * TILES_SIZE, SIDE_POTION2));
+            case 10 -> this.unAnimatedProps.add(new Door(i * TILES_SIZE, j * TILES_SIZE, DOOR));
+            
+            /* Animated props goes from 20 to 255 */
+            
+            /* Water indexes 20 to 39*/
+            case 20 -> this.animatedProps.add(new Water(i*TILES_SIZE, j*TILES_SIZE, SURFACE_WATER));
+            case 21 -> this.animatedProps.add(new Water(i*TILES_SIZE, j*TILES_SIZE, DEEP_WATER));
+            case 25 -> {
+                this.animatedProps.add(new Water(i*TILES_SIZE, j*TILES_SIZE, SURFACE_WATER));
+                this.animatedProps.add(new WaterLight(i*TILES_SIZE, j*TILES_SIZE, WATER_LIGHT_1));
+            }
+            case 26 -> {
+                this.animatedProps.add(new Water(i*TILES_SIZE, j*TILES_SIZE, SURFACE_WATER));
+                this.animatedProps.add(new WaterLight(i*TILES_SIZE, j*TILES_SIZE, WATER_LIGHT_2));
+            }
+            
+            case 40 -> this.animatedProps.add( new BackPalm(i * TILES_SIZE,j *TILES_SIZE, BACK_PALM_1));
+            case 41 -> this.animatedProps.add( new BackPalm(i * TILES_SIZE,j *TILES_SIZE, BACK_PALM_2));
+            case 42 -> this.animatedProps.add( new BackPalm(i * TILES_SIZE,j *TILES_SIZE, BACK_PALM_3));
+            case 45 -> this.animatedProps.add( new Candle(i * TILES_SIZE,j *TILES_SIZE, CANDLE));
+            case 50 -> this.animatedProps.add( new Sword(i * TILES_SIZE,j *TILES_SIZE, SWORD));
+            case 55 -> this.animatedProps.add( new Cannon(i * TILES_SIZE,j *TILES_SIZE, CANNON_RIGHT));
+            case 60 -> this.animatedProps.add( new Cannon(i * TILES_SIZE,j *TILES_SIZE, CANNON_LEFT));
+            case 65 -> this.animatedProps.add( new Potion(i * TILES_SIZE,j *TILES_SIZE, POTION));
+        }
+    }
+
+    /**
+     * Extracts the player spawn point from the level image
+     */
+    private void extractPlayerSpawn(int greenIndex, int i, int j) {
+        if(playerSpawnPoint == null)
+        {
+            switch (greenIndex) {
+                case 0 -> playerSpawnPoint = new Point(i * TILES_SIZE, j * TILES_SIZE);
+            }
+        }
+    }
+
+    /**
+     * Getter that returns the arrayList of Enemies
+     */
+    public ArrayList<Enemy> getEnemies() {
+        for(Enemy e: enemies){
+            e.addLevelData(levelBlockIndexes);
+        }
+        return enemies;
+    }
+
+    /**
+     * Getter that returns the arrayList of animated Props
+     */
+    public ArrayList<Prop> getAnimatedProps() {
+        for(Prop p: animatedProps){
+            p.addLevelData(levelBlockIndexes);
+        }
+        return animatedProps;
+    }
+
+    /**
+     * Getter that returns the arrayList of not animated Props
+     */
+    public ArrayList<UnAnimatedProp> getUnAnimatedProps() {
+        return unAnimatedProps;
+    }
+
+    /**
+     * Getter that returns the texture index at position (column, row) in the game window 
+     * @param column column index
+     * @param raw raw index
+     */
+    public int getTextureIndex(int column, int raw) {
+        return levelBlockIndexes[raw][column];
+    }
+    
+    /*
+     *   Getter that returns the whole texture matrix for the level
+     */
+    public int[][] getTextureMatrix() {
+        return levelBlockIndexes;
+    }
+
+    /**
+     * Getter that returns the X coordinate of player spawn 
+     */
+    public int getPlayerX() {
+        return playerSpawnPoint.x;
+    }
+
+    /**
+     * Getter that returns the Y coordinate of player spawn 
+     */
+    public int getPlayerY() {
+        return playerSpawnPoint.y;
+    }
+
+    /**
+     * Getter that returns the width of the level in tiles
+     */
+    public int getLevelTileWidth(){
+        return levelBlockIndexes[0].length;
+    }
+
+    /**
+     * Getter that returns the level max offset in the X axis
+     */
+    public int getLevelXOffset_max() {
+        return levelXOffset_max;
+    }
+
+
+    /*
+    -------------------------------
+      Static utility methods 
+    -------------------------------  
+     */
+
+
+    /**
+     * Checks if the float position (x,y) is solid (Not traversable)
+     * @param x X coordinate for the position
+     * @param y Y coordinate for the position
+     * @param levelTexture the current level texture matrix
+     * @return true if the position is solid or a map boundary, false otherwise
+     */
+    public static boolean IsPositionSolid(float x, float y, int[][] levelTexture){
+        int levelMaxWidth = levelTexture[0].length * TILES_SIZE;
+        int levelMaxHeight = GAME_HEIGHT;
+
+        // Map boundaries are always considered solid
+        if(x<0 || x >= levelMaxWidth) return true;
+        if(y<0 || y >= levelMaxHeight) return true;
+
+        int tileX = (int) (x / TILES_SIZE);
+        int tileY = (int) (y / TILES_SIZE);
+
+        return IsTileSolid(tileX, tileY, levelTexture);
+    }
+
+    /**
+     * Checks if the tile at integer position (tileX, tileY) is solid (Not traversable)
+     * @param tileX X coordinate for the tile
+     * @param tileY Y coordinate for the tile
+     * @param levelTexture the current level texture matrix
+     * @return true if the tile is solid, false otherwise
+     */
+    public static boolean IsTileSolid(int tileX, int tileY, int[][] levelTexture) {
+        int value = levelTexture[tileY][tileX];
+        
+        /* All texture indexes that goes from INTERNAL_TEXTURE_INIT to INTERNAL_TEXTURE_END are not solid as they 
+        are used as background*/
+        if (value >= INTERNAL_TEXTURE_INIT && value <= INTERNAL_TEXTURE_END){
+            return false;
+        }
+        
+        /* SPRITE_HOLE corresponds to an invisible texture*/  
+        return value != SPRITE_HOLE;
+    }
+
+    /**
+     * Checks if an entity with a certain width and height can be placed (moved) into a certain float position (x,y).
+     * The check is done by looking at the 4 corners of the entity hit box.
+     * @param x X coordinate for the position
+     * @param y Y coordinate for the position
+     * @param levelTexture the current level texture matrix
+     * @return true the entity can move in the position, otherwise false
+     */
+    public static boolean CanMoveInPosition(float x, float y, float width, float height, int[][] levelTexture) {
+        if (!IsPositionSolid(x, y, levelTexture))
+            if (!IsPositionSolid(x + width, y + height, levelTexture))
+                if (!IsPositionSolid(x + width, y, levelTexture))
+                    if (!IsPositionSolid(x, y + height, levelTexture))
+                        return true;
+        return false;
+    }
+
+    /**
+     * Checks if the hit box of an entity that moves horizontally with a xSpeed is on the floor (a solid block)
+     * @param hitbox the entity hit box
+     * @param xSpeed the horizontal speed
+     * @param levelTexture the level texture matrix
+     * @return true if the entity is moving on the floor, otherwise false
+     */
+    public static boolean IsOnFloor(Rectangle2D.Float hitbox, float xSpeed, int[][] levelTexture) {
+        if(xSpeed > 0)
+            return IsPositionSolid(hitbox.x + hitbox.width + xSpeed, hitbox.y+hitbox.height+1, levelTexture);
+        return IsPositionSolid(hitbox.x + xSpeed, hitbox.y+hitbox.height+1, levelTexture);
+    }
+
+
+    /**
+     * Checks if the first hit box can walk through the second hit box horizontally in a certain Y coordinate
+     * @param levelTexture the level texture matrix
+     * @param firstHitbox the entity hit box
+     * @param secondHitbox the vertical speed
+     * @param tileY the Y coordinate to consider
+     * @return true if the first hit box can walk through the second one in a walkable path
+     */
+    public static boolean IsPathWalkable(int[][] levelTexture, Rectangle2D.Float firstHitbox, Rectangle2D.Float secondHitbox, int tileY) {
         int firstXTile = (int) (firstHitbox.x / TILES_SIZE);
         int secondXTile = (int) (secondHitbox.x / TILES_SIZE);
 
         if(firstXTile > secondXTile) {
-            return IsAllTilesWalkable(secondXTile,firstXTile,tileY,levelBlockIndexes);
+            return areAllTilesWalkable(secondXTile,firstXTile,tileY,levelTexture);
         }else{
-            return IsAllTilesWalkable(firstXTile,secondXTile,tileY,levelBlockIndexes);
+            return areAllTilesWalkable(firstXTile,secondXTile,tileY,levelTexture);
         }
     }
 
-        public static boolean IsAllTilesWalkable(int xStart, int xEnd, int y, int[][] lvlData) {
-        if(IsAllTilesClear(xStart, xEnd, y, lvlData)){
-            for (int i = 0; i < xEnd - xStart; i++) {
-                if (!IsTileSolid(xStart + i, y + 1, lvlData)) {
+
+    /**
+     * Checks if from a starting tile X coordinate to an ending tile X coordinate, in a certain vertical tile Y coordinate
+     * all the tiles are walkable or not.
+     * To meet this requirement the tiles must be clear and each tile must have a solid tile below it
+     * @param tileX_start X coordinate of the starting tile
+     * @param tileX_end X coordinate of the ending tile
+     * @param tileY Y coordinate of the tiles
+     * @param levelTexture the level texture matrix
+     * @return true if all tiles from tileX_start to tileX_end are walkable, otherwise false.
+     */
+    public static boolean areAllTilesWalkable(int tileX_start, int tileX_end, int tileY, int[][] levelTexture) {
+        if(areAllTilesClear(tileX_start, tileX_end, tileY, levelTexture)){
+            for (int i = 0; i < tileX_end - tileX_start; i++) {
+                if (!IsTileSolid(tileX_start + i, tileY + 1, levelTexture)) {
                     return false;
                 }
             }
@@ -73,9 +337,18 @@ public class Level {
         return false;
     }
 
-    public static boolean IsAllTilesClear(int xStart, int xEnd, int y, int[][] lvlData) {
-        for(int i = 0; i<xEnd - xStart; i++) {
-            if(IsTileSolid(xStart + i, y, lvlData)) {
+    /**
+     * Checks if from a starting tile X coordinate to an ending tile X coordinate, in a certain vertical tile Y coordinate
+     * all the tiles are solid or not.
+     * @param tileX_start X coordinate of the starting tile
+     * @param tileX_end X coordinate of the ending tile
+     * @param tileY Y coordinate of the tiles
+     * @param levelTexture the level texture matrix
+     * @return true if all tiles from tileX_start to tileX_end are not solid, otherwise false.
+     */
+    public static boolean areAllTilesClear(int tileX_start, int tileX_end, int tileY, int[][] levelTexture) {
+        for(int i = 0; i<tileX_end - tileX_start; i++) {
+            if(IsTileSolid(tileX_start + i, tileY, levelTexture)) {
                 return false;
             }
         }
@@ -83,165 +356,8 @@ public class Level {
     }
 
 
-    private void extractLevelData() {
-        levelBlockIndexes = new int[levelImage.getHeight()][levelImage.getWidth()];
-        for (int j = 0; j < levelImage.getHeight(); j++)
-            for (int i = 0; i < levelImage.getWidth(); i++) {
-                Color color = new Color(levelImage.getRGB(i, j));
-                extractEnvironment(color, j ,i);
-                extractEnemies(color, j , i);
-                extractObjects(color, j, i);
-                extractPlayerSpawn(color, i, j);
-            }
-    }
-
-    private void extractPlayerSpawn(Color color, int i, int j) {
-        if(playerSpawnPoint == null)
-        {
-            int value = color.getGreen();
-            if (value == 0)
-                playerSpawnPoint= new Point(i*TILES_SIZE, j*TILES_SIZE);
-        }
-    }
-
-    private void extractEnvironment(Color color, int j, int i) {
-        int value = color.getRed();
-
-        levelBlockIndexes[j][i] = value;
-    }
-
-    private void extractObjects(Color color, int j, int i) {
-        int value = color.getBlue();
-        switch (value){
-            case 40 -> this.props.add( new BackPalm(i * TILES_SIZE,j *TILES_SIZE, BACK_PALM_1));
-            case 41 -> this.props.add( new BackPalm(i * TILES_SIZE,j *TILES_SIZE, BACK_PALM_2));
-            case 42 -> this.props.add( new BackPalm(i * TILES_SIZE,j *TILES_SIZE, BACK_PALM_3));
-
-            case 45 -> this.props.add( new Candle(i * TILES_SIZE,j *TILES_SIZE, 0));
-            case 50 -> this.props.add( new Sword(i * TILES_SIZE,j *TILES_SIZE, SWORD));
-            case 55 -> this.props.add( new Cannon(i * TILES_SIZE,j *TILES_SIZE, CANNON_RIGHT));
-            case 60 -> this.props.add( new Cannon(i * TILES_SIZE,j *TILES_SIZE, CANNON_LEFT));
-            case 65 -> this.props.add( new Potion(i * TILES_SIZE,j *TILES_SIZE, POTION));
-
-            case 20 -> this.props.add(new Water(i*TILES_SIZE, j*TILES_SIZE, SURFACE_WATER));
-            case 21 -> this.props.add(new Water(i*TILES_SIZE, j*TILES_SIZE, DEEP_WATER));
-            case 25 -> {
-                this.props.add(new Water(i*TILES_SIZE, j*TILES_SIZE, SURFACE_WATER));
-                this.props.add(new WaterLight(i*TILES_SIZE, j*TILES_SIZE, WATER_LIGHT_1));
-            }
-            case 26 -> {
-                this.props.add(new Water(i*TILES_SIZE, j*TILES_SIZE, SURFACE_WATER));
-                this.props.add(new WaterLight(i*TILES_SIZE, j*TILES_SIZE, WATER_LIGHT_2));
-            }
-
-            case 0 -> this.unAnimatedProps.add(new Barrel(i * TILES_SIZE, j * TILES_SIZE, STAND_BARREL));
-            case 1 -> this.unAnimatedProps.add(new Barrel(i * TILES_SIZE, j * TILES_SIZE, SIDE_BARREL));
-            case 2 -> this.unAnimatedProps.add(new Barrel(i * TILES_SIZE, j * TILES_SIZE, DOUBLE_SIDE_BARREL));
-            case 3 -> this.unAnimatedProps.add(new Barrel(i * TILES_SIZE, j * TILES_SIZE, BARREL_POTION));
-            case 4 -> this.unAnimatedProps.add(new Bottle(i * TILES_SIZE, j * TILES_SIZE, STAND_POTION1));
-            case 5 -> this.unAnimatedProps.add(new Bottle(i * TILES_SIZE, j * TILES_SIZE, SIDE_POTION2));
-
-            case 10 -> this.unAnimatedProps.add(new Door(i * TILES_SIZE, j * TILES_SIZE, DOOR));
-
-        }
-    }
-
-    private void extractEnemies(Color color, int j, int i) {
-        int value = color.getGreen();
-        switch (value){
-            case 30 -> this.enemies.add(new Crabby(i * TILES_SIZE, j * TILES_SIZE));
-            case 60 -> this.enemies.add(new Shark(i * TILES_SIZE, j * TILES_SIZE));
-            case 90 -> this.enemies.add(new Star(i * TILES_SIZE, j * TILES_SIZE));
-        }
-    }
-
-    private void calculateMaxLevelOffsetX() {
-        maxLevelOffsetX = TILES_SIZE * (levelImage.getWidth() - TILES_IN_WIDTH);
-    }
 
 
-
-
-    public int getBlockIndex(int x, int y) {
-        return levelBlockIndexes[y][x];
-    }
-
-    public int[][] getBlockIndexes() {
-        return levelBlockIndexes;
-    }
-
-    public int getPlayerX() {
-        return playerSpawnPoint.x;
-    }
-
-    public int getPlayerY() {
-        return playerSpawnPoint.y;
-    }
-
-    public int getLevelTileWidth(){
-        return levelBlockIndexes[0].length;
-    }
-
-    public int getMaxLevelOffsetX() {
-        return maxLevelOffsetX;
-    }
-
-    public static boolean IsPositionSolid(float x, float y, int[][] lvlData){
-        int levelMaxWidth = lvlData[0].length * TILES_SIZE;
-        int levelMaxHeight = GAME_HEIGHT;
-
-        // Gli estremi della mappa sono sempre considerati solidi
-        if(x<0 || x >= levelMaxWidth) return true;
-        if(y<0 || y >= levelMaxHeight) return true;
-
-        int tileX = (int) (x / TILES_SIZE);
-        int tileY = (int) (y / TILES_SIZE);
-
-        return IsTileSolid(tileX, tileY, lvlData);
-    }
-
-    public static boolean IsTileSolid(int tileX, int tileY, int[][] lvlData) {
-        int value = lvlData[tileY][tileX];
-        if (value >= 132 && value <= 179){
-            return false;
-        }
-        return value != SPRITE_HOLE;
-    }
-
-    public static boolean CanMoveInPosition(float x, float y, float width, float height, int[][] lvlData) {
-        if (!IsPositionSolid(x, y, lvlData))
-            if (!IsPositionSolid(x + width, y + height, lvlData))
-                if (!IsPositionSolid(x + width, y, lvlData))
-                    if (!IsPositionSolid(x, y + height, lvlData))
-                        return true;
-        return false;
-    }
-
-    public static boolean IsOnFloor(Rectangle2D.Float hitbox, float xSpeed, int[][] lvlData) {
-        if(xSpeed > 0)
-            return IsPositionSolid(hitbox.x + hitbox.width + xSpeed, hitbox.y+hitbox.height+1, lvlData);
-        return IsPositionSolid(hitbox.x + xSpeed, hitbox.y+hitbox.height+1, lvlData);
-    }
-
-
-
-
-    public ArrayList<Enemy> getEnemies() {
-        for(Enemy e: enemies){
-            e.addLevelData(levelBlockIndexes);
-        }
-        return enemies;
-    }
-
-    public ArrayList<Prop> getProps() {
-        for(Prop p: props){
-            p.addLevelData(levelBlockIndexes);
-        }
-        return props;
-    }
-
-    public ArrayList<UnAnimatedProp> getUnAnimatedProps() {
-        return unAnimatedProps;
-    }
+    
 
 }

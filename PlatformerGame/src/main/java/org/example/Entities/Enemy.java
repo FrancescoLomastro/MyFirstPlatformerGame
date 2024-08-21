@@ -91,7 +91,7 @@ public abstract class Enemy extends Entity{
         int tileY = (int) (hitbox.y/TILES_SIZE);
         if(playerTileY == tileY){
             if(isPlayerInRange()){
-                if(Level.IsSightClear(levelBlockIndexes,hitbox, playScene.getPlayerHitbox(), tileY)){
+                if(Level.IsPathWalkable(levelBlockIndexes,hitbox, playScene.getPlayerHitbox(), tileY)){
                     return true;
                 }
             }

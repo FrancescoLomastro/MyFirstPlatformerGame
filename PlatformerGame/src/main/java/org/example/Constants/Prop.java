@@ -168,6 +168,7 @@ public class Prop {
         public static final int CANDLE_SPRITE_AMOUNT = 6;
         public static final int CANDLE_ANIMATION_SPEED = 25;
 
+        public static final int CANDLE = 0;
 
         public static final int CANDLE_WIDTH_DEFAULT = 32;
         public static final int CANDLE_HEIGHT_DEFAULT = 32;

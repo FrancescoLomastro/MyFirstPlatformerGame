@@ -19,7 +19,7 @@ public class SoundButton extends Button {
     }
 
     private void loadSoundImages() {
-        BufferedImage temp = LoadContent.GetSpriteAtlas(LoadContent.SOUND_BUTTONS);
+        BufferedImage temp = LoadContent.GetResourceAsBufferedImage(LoadContent.SOUND_BUTTONS);
         soundImgs = new BufferedImage[2][3];
         for(int j = 0; j < soundImgs.length; j++) {
             for(int i = 0; i < soundImgs[j].length; i++) {

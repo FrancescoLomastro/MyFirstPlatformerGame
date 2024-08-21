@@ -21,7 +21,7 @@ public class UrmButton extends Button {
     }
 
     private void loadImgs() {
-        BufferedImage temp = LoadContent.GetSpriteAtlas(LoadContent.URM_BUTTONS);
+        BufferedImage temp = LoadContent.GetResourceAsBufferedImage(LoadContent.URM_BUTTONS);
         imgs = new BufferedImage[3];
         for (int i = 0; i < imgs.length; i++) {
             imgs[i] = temp.getSubimage(i*URM_SIZE_DEFAULT, rowIndex*URM_SIZE_DEFAULT, URM_SIZE_DEFAULT, URM_SIZE_DEFAULT);

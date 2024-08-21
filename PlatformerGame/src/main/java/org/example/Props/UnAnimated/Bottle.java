@@ -6,14 +6,14 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import static org.example.Constants.Prop.Bottles.*;
-import static org.example.Utility.LoadContent.UAP_BOTTLES;
+import static org.example.Utility.LoadContent.BOTTLES;
 
 public class Bottle extends UnAnimatedProp{
     private static BufferedImage[] images = LoadImages();
 
     private static BufferedImage[] LoadImages() {
         BufferedImage[] imgs = new BufferedImage[2];
-        BufferedImage img = LoadContent.GetSpriteAtlas(UAP_BOTTLES);
+        BufferedImage img = LoadContent.GetResourceAsBufferedImage(BOTTLES);
         for(int i = 0; i < imgs.length; i++) {
             imgs[i] = img.getSubimage(i*BOTTLE_WIDTH_DEFAULT, 0, BOTTLE_WIDTH_DEFAULT, BOTTLE_HEIGHT_DEFAULT);
         }
