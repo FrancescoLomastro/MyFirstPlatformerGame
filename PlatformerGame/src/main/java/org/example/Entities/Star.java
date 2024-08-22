@@ -79,8 +79,8 @@ public class Star extends Enemy {
                 xSpeed = -walkSpeed;
             else
                 xSpeed = +walkSpeed;
-            if (Level.CanMoveInPosition(hitbox.x + xSpeed, hitbox.y, hitbox.width, hitbox.height, levelBlockIndexes)) {
-                if (IsOnFloor(hitbox, xSpeed, levelBlockIndexes)) {
+            if (Level.CanMoveInPosition(hitbox.x + xSpeed, hitbox.y, hitbox.width, hitbox.height, levelTextures)) {
+                if (IsOnFloor(hitbox, xSpeed, levelTextures)) {
                     hitbox.x += xSpeed;
                 } else {
                     walkingDir = (walkingDir == LEFT) ? RIGHT : LEFT;

@@ -13,6 +13,7 @@ import java.awt.image.RescaleOp;
 
 import static org.example.Constants.HUD.*;
 import static org.example.Constants.Sprites.ENTITY_ANIMATION_SPEED;
+import static org.example.Constants.Sprites.Enemy.Shark.SHARK_ATTACKBOX_OFFSET_X;
 import static org.example.Constants.Sprites.Player.*;
 import static org.example.Constants.Window.SCALE;
 import static org.example.Utility.HelpMethods.XPositionNextToWall;
@@ -37,6 +38,7 @@ public class Player extends Entity{
         super(x, y, PLAYER_WIDTH, PLAYER_HEIGHT);
         initHitbox(20,27);
         loadAnimations();
+        this.animation = IDLE;
         this.jumpSpeed = -2.25f * SCALE;
         this.xImageOffset = 21 * SCALE;
         this.yImageOffset = 4 * SCALE;
@@ -45,8 +47,8 @@ public class Player extends Entity{
 
     private void initAttackBox() {
         attackBox = new Rectangle2D.Float(hitbox.x,hitbox.y, (int)(20*SCALE), (int)(20*SCALE));
-        
-        //resetAttackBox();
+        attackBoxOffsetX = (int) (22*SCALE);
+        attackBoxOffsetY = (int) (7*SCALE);
     }
 
 
@@ -94,16 +96,6 @@ public class Player extends Entity{
     }
 
 
-    private void updateAttackBox() {
-        if(flipW == 1)
-            attackBox.x = hitbox.x + hitbox.width + (SCALE*5);
-        else
-            attackBox.x = hitbox.x - attackBox.width - (SCALE*5);;
-
-        attackBox.y = hitbox.y + (int)(SCALE*7);
-    }
-
-
 
     private void checkSwordPicked() {
         if(!hasSword) {
@@ -119,7 +111,7 @@ public class Player extends Entity{
         int imageY = (int) (hitbox.y - yImageOffset);
         int width = (int) (initialWidth * flipW);
         BufferedImage[][] images = hasSword ? playerWithSwordImages : playerNoSwordImages;
-        if(hitten)
+        if(hit)
             drawHittenPlayer(g, imageX, imageY, width, initialHeight, images[animation][animationFrame]);
         else
             g.drawImage(images[animation][animationFrame], imageX , imageY, width , initialHeight, null);
@@ -135,10 +127,10 @@ public class Player extends Entity{
         BufferedImage imageCopy = new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
         op.filter(image, imageCopy);
         g.drawImage(imageCopy, imageX, imageY, width, height, null);
-        hittenFrameCounter++;
-        if(hittenFrameCounter >= PLAYER_HITTEN_COUNTER_MAX) {
-            hittenFrameCounter = 0;
-            hitten = false;
+        entityHitFrameCounter++;
+        if(entityHitFrameCounter >= PLAYER_HITTEN_COUNTER_MAX) {
+            entityHitFrameCounter = 0;
+            hit = false;
         }
     }
 
@@ -217,7 +209,7 @@ public class Player extends Entity{
 
 
         if(!inAir){
-            if(!onTheFloor(levelBlockIndexes)){
+            if(!isOnFloor(levelTextures)){
                 inAir = true;
             }
         }
@@ -233,7 +225,7 @@ public class Player extends Entity{
 
 
     private void updateXPosition(float xSpeed) {
-        if (Level.CanMoveInPosition(hitbox.x + xSpeed, hitbox.y, hitbox.width, hitbox.height, levelBlockIndexes)) {
+        if (Level.CanMoveInPosition(hitbox.x + xSpeed, hitbox.y, hitbox.width, hitbox.height, levelTextures)) {
             hitbox.x += xSpeed;
         } else {
             hitbox.x = XPositionNextToWall(hitbox, xSpeed);
@@ -270,7 +262,7 @@ public class Player extends Entity{
                 currentHealth = maxHealth;
             else {
                 currentHealth = newHealth;
-                hitten = true;
+                hit = true;
             }
         }
     }
@@ -337,12 +329,13 @@ public class Player extends Entity{
 
     public void reset() {
         super.reset();
+        newAnimation(IDLE);
         inAir = false;
         attack = false;
         moving = false;
         hasSword = false;
         resetBooleanDirections();
-        if (!onTheFloor(levelBlockIndexes))
+        if (!isOnFloor(levelTextures))
             inAir = true;
     }
 
