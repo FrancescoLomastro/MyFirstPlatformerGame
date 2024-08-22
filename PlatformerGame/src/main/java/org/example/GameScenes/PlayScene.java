@@ -220,6 +220,6 @@ public class PlayScene implements SceneMethods{
     }
 
     public void resetPlayerDirBooleans() {
-        player.resetDirBooleans();
+        player.resetBooleanDirections();
     }
 }

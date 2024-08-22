@@ -16,13 +16,19 @@ public class Sprites {
         public static final int FALL = 7;
 
 
-        
         public static final int PLAYER_WIDTH_DEFAULT = 64;
         public static final int PLAYER_HEIGHT_DEFAULT = 40;
         public static final int PLAYER_WIDTH = (int) (PLAYER_WIDTH_DEFAULT * SCALE);
         public static final int PLAYER_HEIGHT = (int) (PLAYER_HEIGHT_DEFAULT * SCALE);
-        public static final int PLAYER_HITTEN_COUNTER_MAX = 6;
 
+        public static final int PLAYER_HIT_COUNTER_MAX = 6;
+
+        public static final int PLAYER_HIT_BOX_WIDTH = 20;
+        public static final int PLAYER_HIT_BOX_HEIGHT = 27;
+        public static final int PLAYER_ATTACK_BOX_WIDTH = 20;
+        public static final int PLAYER_ATTACK_BOX_HEIGHT = 20;
+
+        public static final float PLAYER_JUMP_SPEED = -2.25f;
     }
 
     public class Enemy{
