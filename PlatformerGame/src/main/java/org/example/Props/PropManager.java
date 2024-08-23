@@ -1,58 +1,76 @@
 package org.example.Props;
 
-import org.example.Entities.Player;
-import org.example.Props.UnAnimated.UnAnimatedProp;
+import org.example.Props.Animated.AnimatedProp;
+import org.example.Props.Animated.Sword;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
+/**
+ * This class manages all the props in the game.
+ */
 public class PropManager {
 
-    private ArrayList<Prop> props;
+    private ArrayList<AnimatedProp> animatedProps;
     private Sword sword;
+    private ArrayList<Prop> notAnimatedProps;
 
-    private ArrayList<UnAnimatedProp> inactiveProps;
-
-    public PropManager(ArrayList<Prop> props, ArrayList<UnAnimatedProp> inactiveProps) {
-        this.props = props;
-        this.inactiveProps = inactiveProps;
+    public PropManager(ArrayList<AnimatedProp> animatedProps, ArrayList<Prop> notAnimatedProps) {
+        this.animatedProps = animatedProps;
+        this.notAnimatedProps = notAnimatedProps;
         sword = findSword();
     }
 
+    /**
+     * This method finds the sword in the list of animated props.
+     * @return The sword prop.
+     */
     private Sword findSword() {
-        for (Prop prop : props) {
-            if (prop instanceof Sword) {
-                return (Sword) prop;
+        for (AnimatedProp animatedProp : animatedProps) {
+            if (animatedProp instanceof Sword) {
+                return (Sword) animatedProp;
             }
         }
         return null;
     }
 
 
+    /**
+     * This method updates all the props in the game.
+     */
     public void update(){
-        for(Prop p : props){
+        for(AnimatedProp p : animatedProps){
             if(p.isActive()){
                 p.update();
             }
         }
     }
 
+    /**
+     * This method draws all the props in the game.
+     * @param g
+     * @param xLvlOffset
+     */
     public void draw(Graphics g, int xLvlOffset){
-        for(Prop p : props){
+        for(AnimatedProp p : animatedProps){
             if(p.isActive()) {
                 p.draw(g, xLvlOffset);
             }
         }
-        for (UnAnimatedProp p : inactiveProps){
+        for (Prop p : notAnimatedProps){
             p.draw(g, xLvlOffset);
         }
     }
 
-
-
-    public boolean isSwordPicked(Player player) {
+    /**
+     * This method checks if the player has picked up the sword.
+     * @param hitbox The player hitbox.
+     * @return True if the player has picked up the sword, false otherwise.
+     */
+    public boolean isSwordPicked(Rectangle2D.Float hitbox) {
         if(sword != null && sword.isActive()){
-            if(player.getHitbox().intersects(sword.getHitbox())){
+            if(hitbox.intersects(sword.getHitbox())){
                 sword.setActive(false);
                 return true;
             }
@@ -60,8 +78,11 @@ public class PropManager {
         return false;
     }
 
+    /**
+     * This method resets all the props in the game.
+     */
     public void reset() {
-        for(Prop p : props){
+        for(AnimatedProp p : animatedProps){
             p.reset();
         }
     }

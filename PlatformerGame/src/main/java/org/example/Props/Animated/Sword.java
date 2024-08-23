@@ -1,4 +1,4 @@
-package org.example.Props;
+package org.example.Props.Animated;
 
 import org.example.Utility.LoadContent;
 
@@ -9,29 +9,21 @@ import static org.example.Constants.Prop.Sword.*;
 import static org.example.Constants.Window.SCALE;
 import static org.example.Utility.LoadContent.SWORD_SPRITE;
 
-public class Sword extends Prop {
-    private static BufferedImage[] images = LoadAnimation();
+/**
+ * Sword class for animated sword prop
+ */
+public class Sword extends AnimatedProp {
+    private static BufferedImage[] images = LoadImages();
 
-    private static BufferedImage[] LoadAnimation() {
-        BufferedImage[] imgs = new BufferedImage[7];
-        BufferedImage img = LoadContent.GetResourceAsBufferedImage(SWORD_SPRITE);
-        for(int i = 0; i < SWORD_SPRITE_AMOUNT; i++) {
-            imgs[i] = img.getSubimage(i*SWORD_WIDTH_DEFAULT, 0, SWORD_WIDTH_DEFAULT, SWORD_HEIGHT_DEFAULT);
-        }
-        return imgs;
-    }
-
-
-    public Sword(int x, int y, int objectType) {
-        super(x, y, objectType);
+    public Sword(int x, int y) {
+        super(x, y);
         initHitbox(SWORD_WIDTH_DEFAULT, SWORD_HEIGHT_DEFAULT);
-        xDrawOffset = (int) (5 * SCALE);
-        yDrawOffset = (int) (15 * SCALE);
+        xDrawOffset = SWORD_X_DRAW_OFFSET;
+        yDrawOffset = SWORD_Y_DRAW_OFFSET;
         hitbox.y += yDrawOffset;
         hitbox.x += xDrawOffset;
         active = true;
     }
-
 
 
     @Override
@@ -41,7 +33,6 @@ public class Sword extends Prop {
 
     private void updateAnimationTick() {
         animationTick++;
-
         if (animationTick >= SWORD_ANIMATION_SPEED) {
             animationTick = 0;
             animationFrame++;
@@ -57,8 +48,13 @@ public class Sword extends Prop {
         debug_drawHitbox(g, xLvlOffset);
     }
 
-    @Override
-    public void reset() {
-        active = true;
+
+    private static BufferedImage[] LoadImages() {
+        BufferedImage[] imgs = new BufferedImage[7];
+        BufferedImage img = LoadContent.GetResourceAsBufferedImage(SWORD_SPRITE);
+        for(int i = 0; i < SWORD_SPRITE_AMOUNT; i++) {
+            imgs[i] = img.getSubimage(i*SWORD_WIDTH_DEFAULT, 0, SWORD_WIDTH_DEFAULT, SWORD_HEIGHT_DEFAULT);
+        }
+        return imgs;
     }
 }

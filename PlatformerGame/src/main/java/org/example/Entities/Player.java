@@ -114,7 +114,7 @@ public class Player extends Entity{
     private void checkSwordPicked() {
         if(!hasSword) {
             PlayScene playScene = PlayScene.getInstance();
-            hasSword = playScene.isSwordPicked();
+            hasSword = playScene.isSwordPicked(hitbox);
         }
     }
 

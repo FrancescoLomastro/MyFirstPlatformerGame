@@ -165,8 +165,8 @@ public class PlayScene implements SceneMethods{
         g.fillRect(LEFT_LEVEL_BORDER, 0,-2, GAME_HEIGHT);
     }
 
-    public boolean isSwordPicked() {
-        return levelManager.isSwordPicked(player);
+    public boolean isSwordPicked(Rectangle2D.Float hitbox) {
+        return levelManager.isSwordPicked(hitbox);
     }
 
     public Rectangle2D.Float getPlayerHitbox(){

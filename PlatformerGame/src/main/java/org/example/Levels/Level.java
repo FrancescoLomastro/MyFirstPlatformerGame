@@ -1,11 +1,11 @@
 package org.example.Levels;
 
 import org.example.Entities.*;
-import org.example.Props.*;
-import org.example.Props.UnAnimated.Barrel;
-import org.example.Props.UnAnimated.Bottle;
-import org.example.Props.UnAnimated.Door;
-import org.example.Props.UnAnimated.UnAnimatedProp;
+import org.example.Props.Animated.*;
+import org.example.Props.NotAnimated.Barrel;
+import org.example.Props.NotAnimated.Bottle;
+import org.example.Props.NotAnimated.Door;
+import org.example.Props.Prop;
 import org.example.Utility.LoadContent;
 
 import java.awt.*;
@@ -32,8 +32,8 @@ import static org.example.Constants.Window.*;
  */
 public class Level {
     private final BufferedImage levelImage;
-    private final ArrayList<UnAnimatedProp> unAnimatedProps;
-    private final ArrayList<Prop> animatedProps;
+    private final ArrayList<Prop> props;
+    private final ArrayList<AnimatedProp> animatedAnimatedProps;
     private final ArrayList<Enemy> enemies ;
     private Point playerSpawnPoint;
 
@@ -51,8 +51,8 @@ public class Level {
     public Level(int currentLevelIndex) {
         this.levelImage = LoadContent.GetResourceAsBufferedImage("levels/"+currentLevelIndex+".png");
         this.enemies= new ArrayList<>();
-        this.animatedProps = new ArrayList<>();
-        this.unAnimatedProps = new ArrayList<>();
+        this.animatedAnimatedProps = new ArrayList<>();
+        this.props = new ArrayList<>();
         this.levelXOffset_max = TILES_SIZE * (levelImage.getWidth() - TILES_IN_WIDTH);
         extractLevelData();
     }
@@ -99,36 +99,36 @@ public class Level {
         switch (blueIndex){
             
             /* Not animated props goes from 0 to 19 */
-            case 0 -> this.unAnimatedProps.add(new Barrel(i * TILES_SIZE, j * TILES_SIZE, STAND_BARREL));
-            case 1 -> this.unAnimatedProps.add(new Barrel(i * TILES_SIZE, j * TILES_SIZE, SIDE_BARREL));
-            case 2 -> this.unAnimatedProps.add(new Barrel(i * TILES_SIZE, j * TILES_SIZE, DOUBLE_SIDE_BARREL));
-            case 3 -> this.unAnimatedProps.add(new Barrel(i * TILES_SIZE, j * TILES_SIZE, BARREL_POTION));
-            case 4 -> this.unAnimatedProps.add(new Bottle(i * TILES_SIZE, j * TILES_SIZE, STAND_POTION1));
-            case 5 -> this.unAnimatedProps.add(new Bottle(i * TILES_SIZE, j * TILES_SIZE, SIDE_POTION2));
-            case 10 -> this.unAnimatedProps.add(new Door(i * TILES_SIZE, j * TILES_SIZE, DOOR));
+            case 0 -> this.props.add(new Barrel(i * TILES_SIZE, j * TILES_SIZE, STAND_BARREL));
+            case 1 -> this.props.add(new Barrel(i * TILES_SIZE, j * TILES_SIZE, SIDE_BARREL));
+            case 2 -> this.props.add(new Barrel(i * TILES_SIZE, j * TILES_SIZE, DOUBLE_SIDE_BARREL));
+            case 3 -> this.props.add(new Barrel(i * TILES_SIZE, j * TILES_SIZE, BARREL_POTION));
+            case 4 -> this.props.add(new Bottle(i * TILES_SIZE, j * TILES_SIZE, STAND_POTION1));
+            case 5 -> this.props.add(new Bottle(i * TILES_SIZE, j * TILES_SIZE, SIDE_POTION2));
+            case 10 -> this.props.add(new Door(i * TILES_SIZE, j * TILES_SIZE));
             
             /* Animated props goes from 20 to 255 */
             
             /* Water indexes 20 to 39*/
-            case 20 -> this.animatedProps.add(new Water(i*TILES_SIZE, j*TILES_SIZE, SURFACE_WATER));
-            case 21 -> this.animatedProps.add(new Water(i*TILES_SIZE, j*TILES_SIZE, DEEP_WATER));
+            case 20 -> this.animatedAnimatedProps.add(new Water(i*TILES_SIZE, j*TILES_SIZE, SURFACE_WATER));
+            case 21 -> this.animatedAnimatedProps.add(new Water(i*TILES_SIZE, j*TILES_SIZE, DEEP_WATER));
             case 25 -> {
-                this.animatedProps.add(new Water(i*TILES_SIZE, j*TILES_SIZE, SURFACE_WATER));
-                this.animatedProps.add(new WaterLight(i*TILES_SIZE, j*TILES_SIZE, WATER_LIGHT_1));
+                this.animatedAnimatedProps.add(new Water(i*TILES_SIZE, j*TILES_SIZE, SURFACE_WATER));
+                this.animatedAnimatedProps.add(new WaterLight(i*TILES_SIZE, j*TILES_SIZE, WATER_LIGHT_1));
             }
             case 26 -> {
-                this.animatedProps.add(new Water(i*TILES_SIZE, j*TILES_SIZE, SURFACE_WATER));
-                this.animatedProps.add(new WaterLight(i*TILES_SIZE, j*TILES_SIZE, WATER_LIGHT_2));
+                this.animatedAnimatedProps.add(new Water(i*TILES_SIZE, j*TILES_SIZE, SURFACE_WATER));
+                this.animatedAnimatedProps.add(new WaterLight(i*TILES_SIZE, j*TILES_SIZE, WATER_LIGHT_2));
             }
             
-            case 40 -> this.animatedProps.add( new BackPalm(i * TILES_SIZE,j *TILES_SIZE, BACK_PALM_1));
-            case 41 -> this.animatedProps.add( new BackPalm(i * TILES_SIZE,j *TILES_SIZE, BACK_PALM_2));
-            case 42 -> this.animatedProps.add( new BackPalm(i * TILES_SIZE,j *TILES_SIZE, BACK_PALM_3));
-            case 45 -> this.animatedProps.add( new Candle(i * TILES_SIZE,j *TILES_SIZE, CANDLE));
-            case 50 -> this.animatedProps.add( new Sword(i * TILES_SIZE,j *TILES_SIZE, SWORD));
-            case 55 -> this.animatedProps.add( new Cannon(i * TILES_SIZE,j *TILES_SIZE, CANNON_RIGHT));
-            case 60 -> this.animatedProps.add( new Cannon(i * TILES_SIZE,j *TILES_SIZE, CANNON_LEFT));
-            case 65 -> this.animatedProps.add( new Potion(i * TILES_SIZE,j *TILES_SIZE, POTION));
+            case 40 -> this.animatedAnimatedProps.add( new BackPalm(i * TILES_SIZE,j *TILES_SIZE, BACK_PALM_1));
+            case 41 -> this.animatedAnimatedProps.add( new BackPalm(i * TILES_SIZE,j *TILES_SIZE, BACK_PALM_2));
+            case 42 -> this.animatedAnimatedProps.add( new BackPalm(i * TILES_SIZE,j *TILES_SIZE, BACK_PALM_3));
+            case 45 -> this.animatedAnimatedProps.add( new Candle(i * TILES_SIZE,j *TILES_SIZE));
+            case 50 -> this.animatedAnimatedProps.add( new Sword(i * TILES_SIZE,j *TILES_SIZE));
+            case 55 -> this.animatedAnimatedProps.add( new Cannon(i * TILES_SIZE,j *TILES_SIZE, CANNON_RIGHT));
+            case 60 -> this.animatedAnimatedProps.add( new Cannon(i * TILES_SIZE,j *TILES_SIZE, CANNON_LEFT));
+            case 65 -> this.animatedAnimatedProps.add( new Potion(i * TILES_SIZE,j *TILES_SIZE));
         }
     }
 
@@ -157,18 +157,18 @@ public class Level {
     /**
      * Getter that returns the arrayList of animated Props
      */
-    public ArrayList<Prop> getAnimatedProps() {
-        for(Prop p: animatedProps){
+    public ArrayList<AnimatedProp> getAnimatedProps() {
+        for(AnimatedProp p: animatedAnimatedProps){
             p.addLevelData(levelBlockIndexes);
         }
-        return animatedProps;
+        return animatedAnimatedProps;
     }
 
     /**
      * Getter that returns the arrayList of not animated Props
      */
-    public ArrayList<UnAnimatedProp> getUnAnimatedProps() {
-        return unAnimatedProps;
+    public ArrayList<Prop> getUnAnimatedProps() {
+        return props;
     }
 
     /**

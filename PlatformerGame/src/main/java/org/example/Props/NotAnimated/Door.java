@@ -1,5 +1,6 @@
-package org.example.Props.UnAnimated;
+package org.example.Props.NotAnimated;
 
+import org.example.Props.Prop;
 import org.example.Utility.LoadContent;
 
 import java.awt.*;
@@ -9,8 +10,10 @@ import static org.example.Constants.Prop.Door.DOOR_HEIGHT;
 import static org.example.Constants.Prop.Door.DOOR_WIDTH;
 import static org.example.Utility.LoadContent.DOOR;
 
-
-public class Door extends UnAnimatedProp {
+/**
+ * Door class
+ */
+public class Door extends Prop {
     private static BufferedImage image = LoadImage();
 
     private static BufferedImage LoadImage() {
@@ -18,10 +21,13 @@ public class Door extends UnAnimatedProp {
         return img;
     }
 
-    public Door(int x, int y, int objectType) {
-        super(x, y, objectType);
+    public Door(int x, int y) {
+        super(x, y);
     }
 
+    /**
+     * Draw the door
+     */
     @Override
     public void draw(Graphics g, int xLvlOffset) {
         g.drawImage(image, x - xLvlOffset, y - DOOR_HEIGHT/2 , DOOR_WIDTH, DOOR_HEIGHT, null);

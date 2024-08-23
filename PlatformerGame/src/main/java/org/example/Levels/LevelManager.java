@@ -1,7 +1,6 @@
 package org.example.Levels;
 
 import org.example.Entities.EnemyManager;
-import org.example.Entities.Player;
 import org.example.GameScenes.Scene;
 import org.example.Props.PropManager;
 import org.example.Utility.LoadContent;
@@ -191,8 +190,8 @@ public class LevelManager {
     /**
      * Getter that returns true if the sword has been picked by the player
      */
-    public boolean isSwordPicked(Player player) {
-        return propManager.isSwordPicked(player);
+    public boolean isSwordPicked(Rectangle2D.Float hitbox) {
+        return propManager.isSwordPicked(hitbox);
     }
 
 }

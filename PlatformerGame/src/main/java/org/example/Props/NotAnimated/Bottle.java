@@ -1,5 +1,6 @@
-package org.example.Props.UnAnimated;
+package org.example.Props.NotAnimated;
 
+import org.example.Props.Prop;
 import org.example.Utility.LoadContent;
 
 import java.awt.*;
@@ -8,7 +9,10 @@ import java.awt.image.BufferedImage;
 import static org.example.Constants.Prop.Bottles.*;
 import static org.example.Utility.LoadContent.BOTTLES;
 
-public class Bottle extends UnAnimatedProp{
+/**
+ * Bottle class
+ */
+public class Bottle extends Prop {
     private static BufferedImage[] images = LoadImages();
 
     private static BufferedImage[] LoadImages() {
@@ -24,6 +28,9 @@ public class Bottle extends UnAnimatedProp{
         super(x, y, objectType);
     }
 
+    /**
+     * Draw the bottle basing on its object type
+     */
     @Override
     public void draw(Graphics g, int xLvlOffset) {
         g.drawImage(images[objectType], x - xLvlOffset, y, BOTTLE_WIDTH, BOTTLE_HEIGHT, null);

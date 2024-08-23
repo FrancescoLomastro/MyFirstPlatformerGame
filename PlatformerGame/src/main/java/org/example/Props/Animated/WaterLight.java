@@ -1,4 +1,4 @@
-package org.example.Props;
+package org.example.Props.Animated;
 
 import org.example.Utility.LoadContent;
 
@@ -8,22 +8,12 @@ import java.awt.image.BufferedImage;
 import static org.example.Constants.Prop.WaterLight.*;
 import static org.example.Constants.Window.SCALE;
 
-public class WaterLight extends Prop {
+/**
+ * WaterLight class for animated water light prop
+ */
+public class WaterLight extends AnimatedProp {
 
     private static BufferedImage[][] images = LoadImages();
-
-    private static BufferedImage[][] LoadImages() {
-        BufferedImage temp = LoadContent.GetResourceAsBufferedImage(LoadContent.WATER_LIGHT_1_SPRITE);
-        BufferedImage[][] imgs = new BufferedImage[2][4];
-        for(int i = 0; i < WATER_LIGHT_1_SPRITE_AMOUNT; i++) {
-            imgs[0][i] = temp.getSubimage(i*WATER_LIGHT_WIDTH_DEFAULT, 0, WATER_LIGHT_WIDTH_DEFAULT, WATER_LIGHT_HEIGHT_DEFAULT);
-        }
-        temp = LoadContent.GetResourceAsBufferedImage(LoadContent.WATER_LIGHT_2_SPRITE);
-        for(int i = 0; i < WATER_LIGHT_2_SPRITE_AMOUNT; i++) {
-            imgs[1][i] = temp.getSubimage(i*WATER_LIGHT_WIDTH_DEFAULT, 0, WATER_LIGHT_WIDTH_DEFAULT, WATER_LIGHT_HEIGHT_DEFAULT);
-        }
-        return imgs;
-    }
 
 
     public WaterLight(int x, int y, int objectType) {
@@ -32,10 +22,6 @@ public class WaterLight extends Prop {
     }
 
 
-    @Override
-    public void reset() {
-
-    }
 
     public void update(){
         updateAnimationTick();
@@ -56,5 +42,18 @@ public class WaterLight extends Prop {
             else if (objectType == WATER_LIGHT_2 && animationFrame >= WATER_LIGHT_2_SPRITE_AMOUNT)
                 animationFrame = 0;
         }
+    }
+
+    private static BufferedImage[][] LoadImages() {
+        BufferedImage temp = LoadContent.GetResourceAsBufferedImage(LoadContent.WATER_LIGHT_1_SPRITE);
+        BufferedImage[][] imgs = new BufferedImage[2][4];
+        for(int i = 0; i < WATER_LIGHT_1_SPRITE_AMOUNT; i++) {
+            imgs[0][i] = temp.getSubimage(i*WATER_LIGHT_WIDTH_DEFAULT, 0, WATER_LIGHT_WIDTH_DEFAULT, WATER_LIGHT_HEIGHT_DEFAULT);
+        }
+        temp = LoadContent.GetResourceAsBufferedImage(LoadContent.WATER_LIGHT_2_SPRITE);
+        for(int i = 0; i < WATER_LIGHT_2_SPRITE_AMOUNT; i++) {
+            imgs[1][i] = temp.getSubimage(i*WATER_LIGHT_WIDTH_DEFAULT, 0, WATER_LIGHT_WIDTH_DEFAULT, WATER_LIGHT_HEIGHT_DEFAULT);
+        }
+        return imgs;
     }
 }

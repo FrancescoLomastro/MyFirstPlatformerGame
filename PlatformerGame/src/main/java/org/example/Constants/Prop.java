@@ -1,6 +1,7 @@
 package org.example.Constants;
 
 import static org.example.Constants.Window.SCALE;
+import static org.example.Constants.Window.TILES_SIZE;
 
 public class Prop {
 
@@ -68,6 +69,9 @@ public class Prop {
         public static final int SWORD_HEIGHT_DEFAULT = 17;
         public static final int SWORD_WIDTH = (int) (SWORD_WIDTH_DEFAULT * SCALE);
         public static final int SWORD_HEIGHT = (int) (SWORD_HEIGHT_DEFAULT * SCALE);
+
+        public static final int SWORD_X_DRAW_OFFSET = (int) (5 * SCALE);
+        public static final int SWORD_Y_DRAW_OFFSET = (int) (15 * SCALE);
     }
 
     public class Ship {
@@ -102,7 +106,7 @@ public class Prop {
         public static final int CANNON_HEIGHT_DEFAULT = 26;
         public static final int CANNON_WIDTH = (int) (CANNON_WIDTH_DEFAULT * SCALE);
         public static final int CANNON_HEIGHT = (int) (CANNON_HEIGHT_DEFAULT * SCALE);
-
+        public static final int CANNON_ATTACK_DISTANCE = TILES_SIZE * 5;
 
         public static final int CANNON_RIGHT = 1;
         public static final int CANNON_LEFT = 2;
@@ -125,8 +129,9 @@ public class Prop {
         public static final int POTION_WIDTH = (int) (POTION_WIDTH_DEFAULT * SCALE);
         public static final int POTION_HEIGHT = (int) (POTION_HEIGHT_DEFAULT * SCALE);
 
+        public static final int POTION_HIT_BOX_WIDTH = 12;
+        public static final int POTION_HIT_BOX_HEIGHT = 16;
 
-        public static final int POTION = 3;
     }
 
     public class Barrels {
@@ -160,7 +165,6 @@ public class Prop {
         public static final int DOOR_HEIGHT = (int) (DOOR_HEIGHT_DEFAULT * SCALE);
 
 
-        public static final int DOOR = 0;
     }
 
     public class Candle {
@@ -168,7 +172,6 @@ public class Prop {
         public static final int CANDLE_SPRITE_AMOUNT = 6;
         public static final int CANDLE_ANIMATION_SPEED = 25;
 
-        public static final int CANDLE = 0;
 
         public static final int CANDLE_WIDTH_DEFAULT = 32;
         public static final int CANDLE_HEIGHT_DEFAULT = 32;
