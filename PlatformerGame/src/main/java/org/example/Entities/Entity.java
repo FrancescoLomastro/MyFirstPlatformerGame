@@ -44,6 +44,7 @@ public abstract class Entity {
     //Health Variables
     protected int maxHealth;
     protected int currentHealth;
+    protected int damage;
 
     //Animation Variables
     protected int animationTick;

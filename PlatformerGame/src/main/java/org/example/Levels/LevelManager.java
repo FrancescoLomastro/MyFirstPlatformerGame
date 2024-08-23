@@ -152,10 +152,12 @@ public class LevelManager {
 
     /**
      * Check if the attack box of the player collides with an enemy hit box
+     *
      * @param attackBox player attack box
+     * @param damage
      */
-    public void checkEnemyAttacked(Rectangle2D.Float attackBox) {
-        enemyManager.checkEnemyAttacked(attackBox);
+    public void checkEnemyAttacked(Rectangle2D.Float attackBox, int damage) {
+        enemyManager.checkEnemyAttacked(attackBox, damage);
     }
 
     /**

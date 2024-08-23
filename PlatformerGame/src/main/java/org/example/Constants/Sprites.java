@@ -29,6 +29,7 @@ public class Sprites {
         public static final int PLAYER_ATTACK_BOX_HEIGHT = 20;
 
         public static final float PLAYER_JUMP_SPEED = -2.25f;
+        public static final int PLAYER_DAMAGE = 100;
     }
 
     public class Enemy{
@@ -46,9 +47,14 @@ public class Sprites {
             public static final int CRABBY_HEIGHT = (int) (CRABBY_HEIGHT_DEFAULT * SCALE);
             public static final int CRABBY_DRAWOFFSET_X = (int) (26 * SCALE);
             public static final int CRABBY_DRAWOFFSET_Y = (int) (9 * SCALE);
-            public static final int CRABBY_ATTACKBOX_WIDTH = (int)(75*SCALE);
-            public static final int CRABBY_ATTACKBOX_HEIGHT = (int)(19*SCALE);
-            public static final int CRABBY_ATTACKBOX_OFFSET_X = (int)(-28*SCALE);
+
+            public static final int CRABBY_HIT_BOX_WIDTH = 22;
+            public static final int CRABBY_HIT_BOX_HEIGHT = 19;
+            public static final int CRABBY_ATTACK_BOX_WIDTH = (int)(75*SCALE);
+            public static final int CRABBY_ATTACK_BOX_HEIGHT = (int)(19*SCALE);
+            public static final int CRABBY_ATTACK_BOX_OFFSET_X = (int)(-28*SCALE);
+
+            public static final int CRABBY_DAMAGE = 30;
         }
 
         public class Shark{
@@ -61,6 +67,8 @@ public class Sprites {
             public static final int SHARK_ATTACKBOX_WIDTH = (int)(20*SCALE);
             public static final int SHARK_ATTACKBOX_HEIGHT = (int)(15*SCALE);
             public static final int SHARK_ATTACKBOX_OFFSET_X = (int)(8*SCALE);
+
+            public static final int SHARK_DAMAGE = 30;
         }
 
         public class Star{
@@ -73,6 +81,9 @@ public class Sprites {
             public static final int STAR_ATTACKBOX_WIDTH = (int)(22*SCALE);
             public static final int STAR_ATTACKBOX_HEIGHT = (int)(20*SCALE);
             public static final int STAR_ATTACKBOX_OFFSET_X = (int)(-2*SCALE);
+
+
+            public static final int STAR_DAMAGE = 30;
         }
 
 

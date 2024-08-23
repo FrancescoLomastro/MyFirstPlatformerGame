@@ -43,6 +43,7 @@ public class Player extends Entity{
         this.jumpSpeed = PLAYER_JUMP_SPEED * SCALE;
         this.xImageOffset = 21 * SCALE;
         this.yImageOffset = 4 * SCALE;
+        this.damage = PLAYER_DAMAGE;
         initAttackBox();
     }
 
@@ -103,7 +104,7 @@ public class Player extends Entity{
             return;
         }
         attackChecked = true;
-        PlayScene.getInstance().checkEnemyAttacked(attackBox);
+        PlayScene.getInstance().checkEnemyAttacked(attackBox, damage);
     }
 
 

@@ -17,7 +17,7 @@ import static org.example.Constants.Window.TILES_SIZE;
 import static org.example.Levels.Level.IsOnFloor;
 
 public class Star extends Enemy {
-    private static BufferedImage[][] sprites = LoadAnimations();
+    private static BufferedImage[][] images = LoadImages();
     private int attackTick;
     private int attackMaxTick;
 
@@ -25,7 +25,7 @@ public class Star extends Enemy {
         super(initialX, initialY, STAR_WIDTH, STAR_HEIGHT);
         initHitbox( 17, 21);
         this.attackDistance = TILES_SIZE*2;
-        this.damage = -10;
+        this.damage = STAR_DAMAGE;
         this.attackTick = 0;
         this.attackMaxTick = 300;
         xImageOffset = STAR_DRAWOFFSET_X;
@@ -33,23 +33,17 @@ public class Star extends Enemy {
         initAttackBox();
     }
 
+    /**
+     * This method initializes the attack box of the star
+     */
     private void initAttackBox() {
         attackBox = new Rectangle2D.Float(hitbox.x,hitbox.y,STAR_ATTACKBOX_WIDTH, STAR_ATTACKBOX_HEIGHT);
         attackBoxOffsetX = STAR_ATTACKBOX_OFFSET_X;
     }
 
-
-    private static BufferedImage[][] LoadAnimations() {
-        BufferedImage temp = LoadContent.GetResourceAsBufferedImage(LoadContent.STAR_ATLAS);
-        BufferedImage[][] images = new BufferedImage[5][8];
-        for(int j = 0; j < images.length; j++){
-            for(int i = 0; i < images[j].length; i++){
-                images[j][i] = temp.getSubimage(i* STAR_WIDTH_DEFAULT, j *STAR_HEIGHT_DEFAULT, STAR_WIDTH_DEFAULT, STAR_HEIGHT_DEFAULT);
-            }
-        }
-        return images;
-    }
-
+    /**
+     * This method updates star
+     */
     public void update() {
         super.update();
         updateStarBehaviour();
@@ -58,6 +52,10 @@ public class Star extends Enemy {
         updateAttackBox();
     }
 
+    /**
+     * This method updates the behaviour of the star.
+     * Star has a different behaviour in the attack phase so it needs a dedicated method
+     */
     private void updateStarBehaviour() {
         if(!inAir){
             switch (animation){
@@ -71,6 +69,9 @@ public class Star extends Enemy {
         }
     }
 
+    /**
+     * This method handles the attack move of the star
+     */
     private void attackMove() {
         if(animationFrame > 2) {
             walkSpeed = 0.7f * SCALE;
@@ -97,6 +98,10 @@ public class Star extends Enemy {
         }
     }
 
+    /**
+     * This method updates the animation tick of the star
+     * @param spriteAmount the amount of sprites in the current animation
+     */
     private void updateStarAnimationTick(int spriteAmount) {
         animationTick++;
         if(animation == ATTACK)
@@ -122,13 +127,9 @@ public class Star extends Enemy {
         }
     }
 
-
-    private void handleAttack() {
-        if(attackTick < attackMaxTick){
-            attackTick++;
-        }
-    }
-
+    /**
+     * This method updates the attack phase of the star
+     */
     private void updateAttack() {
         if(!inAir){
             if(animationFrame == 0)
@@ -138,21 +139,25 @@ public class Star extends Enemy {
         }
     }
 
+    /**
+     * This method draws the star
+     */
     public void draw(Graphics g, int xLvlOffset) {
         int imageX = (int) (hitbox.x - xImageOffset) - xLvlOffset + flipX;
         int imageY = (int) (hitbox.y - yImageOffset);
         int width = (int) (initialWidth * flipW);
-        g.drawImage(sprites[animation][animationFrame], imageX, imageY, width, initialHeight,  null);
+        g.drawImage(images[animation][animationFrame], imageX, imageY, width, initialHeight,  null);
         debug_drawHitbox(g, xLvlOffset, hitbox);
         debug_drawHitbox(g, xLvlOffset, attackBox);
     }
 
-
-
-
-
-    private int getEnemySpriteAmount(int state) {
-        switch (state) {
+    /**
+     * This method returns the amount of sprites in the current animation
+     * @param animation the current animation
+     * @return the amount of sprites in the current animation
+     */
+    private int getEnemySpriteAmount(int animation) {
+        switch (animation) {
             case IDLE:
                 return 8;
             case RUN:
@@ -166,5 +171,20 @@ public class Star extends Enemy {
             default:
                 return 1;
         }
+    }
+
+    /**
+     * This method loads the images of the star
+     * @return the images of the star
+     */
+    private static BufferedImage[][] LoadImages() {
+        BufferedImage temp = LoadContent.GetResourceAsBufferedImage(LoadContent.STAR_ATLAS);
+        BufferedImage[][] images = new BufferedImage[5][8];
+        for(int j = 0; j < images.length; j++){
+            for(int i = 0; i < images[j].length; i++){
+                images[j][i] = temp.getSubimage(i* STAR_WIDTH_DEFAULT, j *STAR_HEIGHT_DEFAULT, STAR_WIDTH_DEFAULT, STAR_HEIGHT_DEFAULT);
+            }
+        }
+        return images;
     }
 }

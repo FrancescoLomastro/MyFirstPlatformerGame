@@ -6,6 +6,9 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
+/**
+ * This class manages all the enemies in the game
+ */
 public class EnemyManager {
 
     private ArrayList<Enemy> enemies;
@@ -14,7 +17,9 @@ public class EnemyManager {
         this.enemies = enemies;
     }
 
-
+    /**
+     * Updates all the enemies in the game and checks if the level is completed
+     */
     public void update(){
         boolean isAnyActive = false;
         for(Enemy e : enemies){
@@ -24,11 +29,14 @@ public class EnemyManager {
             }
         }
 
-        if(isAnyActive == false){
+        if(!isAnyActive){
             PlayScene.getInstance().setLevelCompleted(true);
         }
     }
 
+    /**
+     * Draws all the enemies in the game if they are still active
+     */
     public void draw(Graphics g, int xLvlOffset){
         for(Enemy e : enemies){
             if (e.isActive()) {
@@ -38,12 +46,17 @@ public class EnemyManager {
     }
 
 
-    public void checkEnemyAttacked(Rectangle2D.Float attackBox) {
+    /**
+     * This method checks if the player has attacked an enemy
+     * @param attackBox the attack box of the player
+     * @param damage the damage the player deals
+     */
+    public void checkEnemyAttacked(Rectangle2D.Float attackBox, int damage) {
         for(Enemy e : enemies){
             if(e.getCurrentHealth() > 0) {
                 if (e.isActive()) {
                     if (attackBox.intersects(e.getHitbox())) {
-                        e.alterHealth(-100);
+                        e.alterHealth(damage);
                         return;
                     }
                 }
@@ -51,6 +64,9 @@ public class EnemyManager {
         }
     }
 
+    /**
+     * Forwards the reset command to all the enemies
+     */
     public void reset() {
         for(Enemy e : enemies){
             e.reset();
