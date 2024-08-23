@@ -8,7 +8,6 @@ import static org.example.Constants.UI.VolumeButtons.*;
 
 
 public class VolumeButton extends Button{
-
     private BufferedImage[] imgs;
     private BufferedImage slider;
     private int index =0;
@@ -18,9 +17,9 @@ public class VolumeButton extends Button{
     private float floatValue = 0f;
 
     public VolumeButton(int x, int y, int width, int height) {
-        super(x + width/2, y, VOLUME_WIDTH, height);  // Con super creo la hitbox, solo il pirulino deve essere hitboxato non lo slider
-        this.x = x;                     //Qui invece la hitbox è gia pronta, quindi mi rimane solo da disegnare
-        this.width = width;             //Per questo solo ora posso usare i valori x e width che mi hanno passato
+        super(x + width/2, y, VOLUME_WIDTH, height);
+        this.x = x;
+        this.width = width;
         bounds.x -= VOLUME_WIDTH/2;
         buttonX = x+width/2;
         minX = x + VOLUME_WIDTH/2;

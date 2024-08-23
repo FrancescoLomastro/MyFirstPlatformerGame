@@ -1,8 +1,9 @@
-package org.example.UI;
+package org.example.UI.Overlays;
 
 
 import org.example.GameScenes.PlayScene;
 import org.example.GameScenes.Scene;
+import org.example.UI.UrmButton;
 import org.example.Utility.LoadContent;
 
 import java.awt.*;
@@ -76,8 +77,8 @@ public class LevelCompletedOverlay {
             }
         }
 
-        menu.resetBools();
-        next.resetBools();
+        menu.resetBooleans();
+        next.resetBooleans();
     }
 
     public void mousePressed(MouseEvent e) {

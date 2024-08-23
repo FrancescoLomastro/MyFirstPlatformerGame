@@ -82,7 +82,7 @@ public class SettingsScene implements SceneMethods {
                 Scene.CurrentScene = MENU;
         } else audioOptions.mouseReleased(e);
 
-        menuB.resetBools();
+        menuB.resetBooleans();
 
     }
 

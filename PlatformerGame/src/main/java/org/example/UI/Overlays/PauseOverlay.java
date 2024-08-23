@@ -1,9 +1,11 @@
-package org.example.UI;
+package org.example.UI.Overlays;
 
 
 
 import org.example.GameScenes.PlayScene;
 import org.example.GameScenes.Scene;
+import org.example.UI.AudioOptions;
+import org.example.UI.UrmButton;
 import org.example.Utility.LoadContent;
 
 import java.awt.*;
@@ -105,9 +107,9 @@ public class PauseOverlay {
             audioOptions.mouseReleased(e);
 
 
-        menuB.resetBools();
-        replayB.resetBools();
-        unpauseB.resetBools();
+        menuB.resetBooleans();
+        replayB.resetBooleans();
+        unpauseB.resetBooleans();
     }
 
     public void mouseMoved(MouseEvent e) {

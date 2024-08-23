@@ -1,7 +1,8 @@
-package org.example.UI;
+package org.example.UI.Overlays;
 
 
 import org.example.GameScenes.PlayScene;
+import org.example.UI.UrmButton;
 import org.example.Utility.LoadContent;
 
 import java.awt.*;
@@ -79,8 +80,8 @@ public class GameOverOverlay {
             }
         }
 
-        rageQuit.resetBools();
-        playAgain.resetBools();
+        rageQuit.resetBooleans();
+        playAgain.resetBooleans();
     }
 
     public void mousePressed(MouseEvent e) {

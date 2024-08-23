@@ -10,6 +10,12 @@ import static org.example.Constants.Window.SCALE;
 import static org.example.Utility.HelpMethods.IsMouseIn;
 
 
+/**
+ * Class that creates the audio options for the game.
+ * A logic class that handles the audio options for the game.
+ *
+ * TODO still incomplete
+ */
 public class AudioOptions {
     private VolumeButton volumeButton;
     private SoundButton musicButton, sfxButton;
@@ -37,16 +43,13 @@ public class AudioOptions {
     public void update() {
         musicButton.update();
         sfxButton.update();
-
         volumeButton.update();
     }
 
     public void draw(Graphics g) {
-        // Sound buttons
         musicButton.draw(g);
         sfxButton.draw(g);
 
-        // Volume Button
         volumeButton.draw(g);
     }
 

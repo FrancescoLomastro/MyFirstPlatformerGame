@@ -8,22 +8,22 @@ import java.awt.image.BufferedImage;
 import static org.example.Constants.UI.SoundButtons.*;
 
 public class SoundButton extends Button {
-    private BufferedImage[][] soundImgs;
+    private BufferedImage[][] images;
     private boolean mouseOver, mousePressed;
     private boolean muted;
     private int rowIndex, columnIndex;
 
     public SoundButton(int x, int y, int width, int height) {
         super(x, y, width, height);
-        loadSoundImages();
+        loadImages();
     }
 
-    private void loadSoundImages() {
+    private void loadImages() {
         BufferedImage temp = LoadContent.GetResourceAsBufferedImage(LoadContent.SOUND_BUTTONS);
-        soundImgs = new BufferedImage[2][3];
-        for(int j = 0; j < soundImgs.length; j++) {
-            for(int i = 0; i < soundImgs[j].length; i++) {
-                soundImgs[j][i] = temp.getSubimage(i * SOUND_SIZE_DEFAULT, j * SOUND_SIZE_DEFAULT, SOUND_SIZE_DEFAULT,SOUND_SIZE_DEFAULT);
+        images = new BufferedImage[2][3];
+        for(int j = 0; j < images.length; j++) {
+            for(int i = 0; i < images[j].length; i++) {
+                images[j][i] = temp.getSubimage(i * SOUND_SIZE_DEFAULT, j * SOUND_SIZE_DEFAULT, SOUND_SIZE_DEFAULT,SOUND_SIZE_DEFAULT);
             }
         }
     }
@@ -51,12 +51,9 @@ public class SoundButton extends Button {
     }
 
     public void draw(Graphics g){
-        g.drawImage(soundImgs[rowIndex][columnIndex], x, y, width, height, null);
+        g.drawImage(images[rowIndex][columnIndex], x, y, width, height, null);
     }
 
-    public boolean isMouseOver() {
-        return mouseOver;
-    }
 
     public void setMouseOver(boolean mouseOver) {
         this.mouseOver = mouseOver;
@@ -77,4 +74,5 @@ public class SoundButton extends Button {
     public void setMuted(boolean muted) {
         this.muted = muted;
     }
+
 }

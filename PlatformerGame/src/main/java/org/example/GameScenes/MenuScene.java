@@ -260,7 +260,7 @@ public class MenuScene implements SceneMethods{
 
     private void resetButtons() {
         for(MenuButton mb : buttons){
-            mb.resetBools();
+            mb.resetBooleans();
         }
     }
 }

@@ -8,27 +8,30 @@ import java.awt.image.BufferedImage;
 
 import static org.example.Constants.UI.Buttons.*;
 
+/**
+ * This class is used to create buttons for the menu.
+ */
 public class MenuButton extends Button {
     private int imageIndex;
-    private int rowIndex;
+    private int imageRowIndex;
     private BufferedImage[] imgs;
     private boolean mouseOver, mousePressed;
     private Scene scene;
 
 
-    public MenuButton(int x, int y, int rowIndex, Scene scene) {
+    public MenuButton(int x, int y, int imageRowIndex, Scene scene) {
         super(x, y);
         this.scene = scene;
-        this.rowIndex = rowIndex;
-        loadImgs();
+        this.imageRowIndex = imageRowIndex;
+        loadImages();
     }
 
 
-    private void loadImgs() {
+    private void loadImages() {
         imgs = new BufferedImage[3];
         BufferedImage temp = LoadContent.GetResourceAsBufferedImage(LoadContent.MENU_BUTTONS);
         for(int i = 0; i < imgs.length; i++) {
-            imgs[i] = temp.getSubimage(i* B_WIDTH_DEFAULT, rowIndex * B_HEIGHT_DEFAULT, B_WIDTH_DEFAULT, B_HEIGHT_DEFAULT);
+            imgs[i] = temp.getSubimage(i* B_WIDTH_DEFAULT, imageRowIndex * B_HEIGHT_DEFAULT, B_WIDTH_DEFAULT, B_HEIGHT_DEFAULT);
         }
     }
 
@@ -46,28 +49,40 @@ public class MenuButton extends Button {
         }
     }
 
-    public boolean isMouseOver() {
-        return mouseOver;
-    }
 
+    /**
+     * Used to set the mouse over event
+     */
     public void setMouseOver(boolean mouseOver) {
         this.mouseOver = mouseOver;
     }
 
-    public void changeScene(){
-        Scene.CurrentScene = scene;
-    }
-
-    public boolean isMousePressed() {
-        return mousePressed;
-    }
-
+    /**
+     * Used to set the mouse pressed event
+     */
     public void setMousePressed(boolean mousePressed) {
         this.mousePressed = mousePressed;
     }
 
-    public void resetBools(){
-        mouseOver=false;
+    /**
+     * Used to get the mouse pressed event
+     */
+    public boolean isMousePressed() {
+        return mousePressed;
+    }
+
+    /**
+     * Used change the current scene to the button scene
+     */
+    public void changeScene(){
+        Scene.CurrentScene = scene;
+    }
+
+    /**
+     * Used to reset the mouse over and mouse pressed booleans
+     */
+    public void resetBooleans(){
+        mouseOver = false;
         mousePressed = false;
     }
 }

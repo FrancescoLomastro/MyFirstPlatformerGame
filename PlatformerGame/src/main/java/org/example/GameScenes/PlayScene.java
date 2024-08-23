@@ -3,9 +3,9 @@ package org.example.GameScenes;
 import org.example.Entities.Player;
 import org.example.Levels.LevelManager;
 import org.example.Main.Game;
-import org.example.UI.GameOverOverlay;
-import org.example.UI.LevelCompletedOverlay;
-import org.example.UI.PauseOverlay;
+import org.example.UI.Overlays.GameOverOverlay;
+import org.example.UI.Overlays.LevelCompletedOverlay;
+import org.example.UI.Overlays.PauseOverlay;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
