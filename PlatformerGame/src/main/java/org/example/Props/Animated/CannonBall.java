@@ -1,7 +1,6 @@
 package org.example.Props.Animated;
 
 
-import org.example.Constants.Prop;
 import org.example.Utility.LoadContent;
 
 import java.awt.*;
@@ -11,10 +10,13 @@ import java.awt.image.BufferedImage;
 import static org.example.Constants.Motion.Dirctions.RIGHT;
 import static org.example.Constants.Prop.Cannon.*;
 import static org.example.Constants.Window.SCALE;
+import static org.example.Utility.LoadContent.CANNON_BALL_EXPLOSION_SPRITE;
 
 public class CannonBall extends AnimatedProp {
-    private static BufferedImage image = LoadImage();
+    private static BufferedImage image = LoadContent.GetResourceAsBufferedImage(LoadContent.CANNON_BALL);;
+    private static BufferedImage[] explosion_image = LoadImages();
     private int direction;
+    protected boolean doAnimation;
 
     public CannonBall(int x, int y, int direction) {
         super(x, y);
@@ -28,7 +30,25 @@ public class CannonBall extends AnimatedProp {
     }
 
     @Override
-    public void update() {}
+    public void update() {
+        if(doAnimation){
+            updateAnimationTick();
+        }
+        else
+            updatePosition();
+    }
+
+    private void updateAnimationTick() {
+        animationTick++;
+        if (animationTick >= CANNON_ANIMATION_SPEED) {
+            animationTick = 0;
+            animationFrame++;
+            if (animationFrame >= CANNON_BALL_EXPLOSION_SPRITE_AMOUNT) {
+                animationFrame = 0;
+                active = false;
+            }
+        }
+    }
 
 
     /**
@@ -39,13 +59,27 @@ public class CannonBall extends AnimatedProp {
     }
 
     public void draw(Graphics g, int xLvlOffset){
-        g.drawImage(image, (int) (hitbox.x - xLvlOffset), (int) hitbox.y, CANNON_BALL_WIDTH, CANNON_BALL_HEIGHT, null);
-        debug_drawHitbox(g,xLvlOffset);
+        if(doAnimation)
+            g.drawImage(explosion_image[animationFrame], (int) (hitbox.x - xLvlOffset), (int) hitbox.y, CANNON_BALL_WIDTH, CANNON_BALL_HEIGHT, null);
+        else
+            g.drawImage(image, (int) (hitbox.x - xLvlOffset), (int) hitbox.y, CANNON_BALL_WIDTH, CANNON_BALL_HEIGHT, null);
+        //debug_drawHitbox(g,xLvlOffset);
+    }
+
+    public void crush() {
+        doAnimation = true;
+    }
+
+    private static BufferedImage[] LoadImages() {
+        BufferedImage[] imgs = new BufferedImage[7];
+        BufferedImage img = LoadContent.GetResourceAsBufferedImage(CANNON_BALL_EXPLOSION_SPRITE);
+        for(int i = 0; i < CANNON_BALL_EXPLOSION_SPRITE_AMOUNT; i++) {
+            imgs[i] = img.getSubimage(i* CANNON_BALL_EXPLOSION_WIDTH_DEFAULT, 0, CANNON_BALL_EXPLOSION_WIDTH_DEFAULT, CANNON_BALL_EXPLOSION_HEIGHT_DEFAULT);
+        }
+        return imgs;
     }
 
 
 
-    private static BufferedImage LoadImage() {
-        return LoadContent.GetResourceAsBufferedImage(LoadContent.CANNON_BALL);
-    }
+
 }

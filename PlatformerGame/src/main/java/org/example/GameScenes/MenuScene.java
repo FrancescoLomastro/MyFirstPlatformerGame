@@ -13,6 +13,7 @@ import java.util.Random;
 import static org.example.Constants.Prop.BigCloud.*;
 import static org.example.Constants.Prop.Seagull.*;
 import static org.example.Constants.Prop.Ship.*;
+import static org.example.Constants.Prop.WaterReflex.*;
 import static org.example.Constants.UI.*;
 import static org.example.Constants.Window.*;
 import static org.example.Utility.HelpMethods.IsMouseIn;
@@ -39,10 +40,13 @@ public class MenuScene implements SceneMethods{
     private int seagullAnimationFrame;
     private int seagullAnimationTick;
     private float seagullOffsetX;
-    private int maxSeagullOffsetX;
     private int seagullFloatingDirection = -1;
     private float seagullFloatingOffset = 0;
     private int seagullRandomOffsetY;
+
+    private BufferedImage[] waterReflex;
+    private int waterReflexAnimationFrame;
+    private int waterReflexAnimationTick;
 
     private BufferedImage menuBackground;
     private MenuButton[] buttons;
@@ -57,6 +61,8 @@ public class MenuScene implements SceneMethods{
         this.seagullAnimationTick = 0;
         this.shipAnimationFrame = 0;
         this.seagullAnimationFrame = 0;
+        this.waterReflexAnimationFrame = 0;
+        this.waterReflexAnimationTick = 0;
         this.seagullOffsetX = GAME_WIDTH/2 ;
         this.seagullRandomOffsetY = random.nextInt(100);
         loadAnimations();
@@ -92,6 +98,12 @@ public class MenuScene implements SceneMethods{
             seagullImages[i] = img.getSubimage(i*30, 0, 30, 37);
         }
 
+        img = LoadContent.GetResourceAsBufferedImage(LoadContent.WATER_REFLEX_SPRITE);
+        waterReflex = new BufferedImage[4];
+        for(int i = 0; i < WATER_REFLEX_SPRITE_AMOUNT; i++) {
+            waterReflex[i] = img.getSubimage(0, i*WATER_REFLEX_HEIGHT_DEFAULT, WATER_REFLEX_WIDTH_DEFAULT, WATER_REFLEX_HEIGHT_DEFAULT);
+        }
+
         menuBackground = LoadContent.GetResourceAsBufferedImage(LoadContent.MENU_BOARD);
     }
 
@@ -120,9 +132,20 @@ public class MenuScene implements SceneMethods{
         updateClouds();
         updateShipAnimationTick();
         updateSeagullAnimationTick();
+        updateWaterReflex();
         buttons[0].update();
         buttons[1].update();
         buttons[2].update();
+    }
+
+    private void updateWaterReflex() {
+        waterReflexAnimationTick++;
+        if (waterReflexAnimationTick >= WATER_REFLEX_ANIMATION_SPEED) {
+            waterReflexAnimationTick = 0;
+            waterReflexAnimationFrame++;
+            if (waterReflexAnimationFrame >= WATER_REFLEX_SPRITE_AMOUNT)
+                waterReflexAnimationFrame = 0;
+        }
     }
 
     private void updateShipAnimationTick() {
@@ -187,6 +210,7 @@ public class MenuScene implements SceneMethods{
     public void draw(Graphics g) {
         g.drawImage(deepBackground, 0, 0, GAME_WIDTH, GAME_HEIGHT, null);
         drawBigClouds(g);
+        drawWaterReflex(g);
         drawShip(g);
         drawSeagull(g);
         drawSmallClouds(g);
@@ -194,6 +218,10 @@ public class MenuScene implements SceneMethods{
         buttons[0].draw(g);
         buttons[1].draw(g);
         buttons[2].draw(g);
+    }
+
+    private void drawWaterReflex(Graphics g) {
+        g.drawImage(waterReflex[waterReflexAnimationFrame], (int) (180*SCALE), (int) (322*SCALE), WATER_REFLEX_WIDTH, WATER_REFLEX_HEIGHT, null);
     }
 
     private void drawSeagull(Graphics g) {

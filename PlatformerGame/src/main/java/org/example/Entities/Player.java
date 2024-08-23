@@ -133,8 +133,8 @@ public class Player extends Entity{
             drawHitPlayer(g, imageX, imageY, width, initialHeight, images[animation][animationFrame]);
         else
             g.drawImage(images[animation][animationFrame], imageX , imageY, width , initialHeight, null);
-        debug_drawHitbox(g, xLvlOffset, hitbox);
-        debug_drawHitbox(g, xLvlOffset, attackBox);
+        //debug_drawHitbox(g, xLvlOffset, hitbox);
+        //debug_drawHitbox(g, xLvlOffset, attackBox);
         drawHUD(g);
     }
 

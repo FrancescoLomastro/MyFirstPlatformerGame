@@ -64,8 +64,8 @@ public class Crabby extends Enemy{
         int imageY = (int) (hitbox.y - yImageOffset);
         int width = (int) (initialWidth * flipW);
         g.drawImage(images[animation][animationFrame], imageX, imageY, width, initialHeight,  null);
-        debug_drawHitbox(g, xLvlOffset, hitbox);
-        debug_drawHitbox(g, xLvlOffset, attackBox);
+        //debug_drawHitbox(g, xLvlOffset, hitbox);
+        //debug_drawHitbox(g, xLvlOffset, attackBox);
     }
 
 

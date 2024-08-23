@@ -25,7 +25,7 @@ public class SettingsScene implements SceneMethods {
 
 
     public SettingsScene(Game game) {
-        loadImgs();
+        loadImages();
         loadButton();
         audioOptions = game.getAudioOptions();
     }
@@ -37,7 +37,7 @@ public class SettingsScene implements SceneMethods {
         menuB = new UrmButton(menuX, menuY, URM_SIZE, URM_SIZE, 2);
     }
 
-    private void loadImgs() {
+    private void loadImages() {
         settingsBackground = LoadContent.GetResourceAsBufferedImage(LoadContent.SETTINGS_BOARD);
         deepBackgroundImg = LoadContent.GetResourceAsBufferedImage(SETTINGS_DEEP_BACKGROUND);
 

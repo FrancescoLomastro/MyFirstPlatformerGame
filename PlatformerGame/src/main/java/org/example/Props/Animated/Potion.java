@@ -39,7 +39,7 @@ public class Potion extends AnimatedProp {
                     POTION_WIDTH,
                     POTION_HEIGHT,
                     null);
-        debug_drawHitbox(g, xLvlOffset);
+        //debug_drawHitbox(g, xLvlOffset);
     }
 
     public void update() {

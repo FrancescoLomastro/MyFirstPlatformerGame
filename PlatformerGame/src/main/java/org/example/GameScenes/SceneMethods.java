@@ -4,6 +4,9 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+/**
+ * Interface for the different methods that a scene should have
+ */
 public interface SceneMethods {
     public void update();
     public void draw(Graphics g);

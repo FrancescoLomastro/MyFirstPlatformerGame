@@ -68,12 +68,12 @@ public class Cannon extends AnimatedProp {
         PlayScene playScene = PlayScene.getInstance();
         for(CannonBall cb : cannonBalls){
             if(cb.isActive()){
-                cb.updatePosition();
+                cb.update();
                 if(cb.getHitbox().intersects(playScene.getPlayerHitbox())){
                     playScene.hitPlayer(-25);
-                    cb.setActive(false);
+                    cb.crush();
                 }else if(isProjectileCrushed(cb)){
-                    cb.setActive(false);
+                    cb.crush();
                 }
             }
         }
@@ -108,7 +108,7 @@ public class Cannon extends AnimatedProp {
             width *= -1;
         }
         g.drawImage(images[animationFrame], x, (int) (hitbox.y), width, CANNON_HEIGHT, null);
-        debug_drawHitbox(g,xLvlOffset);
+        //debug_drawHitbox(g,xLvlOffset);
         drawCannonBalls(g, xLvlOffset);
     }
 

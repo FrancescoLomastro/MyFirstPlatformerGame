@@ -97,9 +97,22 @@ public class Prop {
         public static final int SEAGULL_HEIGHT = (int) (SEAGULL_HEIGHT_DEFAULT * SCALE);
 
     }
+    public class WaterReflex {
+
+        public static final int WATER_REFLEX_SPRITE_AMOUNT = 4;
+        public static final int WATER_REFLEX_ANIMATION_SPEED = 30;
+
+        public static final int WATER_REFLEX_WIDTH_DEFAULT = 170;
+        public static final int WATER_REFLEX_HEIGHT_DEFAULT = 10;
+        public static final int WATER_REFLEX_WIDTH = (int) (WATER_REFLEX_WIDTH_DEFAULT * SCALE);
+        public static final int WATER_REFLEX_HEIGHT = (int) (WATER_REFLEX_HEIGHT_DEFAULT * SCALE);
+
+    }
+
 
     public class Cannon {
         public static final int CANNON_SPRITE_AMOUNT = 7;
+
         public static final int CANNON_ANIMATION_SPEED = 25;
 
         public static final int CANNON_WIDTH_DEFAULT = 40;
@@ -111,12 +124,18 @@ public class Prop {
         public static final int CANNON_RIGHT = 1;
         public static final int CANNON_LEFT = 2;
 
-
-        public static final int CANNON_BALL_DEFAULT_WIDTH = 15;
-        public static final int CANNON_BALL_DEFAULT_HEIGHT = 15;
-        public static final int CANNON_BALL_WIDTH = (int)(SCALE * CANNON_BALL_DEFAULT_WIDTH);
-        public static final int CANNON_BALL_HEIGHT = (int)(SCALE * CANNON_BALL_DEFAULT_HEIGHT);
+        public static final int CANNON_BALL_WIDTH_DEFAULT = 15;
+        public static final int CANNON_BALL_HEIGHT_DEFAULT = 15;
+        public static final int CANNON_BALL_WIDTH = (int)(SCALE * CANNON_BALL_WIDTH_DEFAULT);
+        public static final int CANNON_BALL_HEIGHT = (int)(SCALE * CANNON_BALL_HEIGHT_DEFAULT);
         public static final float CANNON_BALL_SPEED = 0.75f * SCALE;
+
+
+        public static final int CANNON_BALL_EXPLOSION_SPRITE_AMOUNT = 7;
+        public static final int CANNON_BALL_EXPLOSION_WIDTH_DEFAULT = 54;
+        public static final int CANNON_BALL_EXPLOSION_HEIGHT_DEFAULT = 60;
+        public static final int CANNON_BALL_EXPLOSION_WIDTH = (int)(SCALE * CANNON_BALL_EXPLOSION_WIDTH_DEFAULT);
+        public static final int CANNON_BALL_EXPLOSION_HEIGHT = (int)(SCALE * CANNON_BALL_EXPLOSION_HEIGHT_DEFAULT);
     }
 
     public class Potion {

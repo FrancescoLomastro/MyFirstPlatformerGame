@@ -45,7 +45,7 @@ public class Sword extends AnimatedProp {
     @Override
     public void draw(Graphics g, int xLvlOffset) {
         g.drawImage(images[animationFrame], (int) (hitbox.x - xLvlOffset), (int) hitbox.y, SWORD_WIDTH, SWORD_HEIGHT, null);
-        debug_drawHitbox(g, xLvlOffset);
+        //debug_drawHitbox(g, xLvlOffset);
     }
 
 

@@ -35,6 +35,9 @@ public class LoadContent {
     public static final String SWORD_SPRITE = "animations/props/sword_sprite.png";
     public static final String CANNON_SPRITE = "animations/props/cannon_sprite.png";
     public static final String POTION_SPRITE = "animations/props/potion_sprite.png";
+    public static final String WATER_REFLEX_SPRITE = "animations/props/water_reflex_sprite.png";
+    public static final String CANNON_BALL_EXPLOSION_SPRITE = "animations/props/cannon_ball_explosion_sprite.png";
+
 
     /* HUD */
     public static final String HEALTH_HUD = "hud/health_hud.png";

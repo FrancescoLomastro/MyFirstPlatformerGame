@@ -114,7 +114,7 @@ public class Game implements Runnable {
             
             if (System.currentTimeMillis() - debug_FPS_previousTime >= 1000) {
                 debug_FPS_previousTime = System.currentTimeMillis();
-                debug_FPS_UPS_printer(debug_FPS_frames_num,debug_FPS_updates_num);
+                //debug_FPS_UPS_printer(debug_FPS_frames_num,debug_FPS_updates_num);
                 debug_FPS_frames_num = 0;
                 debug_FPS_updates_num = 0;
             }
@@ -144,7 +144,7 @@ public class Game implements Runnable {
                 menuScene.update();
             }
             case QUIT -> {
-
+                System.exit(0);
             }
             case SETTINGS -> {
                 settingsScene.update();
