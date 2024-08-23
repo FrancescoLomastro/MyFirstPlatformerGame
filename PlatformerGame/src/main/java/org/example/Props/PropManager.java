@@ -1,5 +1,6 @@
 package org.example.Props;
 
+import org.example.Exceptions.SwordNotFoundException;
 import org.example.Props.Animated.AnimatedProp;
 import org.example.Props.Animated.Sword;
 
@@ -12,9 +13,9 @@ import java.util.ArrayList;
  */
 public class PropManager {
 
-    private ArrayList<AnimatedProp> animatedProps;
-    private Sword sword;
-    private ArrayList<Prop> notAnimatedProps;
+    private final ArrayList<AnimatedProp> animatedProps;
+    private final Sword sword;
+    private final ArrayList<Prop> notAnimatedProps;
 
     public PropManager(ArrayList<AnimatedProp> animatedProps, ArrayList<Prop> notAnimatedProps) {
         this.animatedProps = animatedProps;
@@ -32,7 +33,7 @@ public class PropManager {
                 return (Sword) animatedProp;
             }
         }
-        return null;
+        throw new SwordNotFoundException("Sword not found, check that the level has a sword prop");
     }
 
 

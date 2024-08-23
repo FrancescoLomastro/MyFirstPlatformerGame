@@ -1,6 +1,7 @@
 package org.example.Levels;
 
 import org.example.Entities.*;
+import org.example.Exceptions.PlayerSpawnPointNotFoundException;
 import org.example.Props.Animated.*;
 import org.example.Props.NotAnimated.Barrel;
 import org.example.Props.NotAnimated.Bottle;
@@ -191,6 +192,8 @@ public class Level {
      * Getter that returns the X coordinate of player spawn 
      */
     public int getPlayerX() {
+        if(playerSpawnPoint == null)
+            throw new PlayerSpawnPointNotFoundException("Player spawn point not found in the level, check that the level has a player spawn point");
         return playerSpawnPoint.x;
     }
 
@@ -198,6 +201,8 @@ public class Level {
      * Getter that returns the Y coordinate of player spawn 
      */
     public int getPlayerY() {
+        if(playerSpawnPoint == null)
+            throw new PlayerSpawnPointNotFoundException("Player spawn point not found in the level, check that the level has a player spawn point");
         return playerSpawnPoint.y;
     }
 
