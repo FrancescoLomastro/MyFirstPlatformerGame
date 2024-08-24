@@ -171,40 +171,33 @@ public class Player extends Entity{
      */
     private void setAnimation() {
         int oldAnimation = animation;
-
+        int newAnimation = animation;
         if (moving) {
-            animation = RUN;
-        } else if (!landed){
-            animation = IDLE;
+            newAnimation = RUN;
+        } else if(oldAnimation != LAND){
+            newAnimation = IDLE;
         }
         if (inAir) {
             if (speedInAir < 0)
-                animation = JUMP;
+                newAnimation = JUMP;
             else
-                animation = FALL;
+                newAnimation = FALL;
         }
         if(attack){
-            animation = ATTACK;
+            newAnimation = ATTACK;
         }
 
 
-        if (oldAnimation != animation) {
-            if(oldAnimation == FALL && animation == IDLE){
-                landed = true;
-                animation = LAND;
+        if (oldAnimation != newAnimation) {
+            if(oldAnimation == FALL && newAnimation == IDLE){
+                newAnimation = LAND;
             }
-            resetAnimationTick();
+            changeAnimation(newAnimation);
         }
     }
 
 
-    /**
-     * Reset the animation to the begin
-     */
-    private void resetAnimationTick() {
-        animationTick = 0;
-        animationFrame = 0;
-    }
+
 
 
     /**
@@ -275,9 +268,8 @@ public class Player extends Entity{
             animationTick = 0;
             animationFrame++;
             if(animationFrame >= getPlayerSpriteAmount(animation)) {
-                if(landed){
-                    landed = false;
-                }
+                if(animation == LAND)
+                    animation = IDLE;
                 attack = false;
                 attackChecked = false;
                 animationFrame = 0;
@@ -294,7 +286,7 @@ public class Player extends Entity{
         if(currentHealth > 0) {
             if(newHealth <= 0) {
                 currentHealth = 0;
-                newAnimation(DEAD);
+                changeAnimation(DEAD);
                 AudioManager.getInstance().playPlayerDead();
             }
             else if (newHealth > maxHealth)
@@ -335,7 +327,7 @@ public class Player extends Entity{
      */
     public void reset() {
         super.reset();
-        newAnimation(IDLE);
+        changeAnimation(IDLE);
         inAir = false;
         attack = false;
         moving = false;

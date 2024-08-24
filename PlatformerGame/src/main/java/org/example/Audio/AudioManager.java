@@ -14,7 +14,7 @@ public class AudioManager {
 
     private String[] attackSounds = {"audio/attack1.wav", "audio/attack2.wav", "audio/attack3.wav"};
     private String[] walkSounds = {"audio/walk1.wav", "audio/walk2.wav", "audio/walk3.wav", "audio/walk4.wav"};
-    private CountingThread walkThread;
+
     private int walkIndex;
     private Random rand;
 
@@ -50,5 +50,5 @@ public class AudioManager {
         sound = TinySound.loadSound("audio/gameover.wav");
         sound.play();
     }
-    
+
 }

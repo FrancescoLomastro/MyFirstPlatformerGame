@@ -79,7 +79,7 @@ public abstract class Enemy extends Entity{
                     if(canApproachPlayer()) {
                         turnTowardsPlayer();
                         if (isPlayerCloseForAttack())
-                            newAnimation(ATTACK);
+                            changeAnimation(ATTACK);
                     }
                     break;
 
@@ -218,13 +218,13 @@ public abstract class Enemy extends Entity{
         int newHealth = currentHealth - damage;
         if(newHealth <= 0) {
             currentHealth = 0;
-            newAnimation(DEAD);
+            changeAnimation(DEAD);
         }
         else if (newHealth > maxHealth)
             currentHealth = maxHealth;
         else {
             currentHealth = newHealth;
-            newAnimation(HIT);
+            changeAnimation(HIT);
         }
     }
 
@@ -234,6 +234,6 @@ public abstract class Enemy extends Entity{
     @Override
     public void reset() {
         super.reset();
-        newAnimation(IDLE);
+        changeAnimation(IDLE);
     }
 }

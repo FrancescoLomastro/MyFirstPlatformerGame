@@ -126,7 +126,7 @@ public abstract class Entity {
      * This method is used to change the current animation for the entity.
      * @param animation the new animation to be used
      */
-    protected void newAnimation(int animation) {
+    protected void changeAnimation(int animation) {
         this.animation = animation;
         animationTick = 0;
         animationFrame = 0;

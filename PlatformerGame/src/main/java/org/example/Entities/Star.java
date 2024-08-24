@@ -85,13 +85,13 @@ public class Star extends Enemy {
                     hitbox.x += xSpeed;
                 } else {
                     walkingDir = (walkingDir == LEFT) ? RIGHT : LEFT;
-                    newAnimation(RUN);
+                    changeAnimation(RUN);
                     walkSpeed = 0.5f * SCALE;
                     attackTick = 0;
                 }
             } else {
                 walkingDir = (walkingDir == LEFT) ? RIGHT : LEFT;
-                newAnimation(RUN);
+                changeAnimation(RUN);
                 walkSpeed = 0.5f * SCALE;
                 attackTick = 0;
             }
