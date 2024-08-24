@@ -1,5 +1,6 @@
 package org.example.GameScenes;
 
+import org.example.Audio.AudioManager;
 import org.example.Entities.Player;
 import org.example.Levels.LevelManager;
 import org.example.Main.Game;
@@ -184,8 +185,9 @@ public class PlayScene implements SceneMethods{
     }
 
 
-    public void setGameOver(boolean b) {
-        this.gameOver = b;
+    public void setGameOver() {
+        this.gameOver = true;
+        AudioManager.getInstance().playGameOver();
     }
 
     public void reset() {

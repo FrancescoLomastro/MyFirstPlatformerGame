@@ -1,5 +1,6 @@
 package org.example.Entities;
 
+import org.example.Audio.AudioManager;
 import org.example.GameScenes.PlayScene;
 import org.example.Levels.Level;
 import org.example.Utility.LoadContent;
@@ -91,7 +92,7 @@ public class Player extends Entity{
             if (attack)
                 checkEnemyAttacked();
         }else if(animationFrame == getPlayerSpriteAmount(DEAD)-1){
-            PlayScene.getInstance().setGameOver(true);
+            PlayScene.getInstance().setGameOver();
         }
 
     }
@@ -105,6 +106,7 @@ public class Player extends Entity{
         }
         attackChecked = true;
         PlayScene.getInstance().checkEnemyAttacked(attackBox, damage);
+        AudioManager.getInstance().playPlayerAttack();
     }
 
 
@@ -217,6 +219,7 @@ public class Player extends Entity{
         float xSpeed = 0;
         if (jump){
             if (!inAir){
+                AudioManager.getInstance().playPlayerJump();
                 inAir = true;
                 speedInAir = jumpSpeed;
             }
@@ -292,6 +295,7 @@ public class Player extends Entity{
             if(newHealth <= 0) {
                 currentHealth = 0;
                 newAnimation(DEAD);
+                AudioManager.getInstance().playPlayerDead();
             }
             else if (newHealth > maxHealth)
                 currentHealth = maxHealth;

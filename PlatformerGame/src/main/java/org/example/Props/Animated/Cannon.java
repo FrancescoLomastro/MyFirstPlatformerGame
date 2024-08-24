@@ -70,7 +70,7 @@ public class Cannon extends AnimatedProp {
             if(cb.isActive()){
                 cb.update();
                 if(cb.getHitbox().intersects(playScene.getPlayerHitbox())){
-                    playScene.hitPlayer(-25);
+                    playScene.hitPlayer(CANNON_DAMAGE);
                     cb.crush();
                 }else if(isProjectileCrushed(cb)){
                     cb.crush();

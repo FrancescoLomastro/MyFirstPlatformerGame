@@ -1,6 +1,10 @@
 package org.example.UI;
 
 
+import kuusisto.tinysound.Music;
+import kuusisto.tinysound.Sound;
+import kuusisto.tinysound.TinySound;
+
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
@@ -24,6 +28,7 @@ public class AudioOptions {
     public AudioOptions() {
         createSoundButtons();
         createVolumeButton();
+
     }
 
     private void createVolumeButton() {

@@ -1,5 +1,6 @@
 package org.example.Main;
 
+import org.example.Audio.AudioManager;
 import org.example.GameScenes.Scene;
 import org.example.GameScenes.MenuScene;
 import org.example.GameScenes.PlayScene;
@@ -40,7 +41,7 @@ public class Game implements Runnable {
      * This method is used to initialize the classes used by the game.
      */
     private void initClasses() {
-
+        AudioManager.getInstance();
         this.audioOptions = new AudioOptions();
         PlayScene.createInstance(this);
 
