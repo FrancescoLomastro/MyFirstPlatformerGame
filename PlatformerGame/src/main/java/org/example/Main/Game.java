@@ -137,7 +137,7 @@ public class Game implements Runnable {
      * It calls the update() method of the current scene.
      */
     public void update() {
-        switch (Scene.CurrentScene){
+        switch (Scene.getCurrentScene()){
             case PLAY -> {
                 playScene.update();
             }
@@ -159,7 +159,7 @@ public class Game implements Runnable {
      * @param g Parameter needed to be able to draw on the JPanel (will not be described in the other classes).
      */
     public void draw(Graphics g) {
-        switch (Scene.CurrentScene){
+        switch (Scene.getCurrentScene()){
             case PLAY -> {
                 playScene.draw(g);
             }
@@ -181,7 +181,7 @@ public class Game implements Runnable {
      * @param e the key event.
      */
     public void keyPressed(KeyEvent e) {
-        switch (Scene.CurrentScene){
+        switch (Scene.getCurrentScene()){
             case PLAY -> {
                 playScene.keyPressed(e);
             }
@@ -204,7 +204,7 @@ public class Game implements Runnable {
      * @param e the key event.
      */
     public void keyReleased(KeyEvent e) {
-        switch (Scene.CurrentScene){
+        switch (Scene.getCurrentScene()){
             case PLAY -> {
                 playScene.keyReleased(e);
             }
@@ -226,7 +226,7 @@ public class Game implements Runnable {
      * @param e the mouse event.
      */
     public void mouseClicked(MouseEvent e) {
-        switch (Scene.CurrentScene){
+        switch (Scene.getCurrentScene()){
             case PLAY -> {
                 playScene.mouseClicked(e);
             }
@@ -248,7 +248,7 @@ public class Game implements Runnable {
      * @param e the mouse event.
      */
     public void mouseMoved(MouseEvent e) {
-        switch (Scene.CurrentScene){
+        switch (Scene.getCurrentScene()){
             case PLAY -> {
                 playScene.mouseMoved(e);
             }
@@ -270,7 +270,7 @@ public class Game implements Runnable {
      * @param e the mouse event.
      */
     public void mouseReleased(MouseEvent e) {
-        switch (Scene.CurrentScene){
+        switch (Scene.getCurrentScene()){
             case PLAY -> {
                 playScene.mouseReleased(e);
             }
@@ -292,7 +292,7 @@ public class Game implements Runnable {
      * @param e the mouse event.
      */
     public void mousePressed(MouseEvent e) {
-        switch (Scene.CurrentScene){
+        switch (Scene.getCurrentScene()){
             case PLAY -> {
                 playScene.mousePressed(e);
             }
@@ -314,7 +314,7 @@ public class Game implements Runnable {
      * @param e the mouse event.
      */
     public void mouseDragged(MouseEvent e) {
-        switch (Scene.CurrentScene){
+        switch (Scene.getCurrentScene()){
             case PLAY -> {
             }
             case SETTINGS -> {
@@ -335,7 +335,7 @@ public class Game implements Runnable {
      * It calls the resetPlayerDirBooleans() method of the PlayScene.
      */
     public void windowFocusLost() {
-        if(Scene.CurrentScene == Scene.PLAY) {
+        if(Scene.getCurrentScene() == Scene.PLAY) {
             PlayScene.getInstance().resetPlayerDirBooleans();
         }
 

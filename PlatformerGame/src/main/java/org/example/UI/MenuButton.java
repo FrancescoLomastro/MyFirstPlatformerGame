@@ -75,7 +75,7 @@ public class MenuButton extends Button {
      * Used change the current scene to the button scene
      */
     public void changeScene(){
-        Scene.CurrentScene = scene;
+        Scene.changeScene(scene);
     }
 
     /**

@@ -30,7 +30,7 @@ public class EnemyManager {
         }
 
         if(!isAnyActive){
-            PlayScene.getInstance().setLevelCompleted(true);
+            PlayScene.getInstance().setLevelCompleted();
         }
     }
 

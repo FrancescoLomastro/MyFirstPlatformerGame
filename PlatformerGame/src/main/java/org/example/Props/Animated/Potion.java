@@ -1,6 +1,7 @@
 package org.example.Props.Animated;
 
 
+import org.example.Audio.AudioManager;
 import org.example.GameScenes.PlayScene;
 import org.example.Utility.LoadContent;
 
@@ -51,7 +52,8 @@ public class Potion extends AnimatedProp {
     private void updatePicking() {
         PlayScene playScene = PlayScene.getInstance();
         if(hitbox.intersects(playScene.getPlayerHitbox())){
-            playScene.hitPlayer(+30);
+            playScene.hitPlayer(-30);
+            AudioManager.getInstance().playBottleOpen();
             active = false;
         }
     }
@@ -66,6 +68,7 @@ public class Potion extends AnimatedProp {
             }
         }
     }
+
 
     @Override
     public void reset() {

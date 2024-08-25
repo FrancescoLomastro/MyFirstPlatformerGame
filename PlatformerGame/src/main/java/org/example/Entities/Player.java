@@ -282,6 +282,7 @@ public class Player extends Entity{
      * @param damage the (positive) damage to be subtracted
      */
     public void alterHealth(int damage) {
+        System.out.println("Entrato");
         int newHealth = currentHealth - damage;
         if(currentHealth > 0) {
             if(newHealth <= 0) {
@@ -294,6 +295,8 @@ public class Player extends Entity{
             else {
                 currentHealth = newHealth;
                 hit = true;
+                if(damage > 0)
+                    AudioManager.getInstance().playPlayerPain();
             }
         }
     }

@@ -8,20 +8,36 @@ import java.util.Random;
 
 public class AudioManager {
     private static AudioManager instance;
-    private Music music;
-    private Sound sound;
+    private Music levelMusic;
+    private int levelMusicIndex;
 
 
-    private String[] attackSounds = {"audio/attack1.wav", "audio/attack2.wav", "audio/attack3.wav"};
-    private String[] walkSounds = {"audio/walk1.wav", "audio/walk2.wav", "audio/walk3.wav", "audio/walk4.wav"};
+    private Sound dieSound;
+    private Sound jumpSound;
+    private Sound attackSound;
+    private Sound gameOverSound;
+    private Sound cannonBangSound;
+    private Sound bottleOpenSound;
+    private Sound playerPainSound;
+    private Sound levelCompletedSound;
 
-    private int walkIndex;
+
+    private String[] attackSources = {"audio/sounds/attack1.wav", "audio/sounds/attack2.wav", "audio/sounds/attack3.wav"};
     private Random rand;
 
     public AudioManager() {
         TinySound.init();
         this.rand = new Random();
-        this.walkIndex = 0;
+
+        playerPainSound = TinySound.loadSound("audio/sounds/pain.wav");
+        jumpSound = TinySound.loadSound("audio/sounds/jump.wav");
+        dieSound = TinySound.loadSound("audio/sounds/die.wav");
+        gameOverSound = TinySound.loadSound("audio/sounds/gameover.wav");
+        levelCompletedSound = TinySound.loadSound("audio/sounds/lvlcompleted.wav");
+        cannonBangSound = TinySound.loadSound("audio/sounds/bang.wav");
+        bottleOpenSound = TinySound.loadSound("audio/sounds/bottle_open.wav");
+        playerPainSound = TinySound.loadSound("audio/sounds/pain.wav");
+
     }
 
     public static AudioManager getInstance(){
@@ -31,24 +47,74 @@ public class AudioManager {
     }
 
     public void playPlayerAttack(){
-        int sourceIndex = rand.nextInt(attackSounds.length);
-        sound = TinySound.loadSound(attackSounds[sourceIndex]);
-        sound.play();
+        int sourceIndex = rand.nextInt(attackSources.length);
+        attackSound = TinySound.loadSound(attackSources[sourceIndex]);
+        attackSound.play();
     }
 
     public void playPlayerJump(){
-        sound = TinySound.loadSound("audio/jump.wav");
-        sound.play();
+        jumpSound.play();
     }
 
     public void playPlayerDead(){
-        sound = TinySound.loadSound("audio/die.wav");
-        sound.play();
+        dieSound.play();
     }
 
     public void playGameOver(){
-        sound = TinySound.loadSound("audio/gameover.wav");
-        sound.play();
+        levelMusic.stop();
+        gameOverSound.play();
     }
 
+    public void playCannonBang(){
+        cannonBangSound.play();
+    }
+
+    public void playBottleOpen() {
+        bottleOpenSound.play();
+    }
+
+    public void playPlayerPain() {
+        playerPainSound.play();
+    }
+
+    public void playLevelCompleted() {
+        levelMusic.stop();
+        levelCompletedSound.play();
+    }
+
+    public void goToPlay() {
+        levelMusicIndex = 0;
+        restartSong();
+    }
+
+    public void restartSong() {
+        stopAll();
+        levelMusic = TinySound.loadMusic("audio/songs/level_"+ levelMusicIndex+".wav");
+        levelMusic.play(true);
+    }
+
+    public void goToMenu() {
+        levelMusicIndex = 0;
+        levelMusic.stop();
+    }
+
+    public void playNextLevelSong() {
+        levelMusicIndex++;
+        levelMusicIndex = levelMusicIndex % 2;
+        restartSong();
+    }
+
+    public void stopAll() {
+        dieSound.stop();
+        jumpSound.stop();
+        gameOverSound.stop();
+        cannonBangSound.stop();
+        bottleOpenSound.stop();
+        playerPainSound.stop();
+        levelCompletedSound.stop();
+        if(levelMusic != null)
+            levelMusic.stop();
+        if(attackSound != null)
+            attackSound.stop();
+    }
 }

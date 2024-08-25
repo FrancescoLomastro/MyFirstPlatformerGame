@@ -198,14 +198,16 @@ public class PlayScene implements SceneMethods{
         xLevelOffset = 0;
         levelCompleted = false;
         maxLevelCameraOffset = levelManager.getMaxLevelCameraOffset();
+        AudioManager.getInstance().restartSong();
     }
 
     public void unpauseGame(){
         paused = false;
     }
 
-    public void setLevelCompleted(boolean b) {
-        levelCompleted = b;
+    public void setLevelCompleted() {
+        levelCompleted = true;
+        AudioManager.getInstance().playLevelCompleted();
     }
 
     public void loadNextLevel() {
@@ -214,6 +216,7 @@ public class PlayScene implements SceneMethods{
                 levelManager.getPlayerX(),
                 levelManager.getPlayerY());
         player.addLevelData(levelManager.getTextureIndex());
+        AudioManager.getInstance().playNextLevelSong();
         reset();
     }
 
@@ -223,5 +226,10 @@ public class PlayScene implements SceneMethods{
 
     public void resetPlayerDirBooleans() {
         player.resetBooleanDirections();
+    }
+
+    public void restart() {
+        levelManager.restart();
+        loadNextLevel();
     }
 }

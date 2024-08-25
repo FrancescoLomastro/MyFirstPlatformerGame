@@ -70,6 +70,10 @@ public class CannonBall extends AnimatedProp {
         doAnimation = true;
     }
 
+    public boolean isCrushed(){
+        return doAnimation;
+    }
+
     private static BufferedImage[] LoadImages() {
         BufferedImage[] imgs = new BufferedImage[7];
         BufferedImage img = LoadContent.GetResourceAsBufferedImage(CANNON_BALL_EXPLOSION_SPRITE);

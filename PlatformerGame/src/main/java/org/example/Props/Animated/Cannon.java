@@ -1,5 +1,6 @@
 package org.example.Props.Animated;
 
+import org.example.Audio.AudioManager;
 import org.example.GameScenes.PlayScene;
 import org.example.Levels.Level;
 import org.example.Utility.LoadContent;
@@ -69,11 +70,13 @@ public class Cannon extends AnimatedProp {
         for(CannonBall cb : cannonBalls){
             if(cb.isActive()){
                 cb.update();
-                if(cb.getHitbox().intersects(playScene.getPlayerHitbox())){
-                    playScene.hitPlayer(CANNON_DAMAGE);
-                    cb.crush();
-                }else if(isProjectileCrushed(cb)){
-                    cb.crush();
+                if(!cb.isCrushed()){
+                    if(cb.getHitbox().intersects(playScene.getPlayerHitbox())){
+                        playScene.hitPlayer(CANNON_DAMAGE);
+                        cb.crush();
+                    }else if(isCrushedOnWall(cb)){
+                        cb.crush();
+                    }
                 }
             }
         }
@@ -82,7 +85,7 @@ public class Cannon extends AnimatedProp {
     /**
      * This method is used to check if the projectile is crushed by a solid block
      */
-    private boolean isProjectileCrushed(CannonBall cb) {
+    private boolean isCrushedOnWall(CannonBall cb) {
         return Level.IsPositionSolid(cb.getHitbox().x + cb.getHitbox().width/2, cb.getHitbox().y +  cb.getHitbox().height, levelTexture);
     }
 
@@ -95,6 +98,7 @@ public class Cannon extends AnimatedProp {
             dir = -1;
         }
         cannonBalls.add(new CannonBall((int) hitbox.x, (int) hitbox.y, dir));
+        AudioManager.getInstance().playCannonBang();
     }
 
     /**
@@ -127,6 +131,7 @@ public class Cannon extends AnimatedProp {
     @Override
     public void reset() {
         super.reset();
+        doAnimation = false;
         cannonBalls.clear();
     }
 

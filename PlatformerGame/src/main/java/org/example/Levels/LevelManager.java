@@ -1,5 +1,6 @@
 package org.example.Levels;
 
+import org.example.Audio.AudioManager;
 import org.example.Entities.EnemyManager;
 import org.example.GameScenes.Scene;
 import org.example.Props.PropManager;
@@ -70,7 +71,7 @@ public class LevelManager {
         if(currentLevelIndex >= levelsAmount) {
             currentLevelIndex = 0;
             System.out.println("No More Levels, Game Completed");
-            Scene.CurrentScene = Scene.MENU;
+            Scene.changeScene(Scene.MENU);
         }
 
         currentLevel = new Level(currentLevelIndex);
@@ -194,4 +195,10 @@ public class LevelManager {
         return propManager.isSwordPicked(hitbox);
     }
 
+    /**
+     * This method is used to restart game levels from the beginning
+     */
+    public void restart() {
+        currentLevelIndex = -1;
+    }
 }

@@ -2,6 +2,7 @@ package org.example.UI.Overlays;
 
 
 import org.example.GameScenes.PlayScene;
+import org.example.GameScenes.Scene;
 import org.example.UI.UrmButton;
 import org.example.Utility.LoadContent;
 
@@ -71,8 +72,8 @@ public class GameOverOverlay {
     public void mouseReleased(MouseEvent e) {
         if(IsMouseIn(e, rageQuit)){
             if(rageQuit.isMousePressed()){
-                PlayScene.getInstance().reset();
-
+                PlayScene.getInstance().restart();
+                Scene.changeScene(Scene.MENU);
             }
         }else if(IsMouseIn(e, playAgain)){
             if(playAgain.isMousePressed()){

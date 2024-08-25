@@ -69,7 +69,7 @@ public class LevelCompletedOverlay {
         if(IsMouseIn(e, menu)){
             if(menu.isMousePressed()){
                 playScene.reset();
-                Scene.CurrentScene = Scene.MENU;
+                Scene.changeScene(Scene.MENU);
             }
         }else if(IsMouseIn(e, next)){
             if(next.isMousePressed()){

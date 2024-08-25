@@ -79,7 +79,7 @@ public class SettingsScene implements SceneMethods {
     public void mouseReleased(MouseEvent e) {
         if (IsMouseIn(e, menuB)) {
             if (menuB.isMousePressed())
-                Scene.CurrentScene = MENU;
+                Scene.changeScene(Scene.MENU);
         } else audioOptions.mouseReleased(e);
 
         menuB.resetBooleans();
@@ -99,7 +99,7 @@ public class SettingsScene implements SceneMethods {
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
-            Scene.CurrentScene = MENU;
+            Scene.changeScene(Scene.MENU);
 
     }
 

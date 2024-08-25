@@ -92,7 +92,7 @@ public class PauseOverlay {
        if(IsMouseIn(e,menuB)){
             if(menuB.isMousePressed()) {
                 playScene.reset();
-                Scene.CurrentScene = Scene.MENU;
+                Scene.changeScene(Scene.MENU);
                 playScene.unpauseGame();
             }
         }else if(IsMouseIn(e,replayB)){
