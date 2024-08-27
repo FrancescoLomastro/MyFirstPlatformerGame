@@ -88,12 +88,12 @@ public class SettingsScene implements SceneMethods {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        menuB.setMouseOver(false);
-
         if (IsMouseIn(e, menuB))
             menuB.setMouseOver(true);
-        else audioOptions.mouseMoved(e);
-
+        else {
+            menuB.setMouseOver(false);
+            audioOptions.mouseMoved(e);
+        }
     }
 
     @Override

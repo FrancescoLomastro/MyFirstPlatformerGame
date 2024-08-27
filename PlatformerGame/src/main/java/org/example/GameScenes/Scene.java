@@ -11,7 +11,12 @@ public enum Scene {
     /**
      * The current scene of the game, globally accessible from anywhere
      */
-    private static Scene CurrentScene = MENU;
+    private static Scene CurrentScene = initScene();
+
+    private static Scene initScene() {
+        AudioManager.getInstance().goToMenu();
+        return MENU;
+    }
 
     public static void changeScene(Scene scene){
         switch (scene){

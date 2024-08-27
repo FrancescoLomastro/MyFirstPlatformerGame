@@ -1,5 +1,6 @@
 package org.example.UI;
 
+import org.example.Audio.AudioManager;
 import org.example.GameScenes.Scene;
 import org.example.Utility.LoadContent;
 
@@ -54,6 +55,9 @@ public class MenuButton extends Button {
      * Used to set the mouse over event
      */
     public void setMouseOver(boolean mouseOver) {
+        if(mouseOver && !this.mouseOver){
+            AudioManager.getInstance().playSelectionSound();
+        }
         this.mouseOver = mouseOver;
     }
 

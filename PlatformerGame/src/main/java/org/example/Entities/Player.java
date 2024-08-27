@@ -117,6 +117,8 @@ public class Player extends Entity{
         if(!hasSword) {
             PlayScene playScene = PlayScene.getInstance();
             hasSword = playScene.isSwordPicked(hitbox);
+            if(hasSword)
+                AudioManager.getInstance().playSwordPickSound();
         }
     }
 

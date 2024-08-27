@@ -1,6 +1,7 @@
 package org.example.UI.Overlays;
 
 
+import org.example.Audio.AudioManager;
 import org.example.GameScenes.PlayScene;
 import org.example.GameScenes.Scene;
 import org.example.UI.UrmButton;
@@ -54,14 +55,8 @@ public class LevelCompletedOverlay {
     }
 
     public void mouseMoved(MouseEvent e) {
-        next.setMouseOver(false);
-        menu.setMouseOver(false);
-
-        if(IsMouseIn(e, menu)){
-            menu.setMouseOver(true);
-        }else if(IsMouseIn(e, next)){
-            next.setMouseOver(true);
-        }
+        menu.setMouseOver(IsMouseIn(e, menu));
+        next.setMouseOver(IsMouseIn(e, next));
     }
 
     public void mouseReleased(MouseEvent e) {
@@ -74,6 +69,7 @@ public class LevelCompletedOverlay {
         }else if(IsMouseIn(e, next)){
             if(next.isMousePressed()){
                 playScene.loadNextLevel();
+                AudioManager.getInstance().goToNextLevel();
             }
         }
 

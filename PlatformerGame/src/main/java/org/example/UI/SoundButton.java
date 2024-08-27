@@ -1,5 +1,6 @@
 package org.example.UI;
 
+import org.example.Audio.AudioManager;
 import org.example.Utility.LoadContent;
 
 import java.awt.*;
@@ -56,6 +57,9 @@ public class SoundButton extends Button {
 
 
     public void setMouseOver(boolean mouseOver) {
+        if(mouseOver && !this.mouseOver){
+            AudioManager.getInstance().playSelectionSound();
+        }
         this.mouseOver = mouseOver;
     }
 

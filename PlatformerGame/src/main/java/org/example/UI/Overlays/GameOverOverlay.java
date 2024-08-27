@@ -1,6 +1,7 @@
 package org.example.UI.Overlays;
 
 
+import org.example.Audio.AudioManager;
 import org.example.GameScenes.PlayScene;
 import org.example.GameScenes.Scene;
 import org.example.UI.UrmButton;
@@ -59,14 +60,8 @@ public class GameOverOverlay {
 
 
     public void mouseMoved(MouseEvent e) {
-        playAgain.setMouseOver(false);
-        rageQuit.setMouseOver(false);
-
-        if(IsMouseIn(e, rageQuit)){
-            rageQuit.setMouseOver(true);
-        }else if(IsMouseIn(e, playAgain)){
-            playAgain.setMouseOver(true);
-        }
+        rageQuit.setMouseOver(IsMouseIn(e, rageQuit));
+        playAgain.setMouseOver(IsMouseIn(e, playAgain));
     }
 
     public void mouseReleased(MouseEvent e) {
@@ -78,6 +73,7 @@ public class GameOverOverlay {
         }else if(IsMouseIn(e, playAgain)){
             if(playAgain.isMousePressed()){
                 PlayScene.getInstance().reset();
+                AudioManager.getInstance().goToRestartLevel();
             }
         }
 

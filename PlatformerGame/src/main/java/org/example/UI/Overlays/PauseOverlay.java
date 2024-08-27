@@ -2,6 +2,7 @@ package org.example.UI.Overlays;
 
 
 
+import org.example.Audio.AudioManager;
 import org.example.GameScenes.PlayScene;
 import org.example.GameScenes.Scene;
 import org.example.UI.AudioOptions;
@@ -99,6 +100,7 @@ public class PauseOverlay {
             if(replayB.isMousePressed()){
                 playScene.reset();
                 playScene.unpauseGame();
+                AudioManager.getInstance().goToRestartLevel();
             }
         }else if(IsMouseIn(e,unpauseB)){
             if(unpauseB.isMousePressed())
@@ -113,20 +115,10 @@ public class PauseOverlay {
     }
 
     public void mouseMoved(MouseEvent e) {
-        menuB.setMouseOver(false);
-        replayB.setMouseOver(false);
-        unpauseB.setMouseOver(false);
-
-
-        if(IsMouseIn(e,menuB)){
-            menuB.setMouseOver(true);
-        }else if(IsMouseIn(e,replayB)){
-            replayB.setMouseOver(true);
-        }else if(IsMouseIn(e,unpauseB)){
-            unpauseB.setMouseOver(true);
-        }else
-            audioOptions.mouseMoved(e);
-
+        menuB.setMouseOver(IsMouseIn(e,menuB));
+        replayB.setMouseOver(IsMouseIn(e,replayB));
+        unpauseB.setMouseOver(IsMouseIn(e,unpauseB));
+        audioOptions.mouseMoved(e);
     }
 
 

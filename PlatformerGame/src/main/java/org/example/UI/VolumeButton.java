@@ -1,5 +1,6 @@
 package org.example.UI;
 
+import org.example.Audio.AudioManager;
 import org.example.Utility.LoadContent;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -85,11 +86,11 @@ public class VolumeButton extends Button{
         this.mousePressed = mousePressed;
     }
 
-    public boolean isMouseOver() {
-        return mouseOver;
-    }
 
     public void setMouseOver(boolean mouseOver) {
+        if(mouseOver && !this.mouseOver){
+            AudioManager.getInstance().playSelectionSound();
+        }
         this.mouseOver = mouseOver;
     }
 

@@ -99,17 +99,9 @@ public class AudioOptions {
     }
 
     public void mouseMoved(MouseEvent e) {
-        musicButton.setMouseOver(false);
-        sfxButton.setMouseOver(false);
-
-        volumeButton.setMouseOver(false);
-
-        if (IsMouseIn(e, musicButton))
-            musicButton.setMouseOver(true);
-        else if (IsMouseIn(e, sfxButton))
-            sfxButton.setMouseOver(true);
-        else if (IsMouseIn(e, volumeButton))
-            volumeButton.setMouseOver(true);
+        musicButton.setMouseOver(IsMouseIn(e, musicButton));
+        sfxButton.setMouseOver(IsMouseIn(e, sfxButton));
+        volumeButton.setMouseOver(IsMouseIn(e, volumeButton));
     }
 
 }

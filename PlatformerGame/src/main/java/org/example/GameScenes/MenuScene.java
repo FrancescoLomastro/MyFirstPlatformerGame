@@ -266,13 +266,7 @@ public class MenuScene implements SceneMethods{
     @Override
     public void mouseMoved(MouseEvent e) {
         for(MenuButton button : buttons){
-            button.setMouseOver(false);
-        }
-        for(MenuButton button : buttons){
-            if(IsMouseIn(e,button)){
-                button.setMouseOver(true);
-                break;
-            }
+            button.setMouseOver(IsMouseIn(e,button));
         }
     }
 

@@ -147,8 +147,11 @@ public class PlayScene implements SceneMethods{
             gameOverOverlay.keyPressed(e);
         }
         else{
-            if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
+            if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                if(!paused)
+                    AudioManager.getInstance().playGamePauseSound();
                 paused = true;
+            }
             else
                 player.keyPressed(e);
         }
@@ -198,7 +201,6 @@ public class PlayScene implements SceneMethods{
         xLevelOffset = 0;
         levelCompleted = false;
         maxLevelCameraOffset = levelManager.getMaxLevelCameraOffset();
-        AudioManager.getInstance().restartSong();
     }
 
     public void unpauseGame(){
@@ -216,8 +218,7 @@ public class PlayScene implements SceneMethods{
                 levelManager.getPlayerX(),
                 levelManager.getPlayerY());
         player.addLevelData(levelManager.getTextureIndex());
-        AudioManager.getInstance().playNextLevelSong();
-        reset();
+         reset();
     }
 
     public void killPlayer() {
