@@ -2,8 +2,9 @@ package org.example.Constants;
 
 import static org.example.Constants.Window.SCALE;
 
-public class Sprites {
+public class Entities {
     public static final int ENTITY_ANIMATION_SPEED = 25;
+    public static final int ENTITY_MAX_HEALTH = 100;
 
     public class Player{
         public static final int IDLE = 0;
@@ -29,7 +30,7 @@ public class Sprites {
         public static final int PLAYER_ATTACK_BOX_HEIGHT = 20;
 
         public static final float PLAYER_JUMP_SPEED = -2.25f;
-        public static final int PLAYER_DAMAGE = 100;
+        public static final int PLAYER_DAMAGE = 50;
     }
 
     public class Enemy{

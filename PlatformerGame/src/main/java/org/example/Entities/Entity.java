@@ -5,6 +5,7 @@ import org.example.Levels.Level;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
+import static org.example.Constants.Entities.ENTITY_MAX_HEALTH;
 import static org.example.Constants.Motion.*;
 import static org.example.Utility.HelpMethods.*;
 import static org.example.Constants.Window.SCALE;
@@ -65,7 +66,7 @@ public abstract class Entity {
         this.walkSpeed = 1.0f * SCALE;
         this.flipX = 0;
         this.flipW = 1;
-        this.maxHealth = 100;
+        this.maxHealth = ENTITY_MAX_HEALTH;
         this.currentHealth = maxHealth;
         this.active = true;
         this.entityHitFrameCounter = 0;

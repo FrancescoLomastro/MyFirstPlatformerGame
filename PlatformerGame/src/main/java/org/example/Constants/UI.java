@@ -34,5 +34,11 @@ public class UI{
         public static final int SLIDER_WIDTH = (int) (SLIDER_WIDTH_DEFAULT*SCALE);
     }
 
+    public static class Audio{
+        public static final boolean SFX_MUTED = true;
+        public static final boolean SOUND_MUTED = false;
+        public static final double GLOBAL_VOLUME = 0.5;
+    }
+
 
 }

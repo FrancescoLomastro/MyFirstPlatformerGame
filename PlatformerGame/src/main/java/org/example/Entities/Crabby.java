@@ -6,8 +6,8 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
-import static org.example.Constants.Sprites.Enemy.Crabby.*;
-import static org.example.Constants.Sprites.Enemy.*;
+import static org.example.Constants.Entities.Enemy.Crabby.*;
+import static org.example.Constants.Entities.Enemy.*;
 
 /**
  * Class for the enemy Crabby

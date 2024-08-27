@@ -1,13 +1,12 @@
 package org.example.UI;
 
 
-import kuusisto.tinysound.Music;
-import kuusisto.tinysound.Sound;
-import kuusisto.tinysound.TinySound;
+import org.example.Audio.AudioManager;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
+import static org.example.Constants.UI.Audio.*;
 import static org.example.Constants.UI.VolumeButtons.*;
 import static org.example.Constants.UI.SoundButtons.*;
 import static org.example.Constants.Window.SCALE;
@@ -17,8 +16,8 @@ import static org.example.Utility.HelpMethods.IsMouseIn;
 /**
  * Class that creates the audio options for the game.
  * A logic class that handles the audio options for the game.
- *
- * TODO still incomplete
+ * It creates the sound buttons and the volume button.
+ * And is used to share the settings from MENU to PLAY scenes
  */
 public class AudioOptions {
     private VolumeButton volumeButton;
@@ -28,7 +27,9 @@ public class AudioOptions {
     public AudioOptions() {
         createSoundButtons();
         createVolumeButton();
-
+        musicButton.setMuted(SOUND_MUTED);
+        sfxButton.setMuted(SFX_MUTED);
+        volumeButton.setVolume(GLOBAL_VOLUME);
     }
 
     private void createVolumeButton() {
@@ -54,7 +55,6 @@ public class AudioOptions {
     public void draw(Graphics g) {
         musicButton.draw(g);
         sfxButton.draw(g);
-
         volumeButton.draw(g);
     }
 
@@ -64,8 +64,7 @@ public class AudioOptions {
             volumeButton.changeX(e.getX());
             float valueAfter = volumeButton.getFloatValue();
             if(valueBefore != valueAfter)
-                System.out.println("Volume changed to " + valueAfter+ " by " + valueBefore);
-                //game.getAudioPlayer().setVolume(valueAfter);
+                AudioManager.getInstance().setVolume(valueAfter);
         }
     }
 
@@ -82,20 +81,19 @@ public class AudioOptions {
         if (IsMouseIn(e, musicButton)) {
             if (musicButton.isMousePressed()) {
                 musicButton.setMuted(!musicButton.isMuted());
-                //game.getAudioPlayer().toggleSongMute();
+                AudioManager.getInstance().setSoundMuted(musicButton.isMuted());
             }
 
         } else if (IsMouseIn(e, sfxButton)) {
             if (sfxButton.isMousePressed()) {
                 sfxButton.setMuted(!sfxButton.isMuted());
-                //game.getAudioPlayer().toggleEffectMute();
+                AudioManager.getInstance().setSFXMuted(sfxButton.isMuted());
             }
         }
 
         musicButton.resetBools();
         sfxButton.resetBools();
-
-        volumeButton.resetBools();
+        volumeButton.resetBooleans();
     }
 
     public void mouseMoved(MouseEvent e) {

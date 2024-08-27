@@ -13,8 +13,8 @@ import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;
 
 import static org.example.Constants.HUD.*;
-import static org.example.Constants.Sprites.ENTITY_ANIMATION_SPEED;
-import static org.example.Constants.Sprites.Player.*;
+import static org.example.Constants.Entities.ENTITY_ANIMATION_SPEED;
+import static org.example.Constants.Entities.Player.*;
 import static org.example.Constants.Window.SCALE;
 import static org.example.Utility.HelpMethods.XPositionNextToWall;
 

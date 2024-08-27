@@ -7,8 +7,8 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 
-import static org.example.Constants.Sprites.Enemy.*;
-import static org.example.Constants.Sprites.Enemy.Shark.*;
+import static org.example.Constants.Entities.Enemy.*;
+import static org.example.Constants.Entities.Enemy.Shark.*;
 import static org.example.Constants.Window.TILES_SIZE;
 
 public class Shark extends Enemy {

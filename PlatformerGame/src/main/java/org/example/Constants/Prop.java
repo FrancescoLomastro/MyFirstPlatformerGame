@@ -113,7 +113,7 @@ public class Prop {
     public class Cannon {
         public static final int CANNON_SPRITE_AMOUNT = 7;
         public static final int CANNON_ANIMATION_SPEED = 25;
-        public static final int CANNON_DAMAGE = 25;
+        public static final int CANNON_DAMAGE = 35;
 
         public static final int CANNON_WIDTH_DEFAULT = 40;
         public static final int CANNON_HEIGHT_DEFAULT = 26;

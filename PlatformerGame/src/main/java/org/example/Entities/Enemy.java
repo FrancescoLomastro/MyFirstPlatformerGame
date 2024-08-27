@@ -7,8 +7,8 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
 import static org.example.Constants.Motion.Dirctions.*;
-import static org.example.Constants.Sprites.ENTITY_ANIMATION_SPEED;
-import static org.example.Constants.Sprites.Enemy.*;
+import static org.example.Constants.Entities.ENTITY_ANIMATION_SPEED;
+import static org.example.Constants.Entities.Enemy.*;
 import static org.example.Constants.Window.*;
 import static org.example.Levels.Level.IsOnFloor;
 

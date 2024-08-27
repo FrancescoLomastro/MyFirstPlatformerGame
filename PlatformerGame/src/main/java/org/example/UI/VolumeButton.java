@@ -44,7 +44,7 @@ public class VolumeButton extends Button{
             index = 1;
         }
         if(mousePressed){
-            index =2;
+            index = 2;
         }
     }
 
@@ -61,19 +61,20 @@ public class VolumeButton extends Button{
         else
             buttonX = x;
         updateFloatValue();
-        bounds.x = buttonX-VOLUME_WIDTH/2;  //sposto la hitbox insieme al pirulino, il pirulino e shiftato di "-VOLUME_WIDTH/2" nella funzione draw()
+        bounds.x = buttonX-VOLUME_WIDTH/2;
 
     }
 
+    /**
+     * Updates the float value based on the position of the button
+     */
     private void updateFloatValue() {
         float range = maxX - minX;
         float value = buttonX - minX;
-        System.out.println("Range " + range+ "; Max " + maxX + "; Min " + minX + "; Value " + value + "; ButtonX " + buttonX);
         floatValue = value / range;
-        System.out.println("Float value " + floatValue);
     }
 
-    public void resetBools(){
+    public void resetBooleans(){
         mouseOver = false;
         mousePressed = false;
     }
@@ -96,5 +97,14 @@ public class VolumeButton extends Button{
 
     public float getFloatValue() {
         return floatValue;
+    }
+
+    /**
+     * Moves the volume button to the correct position based on the volume
+     * @param volume from 0 to 1
+     */
+    public void setVolume(double volume){
+        float range = maxX - minX;
+        changeX((int) (minX + range * volume));
     }
 }

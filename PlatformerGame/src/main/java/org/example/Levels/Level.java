@@ -17,14 +17,10 @@ import java.util.ArrayList;
 import static org.example.Constants.Prop.BackPalm.*;
 import static org.example.Constants.Prop.Barrels.*;
 import static org.example.Constants.Prop.Bottles.*;
-import static org.example.Constants.Prop.Candle.*;
 import static org.example.Constants.Prop.Cannon.*;
-import static org.example.Constants.Prop.Door.*;
-import static org.example.Constants.Prop.Potion.*;
-import static org.example.Constants.Prop.Sword.*;
 import static org.example.Constants.Prop.Water.*;
 import static org.example.Constants.Prop.WaterLight.*;
-import static org.example.Constants.Sprites.Levels.*;
+import static org.example.Constants.Entities.Levels.*;
 import static org.example.Constants.Window.*;
 
 /**
