@@ -103,6 +103,13 @@ public class PlayScene implements SceneMethods{
             xLevelOffset = maxLevelCameraOffset;
     }
 
+
+    public void mouseDragged(MouseEvent e) {
+        if(paused)
+            pauseOverlay.mouseDragged(e);
+    }
+
+
     @Override
     public void mouseClicked(MouseEvent e) {
         if(!gameOver)

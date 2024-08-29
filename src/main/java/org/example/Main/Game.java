@@ -316,6 +316,7 @@ public class Game implements Runnable {
     public void mouseDragged(MouseEvent e) {
         switch (Scene.getCurrentScene()){
             case PLAY -> {
+                playScene.mouseDragged(e);
             }
             case SETTINGS -> {
                 settingsScene.mouseDragged(e);

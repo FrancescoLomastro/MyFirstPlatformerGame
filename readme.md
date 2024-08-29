@@ -16,15 +16,13 @@ The audio effects are managed using the external library TinySound.
 ## Table of Contents
 
 1. [Introduction](#introduction)
-2. [Game Description](#game-description)
+2. [Game Description]()
     - [Objectives](#objectives)
 3. [Levels](#levels)
-    - [Creating a New Level](#creating-a-new-level)
+    - [Creating a New Level]()
         - [Red](#red)
         - [Green](#green)
         - [Blue](#blue)
-4. [Credits](#credits)
-5. [References](#references)
 
 
 ## Game description
