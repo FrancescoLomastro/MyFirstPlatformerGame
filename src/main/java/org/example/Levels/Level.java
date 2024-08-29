@@ -1,6 +1,7 @@
 package org.example.Levels;
 
 import org.example.Entities.*;
+import org.example.Exceptions.NoMoreLevelsException;
 import org.example.Exceptions.PlayerSpawnPointNotFoundException;
 import org.example.Props.Animated.*;
 import org.example.Props.NotAnimated.Barrel;
@@ -45,8 +46,13 @@ public class Level {
     private final int levelXOffset_max;
 
     
-    public Level(int currentLevelIndex) {
-        this.levelImage = LoadContent.GetResourceAsBufferedImage("levels/"+currentLevelIndex+".png");
+    public Level(int currentLevelIndex) throws NoMoreLevelsException{
+        try {
+            this.levelImage = LoadContent.GetResourceAsBufferedImage("levels/"+currentLevelIndex+".png");
+        }catch (NullPointerException e)
+        {
+            throw new NoMoreLevelsException("Cannot find file level file "+currentLevelIndex+".png, the game has no more levels to load");
+        }
         this.enemies= new ArrayList<>();
         this.animatedAnimatedProps = new ArrayList<>();
         this.props = new ArrayList<>();

@@ -2,6 +2,7 @@ package org.example.Levels;
 
 import org.example.Audio.AudioManager;
 import org.example.Entities.EnemyManager;
+import org.example.Exceptions.NoMoreLevelsException;
 import org.example.GameScenes.Scene;
 import org.example.Props.PropManager;
 import org.example.Utility.LoadContent;
@@ -23,7 +24,6 @@ public class LevelManager {
 
     private Level currentLevel;
     private int currentLevelIndex;
-    private final int levelsAmount;
 
     /* Background animation variables */
     private BufferedImage bigCloud, smallCloud;
@@ -36,7 +36,6 @@ public class LevelManager {
 
     public LevelManager() {
         this.currentLevelIndex = -1;
-        this.levelsAmount = LoadContent.GetNumberOfFilesInFolder("levels");
         this.animationFrame = 0;
         this.animationTick = 0;
         loadImages();
@@ -68,13 +67,19 @@ public class LevelManager {
      */
     public void loadNextLevel() {
         currentLevelIndex++;
-        if(currentLevelIndex >= levelsAmount) {
+        try {
+            currentLevel = new Level(currentLevelIndex);
+        } catch (NoMoreLevelsException e) {
             currentLevelIndex = 0;
-            System.out.println("No More Levels, Game Completed");
+            System.out.println(e.getMessage());
             Scene.changeScene(Scene.MENU);
+            try {
+                currentLevel = new Level(currentLevelIndex);
+            } catch (NoMoreLevelsException ex) {
+                throw new RuntimeException("No levels found");
+            }
         }
 
-        currentLevel = new Level(currentLevelIndex);
         enemyManager = new EnemyManager(currentLevel.getEnemies());
         propManager = new PropManager(currentLevel.getAnimatedProps(), currentLevel.getUnAnimatedProps());
     }
