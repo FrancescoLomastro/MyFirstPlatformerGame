@@ -35,9 +35,9 @@ public class UI{
     }
 
     public static class Audio{
-        public static final boolean SFX_MUTED = true;
+        public static final boolean SFX_MUTED = false;
         public static final boolean SOUND_MUTED = false;
-        public static final double GLOBAL_VOLUME = 0.5;
+        public static final double GLOBAL_VOLUME = 0.7;
     }
 
 
