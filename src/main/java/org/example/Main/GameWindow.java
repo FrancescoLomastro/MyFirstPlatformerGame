@@ -1,8 +1,12 @@
 package org.example.Main;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Class used to create the game window.
@@ -20,6 +24,17 @@ public class GameWindow {
         jframe.pack();
         jframe.setVisible(true);
         jframe.setLocationRelativeTo(null);
+
+        InputStream iconStream = getClass().getResourceAsStream("/icon.png");
+        BufferedImage icon = null;
+        try {
+            icon = ImageIO.read(iconStream);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        jframe.setIconImage(icon);
+
+        jframe.setTitle("MyFirstPlatformGame");
 
 
         /**
